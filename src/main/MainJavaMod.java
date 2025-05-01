@@ -2,6 +2,7 @@ package main;
 
 import arc.*;
 import arc.util.*;
+import content.blocks.Blocks;
 import mindustry.content.Items;
 import mindustry.content.Liquids;
 import mindustry.game.EventType.*;
@@ -22,11 +23,10 @@ import static mindustry.world.meta.Env.*;
 
 public class MainJavaMod extends Mod{
 
-    public static Block testBlock;
-
     public MainJavaMod(){
-        Log.info("Loaded ExampleJavaMod constructor.");
+        Blocks.load();
 
+        Log.info("Loaded ExampleJavaMod constructor.");
         //listen for game load event
         Events.on(ClientLoadEvent.class, e -> {
             //show dialog upon startup
@@ -39,28 +39,6 @@ public class MainJavaMod extends Mod{
                 dialog.show();
             });
         });
-    }
-
-    public static void ini() {
-        testBlock = new GenericCrafter("oxygen-liquifier") {{
-            hasPower = hasItems = hasLiquids = solid =  outputsLiquid = true;
-            rotate = false;
-
-            size = 2;
-            liquidCapacity = 30f;
-            craftTime = 240;
-            envEnabled = any;
-            outputLiquid = new LiquidStack(Liquids.water, 15f / 60f);
-
-            drawer = new DrawMulti(new DrawRegion("-bottom"), new DrawLiquidTile(Liquids.water), new DrawLiquidTile(Liquids.water) {{
-                drawLiquidLight = true;
-            }}, new DrawDefault(), new DrawRegion("-top"));
-
-            consumePower(2.5f);
-            consumeItem(Items.coal);
-            consumeLiquid(Liquids.water, 10f / 60f);
-            requirements(Category.crafting, ItemStack.with(Items.lead, 110, Items.silicon, 65, Items.graphite, 35, Items.titanium, 25));
-        }};
     }
 
     @Override
