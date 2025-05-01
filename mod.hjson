@@ -1,0 +1,8 @@
+displayName: "TetsCraft mod"
+name: "tets-craft-mod"
+author: "OblivioFinis, Zerog228"
+main: "main.MainJavaMod"
+description: "Make TetsCraft great again!!!"
+version: 0.0
+minGameVersion: 145
+java: true
