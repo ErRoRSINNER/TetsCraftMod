@@ -13,7 +13,7 @@ public class Blocks{
 
     public static void load() {
         homoDrill = new Drill("homo-drill") {{
-                //requirements(Category.production, ItemStack.with(Items.copper, 24)); TODO
+                requirements(Category.production, ItemStack.with(Items.copper, 24)); //TODO
                 tier = 2;
                 this.drillTime = 500.0F;
                 size = 1;
@@ -23,7 +23,7 @@ public class Blocks{
                 health = 100;
         }};
         miniDrill = new Drill("mini-drill") {{
-                //requirements(Category.production, ItemStack.with(Items.copper, 24, Items.lead, 24)); TODO
+                requirements(Category.production, ItemStack.with(Items.copper, 24, Items.lead, 24)); //TODO
                 tier = 2;
                 this.drillTime = 400.0F;
                 size = 1;
@@ -33,7 +33,7 @@ public class Blocks{
                 health = 120;
         }};
         nihonDrill = new Drill("nihon-drill") {{
-                //requirements(Category.production, ItemStack.with(Items.copper, 24, Items.lead, 24)); TODO
+                requirements(Category.production, ItemStack.with(Items.copper, 24, Items.lead, 24)); //TODO
                 tier = 3;
                 this.drillTime = 200.0F;
                 size = 1;
