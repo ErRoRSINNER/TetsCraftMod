@@ -7,46 +7,47 @@ import mindustry.type.ItemStack;
 import mindustry.world.Block;
 import mindustry.world.blocks.production.Drill;
 
-public class Blocks{
+public class Blocks {
     public static Block homoDrill, miniDrill, nihonDrill, tetsDrill;
 
 
     public static void load() {
         homoDrill = new Drill("homo-drill") {{
-                requirements(Category.production, ItemStack.with(Items.copper, 24)); //TODO
-                tier = 2;
-                drillTime = 500.0F;
-                size = 1;
-                //this.researchCost = ItemStack.with(new Object[]{Items.copper, 100});
-                consumeLiquid(Liquids.water, 0.06F).boost();
+            requirements(Category.production, ItemStack.with(Items.copper, 24)); //TODO
+            tier = 2;
+            drillTime = 500.0F;
+            size = 1;
+            //this.researchCost = ItemStack.with(new Object[]{Items.copper, 100});
+            consumeLiquid(Liquids.water, 0.06F).boost();
 
-                health = 100;
+            health = 100;
         }};
         miniDrill = new Drill("mini-drill") {{
-                requirements(Category.production, ItemStack.with(Items.copper, 24, Items.lead, 24)); //TODO
-                tier = 2;
-                drillTime = 400.0F;
-                size = 1;
-                //this.researchCost = ItemStack.with(new Object[]{Items.copper, 100, Items.lead, 60});
-                consumeLiquid(Liquids.water, 0.08F).boost();
+            requirements(Category.production, ItemStack.with(Items.copper, 24, Items.lead, 24)); //TODO
+            tier = 2;
+            drillTime = 400.0F;
+            size = 1;
+            //this.researchCost = ItemStack.with(new Object[]{Items.copper, 100, Items.lead, 60});
+            consumeLiquid(Liquids.water, 0.08F).boost();
 
-                health = 120;
+            health = 120;
         }};
         nihonDrill = new Drill("nihon-drill") {{
-                requirements(Category.production, ItemStack.with(Items.copper, 24, Items.lead, 24)); //TODO
-                tier = 3;
-                drillTime = 200.0F;
-                size = 5;
-                //this.researchCost = ItemStack.with(new Object[]{Items.copper, 100, Items.lead, 60});
-                consumeLiquid(Liquids.water, 0.1F).boost();
+            requirements(Category.production, ItemStack.with(Items.copper, 24, Items.lead, 24)); //TODO
+            tier = 3;
+            drillTime = 200.0F;
+            size = 5;
+            //this.researchCost = ItemStack.with(new Object[]{Items.copper, 100, Items.lead, 60});
+            consumeLiquid(Liquids.water, 0.1F).boost();
 
-                health = 180;
+            health = 180;
         }};
         tetsDrill = new Drill("tets-drill") {{
             requirements(Category.production, ItemStack.with(Items.thorium, 12));
             tier = 5;
             size = 3;
             drillTime = 50;
+            consumeLiquid(Liquids.water, 0.1F).boost();
         }};
 
     }
