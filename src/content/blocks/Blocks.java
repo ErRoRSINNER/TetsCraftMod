@@ -15,30 +15,30 @@ public class Blocks{
         homoDrill = new Drill("homo-drill") {{
                 requirements(Category.production, ItemStack.with(Items.copper, 24)); //TODO
                 tier = 2;
-                this.drillTime = 500.0F;
+                drillTime = 500.0F;
                 size = 1;
                 //this.researchCost = ItemStack.with(new Object[]{Items.copper, 100});
-                this.consumeLiquid(Liquids.water, 0.06F).boost();
+                consumeLiquid(Liquids.water, 0.06F).boost();
 
                 health = 100;
         }};
         miniDrill = new Drill("mini-drill") {{
                 requirements(Category.production, ItemStack.with(Items.copper, 24, Items.lead, 24)); //TODO
                 tier = 2;
-                this.drillTime = 400.0F;
+                drillTime = 400.0F;
                 size = 1;
                 //this.researchCost = ItemStack.with(new Object[]{Items.copper, 100, Items.lead, 60});
-                this.consumeLiquid(Liquids.water, 0.08F).boost();
+                consumeLiquid(Liquids.water, 0.08F).boost();
 
                 health = 120;
         }};
         nihonDrill = new Drill("nihon-drill") {{
                 requirements(Category.production, ItemStack.with(Items.copper, 24, Items.lead, 24)); //TODO
                 tier = 3;
-                this.drillTime = 200.0F;
-                size = 1;
+                drillTime = 200.0F;
+                size = 5;
                 //this.researchCost = ItemStack.with(new Object[]{Items.copper, 100, Items.lead, 60});
-                this.consumeLiquid(Liquids.water, 0.1F).boost();
+                consumeLiquid(Liquids.water, 0.1F).boost();
 
                 health = 180;
         }};
