@@ -10,7 +10,8 @@ public class Blocks{
         gomodrill = new Block("gomodrill") {
             {
                 rotate = false;
-                size = 2;
+                size = 1;
+                health = 200;
             }
         };
     }

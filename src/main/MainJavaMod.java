@@ -24,8 +24,6 @@ import static mindustry.world.meta.Env.*;
 public class MainJavaMod extends Mod{
 
     public MainJavaMod(){
-        Blocks.load();
-
         Log.info("Loaded ExampleJavaMod constructor.");
         //listen for game load event
         Events.on(ClientLoadEvent.class, e -> {
@@ -43,8 +41,9 @@ public class MainJavaMod extends Mod{
 
     @Override
     public void loadContent(){
-
         Log.info("Loading some example content.");
+
+        Blocks.load();
     }
 
 
