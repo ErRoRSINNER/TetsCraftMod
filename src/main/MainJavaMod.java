@@ -1,25 +1,13 @@
 package main;
 
-import arc.*;
-import arc.util.*;
+import arc.Core;
+import arc.Events;
+import arc.util.Log;
+import arc.util.Time;
 import content.blocks.Blocks;
-import mindustry.content.Items;
-import mindustry.content.Liquids;
-import mindustry.game.EventType.*;
-import mindustry.mod.*;
-import mindustry.type.Category;
-import mindustry.type.ItemStack;
-import mindustry.type.Liquid;
-import mindustry.type.LiquidStack;
-import mindustry.ui.dialogs.*;
-import mindustry.world.*;
-import mindustry.world.blocks.production.GenericCrafter;
-import mindustry.world.draw.DrawDefault;
-import mindustry.world.draw.DrawLiquidTile;
-import mindustry.world.draw.DrawMulti;
-import mindustry.world.draw.DrawRegion;
-
-import static mindustry.world.meta.Env.*;
+import mindustry.game.EventType.ClientLoadEvent;
+import mindustry.mod.Mod;
+import mindustry.ui.dialogs.BaseDialog;
 
 public class MainJavaMod extends Mod{
 
