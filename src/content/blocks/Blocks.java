@@ -14,5 +14,6 @@ public class Blocks{
                 size = 2;
             }
         };
+
     }
 }
