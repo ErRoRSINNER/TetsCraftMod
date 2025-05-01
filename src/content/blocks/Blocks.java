@@ -12,6 +12,7 @@ public class Blocks {
 
 
     public static void load() {
+
         homoDrill = new Drill("homo-drill") {{
             requirements(Category.production, ItemStack.with(Items.copper, 24)); //TODO
             tier = 2;
@@ -24,7 +25,7 @@ public class Blocks {
         }};
         miniDrill = new Drill("mini-drill") {{
             requirements(Category.production, ItemStack.with(Items.copper, 24, Items.lead, 24)); //TODO
-            tier = 2;
+            tier = 3;
             drillTime = 400.0F;
             size = 1;
             //this.researchCost = ItemStack.with(new Object[]{Items.copper, 100, Items.lead, 60});
@@ -34,7 +35,7 @@ public class Blocks {
         }};
         nihonDrill = new Drill("nihon-drill") {{
             requirements(Category.production, ItemStack.with(Items.copper, 24, Items.lead, 24)); //TODO
-            tier = 3;
+            tier = 6;
             drillTime = 200.0F;
             size = 5;
             //this.researchCost = ItemStack.with(new Object[]{Items.copper, 100, Items.lead, 60});

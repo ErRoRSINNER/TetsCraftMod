@@ -6,6 +6,7 @@ import arc.util.Log;
 import arc.util.Time;
 import content.blocks.Blocks;
 import content.items.Items;
+import content.liquids.Liquids;
 import mindustry.game.EventType.ClientLoadEvent;
 import mindustry.mod.Mod;
 import mindustry.ui.dialogs.BaseDialog;
@@ -31,8 +32,10 @@ public class MainJavaMod extends Mod{
 
     @Override
     public void loadContent(){
+        Liquids.load();
         Items.load();
         Blocks.load();
+
         Log.info("Loading complete;");
     }
 
