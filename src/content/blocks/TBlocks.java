@@ -25,7 +25,7 @@ import static mindustry.type.ItemStack.with;
 
 public class TBlocks {
     public static Block homoDrill, miniDrill, nihonDrill, tetsDrill, bangun, teleporter, tets_conveyor, solpanel, tets_battery, crystal_powerblock,
-            estrella_de_platino, small_shield_projector, concrete_wall, concrete_wall_large, prav_wall, prav_wall_large, daew;
+            estrella_de_platino, small_shield_projector, concrete_wall, concrete_wall_large, prav_wall, prav_wall_large, daew, poop_wall;
 
 
     public static void load() {
@@ -50,13 +50,11 @@ public class TBlocks {
         concrete_wall = new Wall("concrete_wall") {{
             requirements(Category.defense, ItemStack.with(TItems.concrete, 50));
             health = 220 * 3;
-            envDisabled |= 16;
         }};
         concrete_wall_large = new Wall("concrete_wall-large") {{
             requirements(Category.defense, ItemStack.mult(TBlocks.concrete_wall.requirements, 4));
             health = 220 * 3 * 4;
             size = 2;
-            envDisabled |= 16;
         }};
         prav_wall = new Wall("prav_wall") {{
             requirements(Category.defense, ItemStack.with(TItems.pravoslaviy, 33, TItems.beeq, 3));
@@ -64,7 +62,6 @@ public class TBlocks {
             chanceDeflect = 0.33f;
             lightningChance = 0.33f;
             deflectSound = Sounds.lasercharge;
-            envDisabled |= 16;
         }};
         prav_wall_large = new Wall("prav_wall-large") {{
             requirements(Category.defense, ItemStack.mult(TBlocks.prav_wall.requirements, 4));
@@ -73,11 +70,16 @@ public class TBlocks {
             lightningChance = 0.33f;
             deflectSound = Sounds.lasercharge;
             size = 2;
-            envDisabled |= 16;
         }};
         daew = new ShieldWall("DAEW") {{
             requirements(Category.defense, ItemStack.with(TItems.crystal, 5, TItems.tets_ingot, 15, TItems.tantalium, 110, TItems.superconductor, 12));
             size = 2;
+        }};
+        poop_wall = new Wall("poop_wall") {{
+            requirements(Category.defense, ItemStack.with(TItems.poop, 2));
+            size = 2;
+            health = 10;
+            this.researchCostMultiplier = 200F;
         }};
     }
     private static void loadDrills() {

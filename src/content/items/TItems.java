@@ -76,7 +76,7 @@ public class TItems {
             buildable = false;
         }};
         poop = new Item("poop", Color.valueOf("#CD9232")) {{
-            buildable = false;
+            cost = 0.3f;
         }};
         pravoslaviy = new Item("pravoslaviy", Color.valueOf("#FFFCA3")) {{
             cost = 3;
