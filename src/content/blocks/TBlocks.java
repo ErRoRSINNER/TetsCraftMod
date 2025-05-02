@@ -35,7 +35,6 @@ public class TBlocks {
             estrella_de_platino, small_shield_projector, concrete_wall, concrete_wall_large, prav_wall, prav_wall_large, daew, poop_wall, battery_factory, bee_plant,
             concrete_mixer;
 
-
     public static void load() {
         loadItemCrafting();
         loadLiquidCrafting();
