@@ -11,21 +11,29 @@ import mindustry.gen.Sounds;
 import mindustry.type.Category;
 import mindustry.type.ItemStack;
 import mindustry.world.Block;
-import mindustry.world.blocks.defense.*;
+import mindustry.world.blocks.defense.ForceProjector;
+import mindustry.world.blocks.defense.OverdriveProjector;
+import mindustry.world.blocks.defense.ShieldWall;
+import mindustry.world.blocks.defense.Wall;
 import mindustry.world.blocks.defense.turrets.ItemTurret;
 import mindustry.world.blocks.distribution.Conveyor;
 import mindustry.world.blocks.distribution.MassDriver;
 import mindustry.world.blocks.power.Battery;
 import mindustry.world.blocks.power.SolarGenerator;
 import mindustry.world.blocks.production.Drill;
-
-import java.util.zip.Deflater;
+import mindustry.world.blocks.production.GenericCrafter;
+import mindustry.world.blocks.production.Separator;
+import mindustry.world.draw.DrawBlurSpin;
+import mindustry.world.draw.DrawDefault;
+import mindustry.world.draw.DrawFade;
+import mindustry.world.draw.DrawMulti;
 
 import static mindustry.type.ItemStack.with;
 
 public class TBlocks {
     public static Block homoDrill, miniDrill, nihonDrill, tetsDrill, bangun, teleporter, tets_conveyor, solpanel, tets_battery, crystal_powerblock,
-            estrella_de_platino, small_shield_projector, concrete_wall, concrete_wall_large, prav_wall, prav_wall_large, daew, poop_wall;
+            estrella_de_platino, small_shield_projector, concrete_wall, concrete_wall_large, prav_wall, prav_wall_large, daew, poop_wall, battery_factory, bee_plant,
+            concrete_mixer;
 
 
     public static void load() {
@@ -41,7 +49,42 @@ public class TBlocks {
         loadOther();
     }
     private static void loadItemCrafting() {
-
+        battery_factory = new GenericCrafter("battery_factory") {{
+            requirements(Category.crafting, ItemStack.with(Items.silicon, 24, Items.lead, 80, Items.graphite, 20, Items.copper, 140));
+            hasItems = true;
+            liquidCapacity = 60.0F;
+            craftTime = 50.0F;
+            outputItem = new ItemStack(TItems.battery, 2);
+            size = 2;
+            health = 420;
+            hasPower = hasLiquids = true;
+            drawer = new DrawMulti(new DrawDefault(), new DrawFade(), new DrawBlurSpin());
+            consumeLiquid(Liquids.cryofluid, 0.3F);
+            consumePower(3.0F);
+            consumeItems(ItemStack.with(Items.coal, 2, Items.silicon, 2, Items.lead, 2, Items.copper, 1));
+        }};
+        bee_plant = new Separator("bee-plantq") {{
+            requirements(Category.crafting, ItemStack.with(Items.scrap, 40, Items.copper, 100, Items.graphite, 50, Items.silicon, 5));
+            results = ItemStack.with(TItems.bee, 10, TItems.beeq, 1);
+            hasPower = true;
+            craftTime = 55.0F;
+            size = 3;
+            itemCapacity = 20;
+            consumePower(1.0F);
+            consumeItem(TItems.poop, 3);
+            consumeLiquid(Liquids.water, 0.04F);
+        }};
+        concrete_mixer = new Separator("concrete_mixer") {{
+            requirements(Category.crafting, ItemStack.with(Items.copper, 60, Items.silicon, 12, Items.titanium, 12, Items.lead, 35));
+            results = ItemStack.with(TItems.concrete, 7, Items.scrap, 2);
+            hasPower = true;
+            craftTime = 21.0F;
+            size = 2;
+            itemCapacity = 30;
+            consumePower(0.4F);
+            consumeItems(ItemStack.with(Items.sand, 3, Items.lead, 1, Items.copper, 1));
+            consumeLiquid(Liquids.water, 0.1F);
+        }};
     }
     private static void loadLiquidCrafting() {
 
