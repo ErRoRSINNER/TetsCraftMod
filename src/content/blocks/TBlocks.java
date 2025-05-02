@@ -31,7 +31,7 @@ import mindustry.world.draw.DrawMulti;
 import static mindustry.type.ItemStack.with;
 
 public class TBlocks {
-    public static Block homoDrill, miniDrill, nihonDrill, tetsDrill, bangun, teleporter, tets_conveyor, solpanel, tets_battery, crystal_powerblock,
+    public static Block homoDrill, miniDrill, nihonDrill, tetsDrill, bangun, govnomet, teleporter, tets_conveyor, solpanel, tets_battery, crystal_powerblock,
             estrella_de_platino, small_shield_projector, concrete_wall, concrete_wall_large, prav_wall, prav_wall_large, daew, poop_wall, battery_factory, bee_plant,
             concrete_mixer;
 
@@ -259,6 +259,51 @@ public class TBlocks {
             velocityRnd = 0.7f;
             recoil = 9f;
             shake = 5f;
+            shootSound = Sounds.bang;
+        }};
+        govnomet = new ItemTurret("govnomet") {{
+            requirements(Category.turret, with(TItems.concrete, 50, TItems.poop, 20, TItems.tets_ingot, 1));
+            ammo(TItems.poop, new ArtilleryBulletType(1.5f, 1, "poop") {{
+                knockback = 4f;
+                lifetime = 800f;
+                width = height = 10f;
+                collidesTiles = false;
+                splashDamageRadius = 4f;
+                hitEffect = Fx.blastExplosion;
+                splashDamage = 1f;
+                fragBullet = new BasicBulletType(2.5f, 1, "poop"){{
+                    width = 5f;
+                    height = 5f;
+                    shrinkY = 1f;
+                    lifetime = 30f;
+                    despawnEffect = Fx.absorb;
+                    hitEffect = Fx.plasticExplosionFlak;
+                    collidesAir = true;
+                    fragBullet = new BasicBulletType(1.5f, 1, "poop"){{
+                        width = 2f;
+                        height = 2f;
+                        shrinkY = 1f;
+                        lifetime = 15f;
+                        despawnEffect = Fx.flakExplosionBig;
+                        collidesAir = true;
+                    }};
+                    fragBullets = 5;
+                }};
+                fragBullets = 10;
+            }});
+            targetAir = true;
+            size = 4;
+            range = 100;
+            minRange = 10f;
+            rotateSpeed = 0.15f;
+            inaccuracy = 2f;
+            reload = 30f;
+            ammoEjectBack = 20f;
+            ammoUseEffect = Fx.casing3Double;
+            ammoPerShot = 4;
+            velocityRnd = 0.7f;
+            recoil = 4f;
+            shake = 2f;
             shootSound = Sounds.bang;
         }};
     }
