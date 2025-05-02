@@ -11,9 +11,7 @@ import mindustry.gen.Sounds;
 import mindustry.type.Category;
 import mindustry.type.ItemStack;
 import mindustry.world.Block;
-import mindustry.world.blocks.defense.DirectionalForceProjector;
-import mindustry.world.blocks.defense.ForceProjector;
-import mindustry.world.blocks.defense.OverdriveProjector;
+import mindustry.world.blocks.defense.*;
 import mindustry.world.blocks.defense.turrets.ItemTurret;
 import mindustry.world.blocks.distribution.Conveyor;
 import mindustry.world.blocks.distribution.MassDriver;
@@ -21,10 +19,13 @@ import mindustry.world.blocks.power.Battery;
 import mindustry.world.blocks.power.SolarGenerator;
 import mindustry.world.blocks.production.Drill;
 
+import java.util.zip.Deflater;
+
 import static mindustry.type.ItemStack.with;
 
 public class TBlocks {
-    public static Block homoDrill, miniDrill, nihonDrill, tetsDrill, bangun, teleporter, tets_conveyor, solpanel, tets_battery, crystal_powerblock, estrella_de_platino, small_shield_projector;
+    public static Block homoDrill, miniDrill, nihonDrill, tetsDrill, bangun, teleporter, tets_conveyor, solpanel, tets_battery, crystal_powerblock,
+            estrella_de_platino, small_shield_projector, concrete_wall, concrete_wall_large, prav_wall, prav_wall_large, daew;
 
 
     public static void load() {
@@ -46,7 +47,38 @@ public class TBlocks {
 
     }
     private static void loadDefenses() {
-
+        concrete_wall = new Wall("concrete_wall") {{
+            requirements(Category.defense, ItemStack.with(TItems.concrete, 50));
+            health = 220 * 3;
+            envDisabled |= 16;
+        }};
+        concrete_wall_large = new Wall("concrete_wall-large") {{
+            requirements(Category.defense, ItemStack.mult(TBlocks.concrete_wall.requirements, 4));
+            health = 220 * 3 * 4;
+            size = 2;
+            envDisabled |= 16;
+        }};
+        prav_wall = new Wall("prav_wall") {{
+            requirements(Category.defense, ItemStack.with(TItems.pravoslaviy, 33, TItems.beeq, 3));
+            health = 333 * 3;
+            chanceDeflect = 0.33f;
+            lightningChance = 0.33f;
+            deflectSound = Sounds.lasercharge;
+            envDisabled |= 16;
+        }};
+        prav_wall_large = new Wall("prav_wall-large") {{
+            requirements(Category.defense, ItemStack.mult(TBlocks.prav_wall.requirements, 4));
+            health = 333 * 3 * 4;
+            chanceDeflect = 0.33f;
+            lightningChance = 0.33f;
+            deflectSound = Sounds.lasercharge;
+            size = 2;
+            envDisabled |= 16;
+        }};
+        daew = new ShieldWall("DAEW") {{
+            requirements(Category.defense, ItemStack.with(TItems.crystal, 5, TItems.tets_ingot, 15, TItems.tantalium, 110, TItems.superconductor, 12));
+            size = 2;
+        }};
     }
     private static void loadDrills() {
         homoDrill = new Drill("homo-drill") {{
@@ -91,24 +123,24 @@ public class TBlocks {
         small_shield_projector = new ForceProjector("small_shield_projector") {{
             requirements(Category.effect, ItemStack.with(TItems.tantalium, 50, Items.titanium, 75, Items.silicon, 70, TItems.battery, 10));
             size = 2;
-            phaseRadiusBoost = 40.0F;
-            phaseShieldBoost = 10;
             radius = 75F;
             shieldHealth = 750.0F;
             cooldownNormal = 1.5F;
             cooldownLiquid = 1.2F;
             cooldownBrokenBase = 0.35F;
-            consumeItem(TItems.bee).boost();
+            consumeItem(TItems.bee, 8).boost();
+            phaseRadiusBoost = 40.0F;
+            phaseShieldBoost = 10;
             consumePower(3.0F);
         }};
         estrella_de_platino = new OverdriveProjector("estrella_de_platino") {{
             requirements(Category.effect, ItemStack.with(TItems.battery, 1, TItems.tets_ingot, 3, TItems.concrete, 10, TItems.superconductor, 12));
             consumePower(3F);
-            consumeItem(TItems.bee).boost();
-            speedBoostPhase = 1.1f;
+            consumeItem(TItems.bee, 5).boost();
+            speedBoostPhase = 0.2f;
             phaseRangeBoost = 10;
-            range = 50.0F;
-            speedBoost = 5.55F;
+            range = 45.0F;
+            speedBoost = 1.5F;
             useTime = 400.0F;
             consumeItems(ItemStack.with(TItems.battery, 1));
         }};
