@@ -3,7 +3,7 @@ package content.items;
 import arc.graphics.Color;
 import mindustry.type.Item;
 
-public class Items {
+public class TItems {
     public static Item battery, bee, beeq, capsule_of_oxigen, capsule_of_hydrogen, concrete, crystal, expl_mixture, goddamm_ingot, hyperalloy, low_quality_crystal,
             M_13_5, mica, neoch_pravos, nihonium, pingwan, poop, pravoslaviy, RM_20_17, superconductor, tantalium, tets_ingot, toxium, vermillion;
 

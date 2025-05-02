@@ -4,7 +4,7 @@ import arc.graphics.Color;
 import mindustry.content.StatusEffects;
 import mindustry.type.Liquid;
 
-public class Liquids {
+public class TLiquids {
     public static Liquid honey, liquid_hydrogen, liquid_matter, liquid_oxygen, super_cryofluid;
     public static void load() {
         honey = new Liquid("honey", Color.valueOf("EEEEAA")) {{
