@@ -11,6 +11,7 @@ import mindustry.entities.bullet.MassDriverBolt;
 import mindustry.gen.Sounds;
 import mindustry.type.Category;
 import mindustry.type.ItemStack;
+import mindustry.type.LiquidStack;
 import mindustry.world.Block;
 import mindustry.world.blocks.defense.ForceProjector;
 import mindustry.world.blocks.defense.OverdriveProjector;
@@ -25,17 +26,14 @@ import mindustry.world.blocks.power.SolarGenerator;
 import mindustry.world.blocks.production.Drill;
 import mindustry.world.blocks.production.GenericCrafter;
 import mindustry.world.blocks.production.Separator;
-import mindustry.world.draw.DrawDefault;
-import mindustry.world.draw.DrawFade;
-import mindustry.world.draw.DrawMulti;
-import mindustry.world.draw.DrawRegion;
+import mindustry.world.draw.*;
 
 import static mindustry.type.ItemStack.with;
 
 public class TBlocks {
     public static Block homoDrill, miniDrill, nihonDrill, tetsDrill, bangun, govnomet, teleporter, tets_conveyor, solpanel, tets_battery, crystal_powerblock,
             estrella_de_platino, small_shield_projector, concrete_wall, concrete_wall_large, prav_wall, prav_wall_large, daew, poop_wall, battery_factory, bee_plant,
-            concrete_mixer, crystalizer, shit_mixer, vermillion, neoch_pravos;
+            concrete_mixer, crystalizer, shit_mixer, vermillion, neoch_pravos, tantalium_factory, mica_press, mercury_purificator, tetsonator;
 
     public static void load() {
         loadItemCrafting();
@@ -60,20 +58,44 @@ public class TBlocks {
             hasPower = true;
             drawer = new DrawMulti(new DrawDefault(), new DrawRegion("-rotator", 1.1f, true));
             consumeLiquid(Liquids.water, 0.33f);
-            consumePower(3.33F);
+            consumePower(0.07F);
             consumeItems(ItemStack.with(Items.coal, 2, Items.sporePod, 3, Items.lead, 2, Items.copper, 1));
         }};
         battery_factory = new GenericCrafter("battery_factory") {{
             requirements(Category.crafting, ItemStack.with(Items.silicon, 24, Items.lead, 80, Items.graphite, 20, Items.copper, 140));
             hasItems = true;
             craftTime = 90.0F;
-            outputItem = new ItemStack(TItems.battery, 2);
+            outputItem = new ItemStack(TItems.battery, 7);
             size = 2;
             health = 420;
             hasPower = true;
             drawer = new DrawMulti(new DrawDefault(), new DrawFade());
             consumePower(1.2F);
             consumeItems(ItemStack.with(Items.coal, 2, Items.silicon, 2, Items.lead, 2, Items.copper, 1));
+        }};
+        tetsonator = new GenericCrafter("tetsonator") {{
+            requirements(Category.crafting, ItemStack.with(Items.silicon, 40, TItems.tantalium, 80, Items.graphite, 25));
+            craftTime = 44.44F;
+            outputItem = new ItemStack(TItems.tets_ingot, 2);
+            size = 2;
+            health = 420;
+            hasPower = hasItems = hasLiquids = true;
+            drawer = new DrawMulti(new DrawDefault(), new DrawFade());
+            consumePower(1.2F);
+            consumeItems(ItemStack.with(Items.titanium, 1, TItems.tantalium, 1));
+            consumeLiquids(LiquidStack.with(Liquids.cryofluid, 0.04444f, TLiquids.mercury, 0.2f));
+        }};
+        tantalium_factory = new Separator("tantalium_factory") {{
+            requirements(Category.crafting, ItemStack.with(Items.silicon, 40, Items.titanium, 30, Items.graphite, 40, Items.copper, 120));
+            craftTime = 100.0F;
+            results = ItemStack.with(TItems.tantalium, 11, Items.scrap, 1);
+            size = 2;
+            health = 420;
+            hasPower = hasItems = hasLiquids = true;
+            drawer = new DrawMulti(new DrawDefault(), new DrawFade());
+            consumePower(2.28F);
+            consumeItems(ItemStack.with(Items.titanium, 1, Items.graphite, 1));
+            consumeLiquid(Liquids.water, 0.1f);
         }};
         crystalizer = new GenericCrafter("crystalizer") {{
             requirements(Category.crafting, ItemStack.with(Items.copper, 30, Items.silicon, 14, TItems.tantalium, 15, Items.metaglass, 10));
@@ -86,7 +108,16 @@ public class TBlocks {
             consumeItems(ItemStack.with(TItems.mica, 1, Items.silicon, 1));
             consumeLiquid(TLiquids.mercury, 0.033f);
         }};
-        bee_plant = new Separator("bee-plantq") {{
+        mercury_purificator = new GenericCrafter("mercury_purificator") {{
+            requirements(Category.crafting, ItemStack.with(Items.copper, 30, Items.graphite, 15, Items.metaglass, 10));
+            craftTime = 30.0F;
+            outputLiquid = new LiquidStack(TLiquids.mercury, 0.1f);
+            health = 120;
+            hasLiquids = hasItems = true;
+            drawer = new DrawMulti(new DrawDefault(), new DrawFade());
+            consumeItems(ItemStack.with(TItems.vermillion, 2));
+        }};
+        bee_plant = new Separator("bee-plant") {{
             requirements(Category.crafting, ItemStack.with(Items.scrap, 40, Items.copper, 100, Items.graphite, 50, Items.silicon, 5));
             results = ItemStack.with(TItems.bee, 10, TItems.beeq, 1);
             hasPower = true;
@@ -97,13 +128,26 @@ public class TBlocks {
             consumeItem(TItems.bing_qi_ling, 1);
             consumeLiquid(Liquids.water, 0.04F);
         }};
+        mica_press = new GenericCrafter("mica-press") {{
+            requirements(Category.crafting, ItemStack.with(Items.silicon, 24, Items.lead, 80, Items.graphite, 20, Items.copper, 140));
+            hasItems = true;
+            craftTime = 290.0F;
+            outputItem = new ItemStack(TItems.mica, 3);
+            size = 2;
+            health = 420;
+            hasPower = true;
+            drawer = new DrawMulti(new DrawDefault(), new DrawFade());
+            consumePower(1.2F);
+            consumeItems(ItemStack.with(Items.graphite, 2, Items.silicon, 2));
+        }};
         concrete_mixer = new Separator("concrete_mixer") {{
-            requirements(Category.crafting, ItemStack.with(Items.copper, 60, Items.silicon, 12, Items.titanium, 12, Items.lead, 35));
+            requirements(Category.crafting, ItemStack.with(Items.copper, 60, Items.silicon, 12, Items.lead, 35));
             results = ItemStack.with(TItems.concrete, 7, Items.scrap, 2);
             hasPower = true;
             craftTime = 20.0F;
             size = 2;
             itemCapacity = 30;
+            drawer = new DrawMulti(new DrawDefault(), new DrawRegion("-rotor", 3,true));
             consumePower(0.4F);
             consumeItems(ItemStack.with(Items.sand, 3, Items.lead, 1, Items.copper, 1));
             consumeLiquid(Liquids.water, 0.1F);
@@ -214,8 +258,20 @@ public class TBlocks {
         }};
     }
     private static void loadOres() {
-        vermillion = new OreBlock(TItems.vermillion);
-        neoch_pravos = new OreBlock(TItems.neoch_pravos);
+        vermillion = new OreBlock("vermillion", TItems.vermillion){
+            {
+                this.oreDefault = true;
+                this.oreThreshold = 0.9F;
+                this.oreScale = 15.3F;
+            }
+        };
+        neoch_pravos = new OreBlock("neoch-pravos", TItems.neoch_pravos){
+            {
+                this.oreDefault = true;
+                this.oreThreshold = 0.95F;
+                this.oreScale = 9.47619F;
+            }
+        };
     }
     private static void loadPower() {
         solpanel = new SolarGenerator("solpanel") {{

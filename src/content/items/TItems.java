@@ -36,7 +36,7 @@ public class TItems {
             radioactivity = 0.1f;
             healthScaling = 1f;
         }};
-        concrete = new Item("concrete", Color.valueOf("9badb7")) {{
+        concrete = new Item("concrete", Color.valueOf("716c69")) {{
             hardness = 2;
             cost = 2;
         }};
@@ -49,12 +49,12 @@ public class TItems {
             cost = 6;
             radioactivity = 2;
         }};
-        hyperalloy = new Item("hyperalloy", Color.valueOf("#bdff00")) {{
+        hyperalloy = new Item("hyperalloy", Color.valueOf("c83ca2")) {{
             cost = 5.5f;
             radioactivity = 0.2f;
             charge = 1;
         }};
-        mica = new Item("mica", Color.valueOf("#9CA7A7")) {{
+        mica = new Item("mica", Color.valueOf("86aaa8")) {{
             cost = 0.4f;
             charge = 0.01f;
         }};
@@ -63,7 +63,7 @@ public class TItems {
             radioactivity = 0.1f;
             buildable = false;
         }};
-        nihonium = new Item("nihonium", Color.valueOf("#DAB1DC")) {{
+        nihonium = new Item("nihonium", Color.valueOf("dab1dc")) {{
             cost = 7;
             radioactivity = 4f;
             healthScaling = 4f;
@@ -79,17 +79,17 @@ public class TItems {
             cost = 3;
             radioactivity = 0.5f;
         }};
-        superconductor = new Item("superconductor", Color.valueOf("#FBD504")) {{
+        superconductor = new Item("superconductor", Color.valueOf("2fc791")) {{
             cost = 1.2f;
             charge = 0.2f;
         }};
-        tantalium = new Item("tantalium", Color.valueOf("#989195")) {{
+        tantalium = new Item("tantalium", Color.valueOf("7496a7")) {{
             cost = 1.01f;
         }};
-        tets_ingot = new Item("tets_ingot", Color.valueOf("#38EDD7")) {{
+        tets_ingot = new Item("tets_ingot", Color.valueOf("53e6a4")) {{
             cost = 1.98f;
         }};
-        vermillion = new Item("vermillion", Color.valueOf("#F40B34")) {{
+        vermillion = new Item("vermillion", Color.valueOf("e04938")) {{
             buildable = false;
         }};
     }
