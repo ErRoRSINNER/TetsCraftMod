@@ -93,7 +93,7 @@ public class TBlocks {
         tantalium_factory = new Separator("tantalium_factory") {{
             requirements(Category.crafting, ItemStack.with(Items.silicon, 40, Items.titanium, 30, Items.graphite, 40, Items.copper, 120));
             craftTime = 100.0F;
-            results = ItemStack.with(TItems.tantalium, 10, new ItemStack(TItems.tantalium, 2), 5, Items.scrap, 1);
+            results = ItemStack.with(TItems.tantalium, 18, Items.scrap, 1);
             size = 2;
             health = 420;
             hasPower = hasItems = hasLiquids = true;
