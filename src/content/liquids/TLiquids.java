@@ -14,7 +14,7 @@ public class TLiquids {
             viscosity = 0.75f;
             coolant = false;
         }};
-        liquid_hydrogen = new Liquid("liquid_hydrogen") {{
+        liquid_hydrogen = new Liquid("liquid_hydrogen", Color.valueOf("1c9cd2")) {{
             flammability = 1f;
             explosiveness = 1f;
             coolant = false;
@@ -29,7 +29,7 @@ public class TLiquids {
             viscosity = 0.01f;
             coolant = false;
         }};
-        liquid_oxygen = new Liquid("liquid_oxygen") {{
+        liquid_oxygen = new Liquid("liquid_oxygen", Color.valueOf("3dbed2")) {{
             flammability = 2f;
             explosiveness = 1f;
             coolant = false;
@@ -55,7 +55,7 @@ public class TLiquids {
         red_mercury = new Liquid("red_mercury", Color.valueOf("FF5049")){{
             heatCapacity = 0.8f;
             temperature = 0.65f;
-            effect = StatusEffects.corroded;
+            effect = StatusEffects.melting;
             lightColor = Color.valueOf("FF5049").a(0.4f);
             boilPoint = 0.4f;
             viscosity = 0.6f;
