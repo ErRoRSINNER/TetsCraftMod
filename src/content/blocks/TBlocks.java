@@ -252,7 +252,7 @@ public class TBlocks {
 
     private static void loadDrills() {
         homoDrill = new Drill("homo-drill") {{
-            requirements(Category.production, ItemStack.with(Items.copper, 25, Items.lead, 5)); //TODO
+            requirements(Category.production, ItemStack.with(Items.copper, 20, Items.lead, 5)); //TODO
             tier = 2;
             drillTime = 400.0F;
             size = 1;
@@ -262,7 +262,7 @@ public class TBlocks {
             alwaysUnlocked = true;
         }};
         miniDrill = new Drill("mini-drill") {{
-            requirements(Category.production, ItemStack.with(TItems.concrete, 12, TItems.tantalium, 10)); //TODO
+            requirements(Category.production, ItemStack.with(TItems.concrete, 12, TItems.tantalium, 10));
             tier = 4;
             drillTime = 130.0F;
             size = 1;
@@ -273,7 +273,7 @@ public class TBlocks {
             alwaysUnlocked = true;
         }};
         nihonDrill = new Drill("nihon-drill") {{
-            requirements(Category.production, ItemStack.with(TItems.nihonium, 240, Items.lead, 24)); //TODO
+            requirements(Category.production, ItemStack.with(TItems.nihonium, 240, Items.lead, 24));
             tier = 6;
             drillTime = 200.0F;
             size = 5;
@@ -645,7 +645,7 @@ public class TBlocks {
                 splashDamageRadius = 4f;
                 hitEffect = Fx.blastExplosion;
                 splashDamage = 1f;
-                fragBullet = new BasicBulletType(2.5f, 1, "poop") {{
+                fragBullet = new BasicBulletType(8f, 1, "poop"){{
                     width = 5f;
                     height = 5f;
                     shrinkY = 1f;
@@ -653,7 +653,7 @@ public class TBlocks {
                     despawnEffect = Fx.absorb;
                     hitEffect = Fx.plasticExplosionFlak;
                     collidesAir = true;
-                    fragBullet = new BasicBulletType(1.5f, 1, "poop") {{
+                    fragBullet = new BasicBulletType(5f, 1, "poop"){{
                         width = 2f;
                         height = 2f;
                         shrinkY = 1f;
