@@ -56,7 +56,7 @@ public class TBlocks {
 
     private static void loadCrafting() {
         pravoslaviumMixer = new GenericCrafter("pravoslavium_mixer") {{
-            requirements(Category.crafting, ItemStack.with(TItems.tets_ingot, 24, Items.thorium, TItems.vermillion, 12));
+            requirements(Category.crafting, ItemStack.with(TItems.tets_ingot, 24, Items.thorium, 20, TItems.vermillion, 12));
             hasPower = hasItems = true;
             craftTime = 100.0F;
             outputItem = new ItemStack(TItems.goddamm_ingot, 1);
@@ -66,7 +66,7 @@ public class TBlocks {
             drawer = new DrawMulti(new DrawDefault(), new DrawRegion("-rotator", 0.4f, true));
             consumeLiquid(Liquids.water, 0.5f);
             consumePower(1F);
-            consumeItems(ItemStack.with(TItems.neoch_pravos));
+            consumeItems(ItemStack.with(TItems.neoch_pravos, 2));
             alwaysUnlocked = true;
         }};
         bingQiLingMixer = new GenericCrafter("bing_qi_ling_mixer") {{
@@ -99,7 +99,7 @@ public class TBlocks {
             requirements(Category.crafting, ItemStack.with(Items.silicon, 20, TItems.tantalium, 80, TItems.concrete, 60, TItems.tets_ingot, 20, TItems.battery, 30));
             hasPower = hasItems = hasLiquids = true;
             craftTime = 96.0F;
-            outputItem = new ItemStack(TItems.superconductor, 1);
+            outputItem = new ItemStack(TItems.superconductor, 2);
             size = 2;
             drawer = new DrawMulti(new DrawDefault(), new DrawFade());
             consumeLiquid(TLiquids.super_cryofluid, 0.1f);
