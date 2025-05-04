@@ -40,7 +40,7 @@ public class TBlocks {
     public static Block homoDrill, miniDrill, nihonDrill, tetsDrill, bangun, govnomet, teleporter, tets_conveyor, solpanel, tets_battery, crystal_powerblock,
             estrella_de_platino, small_shield_projector, concrete_wall, concrete_wall_large, prav_wall, prav_wall_large, daew, poop_wall, battery_factory, bee_plant,
             concrete_mixer, crystalizer, shit_mixer, vermillion, neoch_pravos, tantalium_factory, mica_press, mercury_purificator, tetsonator, aacd_FIFNYA, hoover,
-            beeshot, quick_fire, RMG202, superconductor_plant, absolute_zero;
+            beeshot, quick_fire, RMG202, superconductor_plant, absolute_zero, bingQiLingMixer, pravoslaviumMixer;
 
     public static void load() {
         loadCrafting();
@@ -55,6 +55,34 @@ public class TBlocks {
     }
 
     private static void loadCrafting() {
+        pravoslaviumMixer = new GenericCrafter("pravoslavium_mixer") {{
+            requirements(Category.crafting, ItemStack.with(TItems.tets_ingot, 24, Items.thorium, TItems.vermillion, 12));
+            hasPower = hasItems = true;
+            craftTime = 100.0F;
+            outputItem = new ItemStack(TItems.goddamm_ingot, 1);
+            size = 3;
+            health = 800;
+            craftEffect = Fx.lightningCharge;
+            drawer = new DrawMulti(new DrawDefault(), new DrawRegion("-rotator", 0.4f, true));
+            consumeLiquid(Liquids.water, 0.5f);
+            consumePower(1F);
+            consumeItems(ItemStack.with(TItems.neoch_pravos));
+            alwaysUnlocked = true;
+        }};
+        bingQiLingMixer = new GenericCrafter("bing_qi_ling_mixer") {{
+            requirements(Category.crafting, ItemStack.with(Items.silicon, 20, Items.lead, 40, Items.graphite, 20, Items.copper, 40));
+            hasPower = hasItems = true;
+            craftTime = 120.0F;
+            outputItem = new ItemStack(TItems.bing_qi_ling, 1);
+            size = 2;
+            health = 220;
+            craftEffect = Fx.colorSparkBig;
+            drawer = new DrawMulti(new DrawDefault(), new DrawFade());
+            consumePower(0.4F);
+            consumeItems(ItemStack.with(Items.sporePod, 4));
+            consumeLiquids(LiquidStack.with(Liquids.water, 1f));
+            alwaysUnlocked = true;
+        }};
         absolute_zero = new GenericCrafter("absolute_zero") {{
             requirements(Category.crafting, ItemStack.with(Items.silicon, 30, TItems.tantalium, 70, TItems.concrete, 160, TItems.tets_ingot, 30, Items.metaglass, 130));
             hasPower = hasItems = hasLiquids = true;
