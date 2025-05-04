@@ -7,6 +7,7 @@ import arc.util.Time;
 import content.blocks.TBlocks;
 import content.items.TItems;
 import content.liquids.TLiquids;
+import content.units.TUnits;
 import mindustry.game.EventType.ClientLoadEvent;
 import mindustry.mod.Mod;
 import mindustry.ui.dialogs.BaseDialog;
@@ -34,6 +35,7 @@ public class MainJavaMod extends Mod{
     public void loadContent(){
         TLiquids.load();
         TItems.load();
+        TUnits.init();
         TBlocks.load();
 
         Log.info("Loading complete;");
