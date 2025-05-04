@@ -39,7 +39,7 @@ import static mindustry.type.ItemStack.with;
 public class TBlocks {
     public static Block homoDrill, miniDrill, nihonDrill, tetsDrill, bangun, govnomet, teleporter, tets_conveyor, solpanel, tets_battery, crystal_powerblock,
             estrella_de_platino, small_shield_projector, concrete_wall, concrete_wall_large, prav_wall, prav_wall_large, daew, poop_wall, battery_factory, bee_plant,
-            concrete_mixer, crystalizer, shit_mixer, vermillion, neoch_pravos, tantalium_factory, mica_press, mercury_purificator, tetsonator, aacd_FIFNYA, hoover,
+            concrete_mixer, crystalizer, shit_mixer, vermillion, tantalium_factory, mica_press, mercury_purificator, tetsonator, aacd_FIFNYA, hoover,
             beeshot, quick_fire, RMG202, superconductor_plant, absolute_zero, bingQiLingMixer, pravoslaviumMixer;
 
     public static void load() {
@@ -260,14 +260,15 @@ public class TBlocks {
         daew = new ShieldWall("DAEW") {{
             requirements(Category.defense, ItemStack.with(TItems.crystal, 5, TItems.tets_ingot, 15, TItems.tantalium, 110, TItems.superconductor, 12, TItems.nihonium, 5));
             size = 2;
-            health = 1500;
+            health = 2500;
+            shieldHealth = 2280;
             regenSpeed = 5;
             outputsPower = false;
             hasPower = true;
             consumesPower = true;
             conductivePower = true;
             glowColor = TItems.nihonium.color.cpy().a(0.666f);
-            consumePower(0.1f);
+            consumePower(0.05f);
             alwaysUnlocked = true;
         }};
         poop_wall = new Wall("poop_wall") {{
@@ -306,7 +307,6 @@ public class TBlocks {
             drillTime = 200.0F;
             size = 5;
             //this.researchCost = ItemStack.with(new Object[]{Items.copper, 100, Items.lead, 60});
-            consumeLiquid(Liquids.water, 0.1F).boost();
             consumeLiquid(Liquids.cryofluid, 0.1F).boost();
             consumePower(4.3f);
             health = 180;
@@ -361,24 +361,15 @@ public class TBlocks {
                 alwaysUnlocked = true;
             }
         };
-        neoch_pravos = new OreBlock("neoch-pravos", TItems.neoch_pravos) {
-            {
-                this.oreDefault = true;
-                this.oreThreshold = 0.95F;
-                this.oreScale = 9.47619F;
-                alwaysUnlocked = true;
-            }
-        };
     }
 
     private static void loadPower() {
         solpanel = new SolarGenerator("solpanel") {{
             requirements(Category.power, ItemStack.with(TItems.tets_ingot, 25, TItems.tantalium, 15, TItems.battery, 10, Items.silicon, 55));
             size = 2;
-            powerProduction = 1.1F;
+            powerProduction = 1.15F;
             hasPower = true;
             baseExplosiveness = 6;
-            consumePowerBuffered(10000);
             alwaysUnlocked = true;
         }};
         tets_battery = new Battery("tets_battery") {{
