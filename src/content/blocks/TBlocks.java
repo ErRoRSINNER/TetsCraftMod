@@ -669,7 +669,7 @@ public class TBlocks {
             rotateSpeed = 5;
             ammoPerShot = 3;
             xRand = 4;
-            range = 178.98f;
+            range = 220f;
             shootY = 4.5F;
             this.shoot = new ShootBarrel() {
                 {
