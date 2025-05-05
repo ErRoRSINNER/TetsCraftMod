@@ -13,6 +13,7 @@ import mindustry.gen.Sounds;
 import mindustry.type.Category;
 import mindustry.type.ItemStack;
 import mindustry.type.LiquidStack;
+import mindustry.type.UnitType;
 import mindustry.world.Block;
 import mindustry.world.blocks.defense.ForceProjector;
 import mindustry.world.blocks.defense.OverdriveProjector;
@@ -30,6 +31,7 @@ import mindustry.world.blocks.power.SolarGenerator;
 import mindustry.world.blocks.production.Drill;
 import mindustry.world.blocks.production.GenericCrafter;
 import mindustry.world.blocks.production.Separator;
+import mindustry.world.blocks.units.Reconstructor;
 import mindustry.world.blocks.units.UnitFactory;
 import mindustry.world.draw.DrawDefault;
 import mindustry.world.draw.DrawFade;
@@ -43,7 +45,7 @@ public class TBlocks {
             estrella_de_platino, small_shield_projector, concrete_wall, concrete_wall_large, prav_wall, prav_wall_large, daew, poop_wall, battery_factory, bee_plant,
             concrete_mixer, crystalizer, shit_mixer, vermillion, tantalium_factory, mica_press, mercury_purificator, tetsonator, aacd_FIFNYA, hoover,
             beeshot, quick_fire, RMG202, superconductor_plant, absolute_zero, bingQiLingMixer, pravoslaviumMixer, tetsBridge, teslaCoil, copperPulverizer,
-            erekinator, serpulinator, bardovovizator;
+            erekinator, serpulinator, bardovovizator, tetsAdditiveReconstructor, tetsMultiplicativeReconstructor;
 
     public static void load() {
         loadCrafting();
@@ -54,6 +56,7 @@ public class TBlocks {
         loadPower();
         loadTurrets();
         loadDistributions();
+        loadUnits();
         loadOther();
         loadMixins();
     }
@@ -109,7 +112,7 @@ public class TBlocks {
             alwaysUnlocked = true;
         }};
         pravoslaviumMixer = new GenericCrafter("pravoslavium_mixer") {{
-            requirements(Category.crafting, ItemStack.with(TItems.tets_ingot, 24, Items.thorium, 5, TItems.vermillion, 12));
+            requirements(Category.crafting, ItemStack.with(TItems.tantalium, 100, Items.thorium, 25, TItems.concrete, 50));
             craftTime = 100.0F;
             outputItem = new ItemStack(TItems.goddamm_ingot, 1);
             size = 3;
@@ -118,7 +121,7 @@ public class TBlocks {
             drawer = new DrawMulti(new DrawDefault(), new DrawRegion("-rotator", 0.4f, true));
             consumeLiquid(Liquids.water, 0.5f);
             consumePower(1F);
-            consumeItems(ItemStack.with(TItems.beeq, 1));
+            consumeItems(ItemStack.with(TItems.tets_coin, 8));
             alwaysUnlocked = true;
         }};
         bingQiLingMixer = new GenericCrafter("bing_qi_ling_mixer") {{
@@ -428,11 +431,11 @@ public class TBlocks {
 
     private static void loadTurrets() {
         teslaCoil = new PowerTurret("tesla_coil") {{
-            requirements(Category.turret, ItemStack.with(Items.copper, 400, Items.titanium, 100, TItems.battery, 100));
+            requirements(Category.turret, ItemStack.with(Items.copper, 400, Items.titanium, 200, TItems.battery, 200));
             range = 240.0F;
             shoot.firstShotDelay = 60.0F;
             recoil = 2.0F;
-            reload = 1400.0F;
+            reload = 2000.0F;
             shake = 3.0F;
             shootEffect = Fx.lancerLaserShoot;
             smokeEffect = Fx.none;
@@ -833,6 +836,32 @@ public class TBlocks {
             }};
             alwaysUnlocked = true;
         }};
+    }
+
+    private static void loadUnits(){
+        tetsAdditiveReconstructor = new Reconstructor("tets_additive_reconstructor") {
+            {
+                this.requirements(Category.units, ItemStack.with(new Object[]{Items.copper, 200, Items.lead, 120, Items.titanium, 80, TItems.battery, 80}));
+                this.size = 3;
+                health = 600;
+                this.consumePower(3.0F);
+                this.consumeItems(ItemStack.with(new Object[]{Items.beryllium, 10, Items.graphite, 20, TItems.battery, 40}));
+                this.constructTime = 1200.0F;
+                this.upgrades.addAll(new UnitType[][]{{TUnits.UFO, TUnits.UF1}, {TUnits.miniMiner, TUnits.mediMiner}});
+            }
+        };
+        tetsMultiplicativeReconstructor = new Reconstructor("tets_multiplicative_reconstructor") {
+            {
+                this.requirements(Category.units, ItemStack.with(new Object[]{Items.carbide, 200, Items.lead, 120, Items.titanium, 80, TItems.battery, 80}));
+                this.size = 5;
+                health = 1000;
+                this.consumePower(4.0F);
+                this.consumeItems(ItemStack.with(new Object[]{Items.beryllium, 80, Items.carbide, 60, TItems.battery, 40, TItems.tantalium, 40}));
+                this.consumeLiquid(Liquids.cryofluid, 1f);
+                this.constructTime = 2400.0F;
+                this.upgrades.addAll(new UnitType[][]{{TUnits.UF1, TUnits.UF2}});
+            }
+        };
     }
 
     private static void loadOther() {

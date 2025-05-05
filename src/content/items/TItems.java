@@ -5,9 +5,12 @@ import mindustry.type.Item;
 
 public class TItems {
     public static Item battery, bee, beeq, capsule_of_oxigen, capsule_of_hydrogen, concrete, crystal, expl_mixture, goddamm_ingot, hyperalloy,
-            mica, nihonium, pingwan, poop, superconductor, tantalium, tets_ingot, vermillion, bing_qi_ling;
+            mica, nihonium, pingwan, poop, superconductor, tantalium, tets_ingot, vermillion, bing_qi_ling, tets_coin;
 
     public static void load() {
+        tets_coin = new Item("tets_coin", Color.valueOf("fef37c")) {{
+            cost = 1;
+        }};
         battery = new Item("battery", Color.valueOf("9badb7")) {{
             charge = 1.5f;
             cost = 3;
