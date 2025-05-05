@@ -664,7 +664,7 @@ public class TBlocks {
             targetGround = false;
             size = 3;
             inaccuracy = 5;
-            reload = 12;
+            reload = 24;
             shootCone = 30;
             rotateSpeed = 5;
             ammoPerShot = 3;
@@ -682,7 +682,7 @@ public class TBlocks {
                     this.shotDelay = 3.0F;
                 }
             };
-            ammo(Items.sand, new MissileBulletType(6, 8) {{
+            ammo(Items.sand, new MissileBulletType(6, 12) {{
                 status = StatusEffects.slow;
                 hitSize = 7;
                 width = 4;
