@@ -5,13 +5,11 @@ import content.items.TItems;
 import content.liquids.TLiquids;
 import content.units.TUnits;
 import mindustry.content.*;
-import mindustry.entities.Effect;
 import mindustry.entities.bullet.*;
 import mindustry.entities.effect.MultiEffect;
 import mindustry.entities.pattern.ShootBarrel;
 import mindustry.entities.pattern.ShootPattern;
 import mindustry.gen.Sounds;
-import mindustry.graphics.Pal;
 import mindustry.type.Category;
 import mindustry.type.ItemStack;
 import mindustry.type.LiquidStack;
@@ -33,7 +31,10 @@ import mindustry.world.blocks.production.Drill;
 import mindustry.world.blocks.production.GenericCrafter;
 import mindustry.world.blocks.production.Separator;
 import mindustry.world.blocks.units.UnitFactory;
-import mindustry.world.draw.*;
+import mindustry.world.draw.DrawDefault;
+import mindustry.world.draw.DrawFade;
+import mindustry.world.draw.DrawMulti;
+import mindustry.world.draw.DrawRegion;
 
 import static mindustry.type.ItemStack.with;
 
@@ -41,7 +42,8 @@ public class TBlocks {
     public static Block homoDrill, miniDrill, nihonDrill, tetsDrill, bangun, govnomet, teleporter, tets_conveyor, solpanel, tets_battery, crystal_powerblock,
             estrella_de_platino, small_shield_projector, concrete_wall, concrete_wall_large, prav_wall, prav_wall_large, daew, poop_wall, battery_factory, bee_plant,
             concrete_mixer, crystalizer, shit_mixer, vermillion, tantalium_factory, mica_press, mercury_purificator, tetsonator, aacd_FIFNYA, hoover,
-            beeshot, quick_fire, RMG202, superconductor_plant, absolute_zero, bingQiLingMixer, pravoslaviumMixer, tetsBridge, teslaCoil, copperPulverizer, erekinator, serpulinator;
+            beeshot, quick_fire, RMG202, superconductor_plant, absolute_zero, bingQiLingMixer, pravoslaviumMixer, tetsBridge, teslaCoil, copperPulverizer,
+            erekinator, serpulinator, bardovovizator;
 
     public static void load() {
         loadCrafting();
@@ -57,6 +59,17 @@ public class TBlocks {
     }
 
     private static void loadCrafting() {
+        bardovovizator = new GenericCrafter("bardovovizator") {{
+            requirements(Category.crafting, ItemStack.with(Items.silicon, 30, TItems.tantalium, 70, TItems.concrete, 160, TItems.tets_ingot, 30, Items.metaglass, 130));
+            outputLiquid = new LiquidStack(TLiquids.super_cryofluid, 0.03f);
+            craftTime = 40.0F;
+            size = 2;
+            drawer = new DrawMulti(new DrawDefault(), new DrawFade());
+            consumeLiquids(LiquidStack.with(TLiquids.mercury, 0.5f, Liquids.oil, 0.2f));
+            consumeItems(ItemStack.with(TItems.vermillion, 5, TItems.beeq, 1));
+            consumePower(4.7F);
+            alwaysUnlocked = true;
+        }};
         erekinator = new Separator("erekinator") {{
             requirements(Category.crafting, ItemStack.with(Items.silicon, 40, TItems.tantalium, 40, TItems.concrete, 120, Items.metaglass, 20));
             craftTime = 40F;
@@ -105,7 +118,7 @@ public class TBlocks {
             drawer = new DrawMulti(new DrawDefault(), new DrawRegion("-rotator", 0.4f, true));
             consumeLiquid(Liquids.water, 0.5f);
             consumePower(1F);
-            consumeItems(ItemStack.with(TItems.neoch_pravos, 1));
+            consumeItems(ItemStack.with(TItems.beeq, 1));
             alwaysUnlocked = true;
         }};
         bingQiLingMixer = new GenericCrafter("bing_qi_ling_mixer") {{
@@ -242,13 +255,12 @@ public class TBlocks {
         }};
         concrete_mixer = new GenericCrafter("concrete_mixer") {{
             requirements(Category.crafting, ItemStack.with(Items.copper, 60, Items.silicon, 12, Items.lead, 35));
-            outputItems = ItemStack.with(TItems.concrete, 4, Items.scrap, 2);
-            craftTime = 20.0F;
+            outputItems = ItemStack.with(TItems.concrete, 3, Items.scrap, 1);
+            craftTime = 66.6F;
             size = 2;
-            itemCapacity = 30;
             drawer = new DrawMulti(new DrawDefault(), new DrawRegion("-rotor", 3, true));
             consumePower(0.4F);
-            consumeItems(ItemStack.with(Items.sand, 5, Items.lead, 2, Items.copper, 2));
+            consumeItems(ItemStack.with(Items.sand, 3, Items.lead, 1, Items.copper, 1));
             consumeLiquid(Liquids.water, 0.1F);
             alwaysUnlocked = true;
         }};
@@ -257,17 +269,17 @@ public class TBlocks {
     private static void loadDefenses() {
         concrete_wall = new Wall("concrete_wall") {{
             requirements(Category.defense, ItemStack.with(TItems.concrete, 50));
-            health = 320 * 3;
+            health = 322 * 3;
             alwaysUnlocked = true;
         }};
         concrete_wall_large = new Wall("concrete_wall-large") {{
             requirements(Category.defense, ItemStack.mult(TBlocks.concrete_wall.requirements, 4));
-            health = 320 * 3 * 4;
+            health = 322 * 3 * 4;
             size = 2;
             alwaysUnlocked = true;
         }};
         prav_wall = new Wall("prav_wall") {{
-            requirements(Category.defense, ItemStack.with(TItems.pravoslaviy, 33, TItems.beeq, 3));
+            requirements(Category.defense, ItemStack.with(TItems.goddamm_ingot, 33, TItems.beeq, 3));
             health = (int) (333 * 4.5f);
             chanceDeflect = 0.33f;
             lightningChance = 0.33f;

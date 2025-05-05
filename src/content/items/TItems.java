@@ -5,7 +5,7 @@ import mindustry.type.Item;
 
 public class TItems {
     public static Item battery, bee, beeq, capsule_of_oxigen, capsule_of_hydrogen, concrete, crystal, expl_mixture, goddamm_ingot, hyperalloy,
-            mica, neoch_pravos, nihonium, pingwan, poop, pravoslaviy, superconductor, tantalium, tets_ingot, vermillion, bing_qi_ling;
+            mica, nihonium, pingwan, poop, superconductor, tantalium, tets_ingot, vermillion, bing_qi_ling;
 
     public static void load() {
         battery = new Item("battery", Color.valueOf("9badb7")) {{
@@ -58,11 +58,6 @@ public class TItems {
             cost = 0.4f;
             charge = 0.01f;
         }};
-        neoch_pravos = new Item("neoch-pravos", Color.valueOf("#C1C43B")) {{
-            hardness = 3;
-            radioactivity = 0.1f;
-            buildable = false;
-        }};
         nihonium = new Item("nihonium", Color.valueOf("dab1dc")) {{
             cost = 7;
             radioactivity = 4f;
@@ -74,10 +69,6 @@ public class TItems {
         poop = new Item("poop", Color.valueOf("#CD9232")) {{
             cost = 0.3f;
             explosiveness = 0.5f;
-        }};
-        pravoslaviy = new Item("pravoslaviy", Color.valueOf("#FFFCA3")) {{
-            cost = 3;
-            radioactivity = 0.5f;
         }};
         superconductor = new Item("superconductor", Color.valueOf("2fc791")) {{
             cost = 1.2f;
