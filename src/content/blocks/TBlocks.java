@@ -60,11 +60,10 @@ public class TBlocks {
         erekinator = new Separator("erekinator") {{
             requirements(Category.crafting, ItemStack.with(Items.silicon, 40, TItems.tantalium, 40, TItems.concrete, 120, Items.metaglass, 20));
             craftTime = 40F;
-            results = ItemStack.with(Items.copper, 10, Items.lead, 5, Items.titanium, 1);
+            results = ItemStack.with(Items.copper, 3, Items.lead, 2, Items.titanium, 1);
             size = 3;
             health = 420;
-            hasPower = hasItems = hasLiquids = true;
-            drawer = new DrawMulti(new DrawDefault(), new DrawFade(), new DrawFrames());
+            drawer = new DrawMulti(new DrawDefault(), new DrawFade());
             consumePower(1.2F);
             consumeItems(ItemStack.with(Items.beryllium, 1));
             consumeLiquids(LiquidStack.with(Liquids.water, 0.04444f));
@@ -73,39 +72,31 @@ public class TBlocks {
         serpulinator = new Separator("serpulinator") {{
             requirements(Category.crafting, ItemStack.with(Items.silicon, 40, TItems.tantalium, 40, TItems.concrete, 120, Items.metaglass, 20));
             craftTime = 40F;
-            results = ItemStack.with(Items.beryllium, 80, Items.tungsten, 40, Items.oxide, 4, Items.carbide, 4, Items.fissileMatter, 1);
+            results = ItemStack.with(Items.beryllium, 3, Items.tungsten, 1);
             size = 3;
             health = 420;
-            hasPower = hasItems = hasLiquids = true;
-            drawer = new DrawMulti(new DrawDefault(), new DrawFade(), new DrawFrames());
+            drawer = new DrawMulti(new DrawDefault(), new DrawFade());
             consumePower(1.2F);
             consumeItems(ItemStack.with(Items.titanium, 1));
             consumeLiquids(LiquidStack.with(Liquids.water, 0.04444f));
             alwaysUnlocked = true;
         }};
-        copperPulverizer = new GenericCrafter("copper_pulverizer") {
-            {
-                this.requirements(Category.crafting, ItemStack.with(new Object[]{Items.copper, 20, Items.lead, 30}));
-                this.outputItem = new ItemStack(Items.scrap, 2);
-                this.craftEffect = Fx.pulverize;
-                this.craftTime = 40.0F;
-                this.updateEffect = Fx.pulverizeSmall;
-                this.hasItems = this.hasPower = true;
-                this.drawer = new DrawMulti(new DrawBlock[]{new DrawDefault(), new DrawRegion("-rotator") {
-                    {
-                        this.spinSprite = true;
-                        this.rotateSpeed = 3.0F;
-                    }
-                }, new DrawRegion("-top")});
-                this.ambientSound = Sounds.grinding;
-                this.ambientSoundVolume = 0.025F;
-                this.consumeItem(Items.copper, 1);
-                this.consumePower(1F);
-            }
-        };
+        copperPulverizer = new GenericCrafter("copper_pulverizer") {{
+            requirements(Category.crafting, ItemStack.with(Items.copper, 20, Items.lead, 30));
+            outputItem = new ItemStack(Items.scrap, 2);
+            craftEffect = Fx.pulverize;
+            craftTime = 40.0F;
+            updateEffect = Fx.pulverizeSmall;
+            hasItems = this.hasPower = true;
+            drawer = new DrawMulti(new DrawDefault(), new DrawRegion("-rotator", 3, true), new DrawRegion("-top"));
+            this.ambientSound = Sounds.grinding;
+            this.ambientSoundVolume = 0.025F;
+            this.consumeItem(Items.copper, 3);
+            this.consumePower(0.45F);
+            alwaysUnlocked = true;
+        }};
         pravoslaviumMixer = new GenericCrafter("pravoslavium_mixer") {{
             requirements(Category.crafting, ItemStack.with(TItems.tets_ingot, 24, Items.thorium, 5, TItems.vermillion, 12));
-            hasPower = hasItems = true;
             craftTime = 100.0F;
             outputItem = new ItemStack(TItems.goddamm_ingot, 1);
             size = 3;
@@ -119,7 +110,6 @@ public class TBlocks {
         }};
         bingQiLingMixer = new GenericCrafter("bing_qi_ling_mixer") {{
             requirements(Category.crafting, ItemStack.with(Items.silicon, 20, Items.lead, 40, Items.graphite, 20, Items.copper, 40));
-            hasPower = hasItems = true;
             craftTime = 120.0F;
             outputItem = new ItemStack(TItems.bing_qi_ling, 1);
             size = 2;
@@ -133,7 +123,6 @@ public class TBlocks {
         }};
         absolute_zero = new GenericCrafter("absolute_zero") {{
             requirements(Category.crafting, ItemStack.with(Items.silicon, 30, TItems.tantalium, 70, TItems.concrete, 160, TItems.tets_ingot, 30, Items.metaglass, 130));
-            hasPower = hasItems = hasLiquids = true;
             outputLiquid = new LiquidStack(TLiquids.super_cryofluid, 0.034f);
             craftTime = 40.0F;
             size = 2;
@@ -145,7 +134,6 @@ public class TBlocks {
         }};
         superconductor_plant = new GenericCrafter("superconductor_plant") {{
             requirements(Category.crafting, ItemStack.with(Items.silicon, 20, TItems.tantalium, 80, TItems.concrete, 60, TItems.tets_ingot, 20, TItems.battery, 30));
-            hasPower = hasItems = hasLiquids = true;
             craftTime = 96.0F;
             outputItem = new ItemStack(TItems.superconductor, 2);
             size = 2;
@@ -157,7 +145,6 @@ public class TBlocks {
         }};
         shit_mixer = new GenericCrafter("shit_mixer") {{
             requirements(Category.crafting, ItemStack.with(Items.silicon, 24, Items.lead, 80, Items.graphite, 20, Items.copper, 140));
-            hasPower = hasItems = true;
             craftTime = 190.0F;
             outputItem = new ItemStack(TItems.poop, 7);
             size = 3;
@@ -171,7 +158,6 @@ public class TBlocks {
         }};
         battery_factory = new GenericCrafter("battery_factory") {{
             requirements(Category.crafting, ItemStack.with(Items.silicon, 24, Items.lead, 80, Items.graphite, 20, Items.copper, 140));
-            hasPower = hasItems = true;
             craftTime = 90.0F;
             outputItem = new ItemStack(TItems.battery, 1);
             size = 2;
@@ -188,7 +174,6 @@ public class TBlocks {
             outputItem = new ItemStack(TItems.tets_ingot, 2);
             size = 3;
             health = 420;
-            hasPower = hasItems = hasLiquids = true;
             craftEffect = Fx.freezing;
             drawer = new DrawMulti(new DrawDefault(), new DrawFade());
             consumePower(1.2F);
@@ -202,7 +187,6 @@ public class TBlocks {
             results = ItemStack.with(TItems.tantalium, 18, Items.scrap, 1);
             size = 2;
             health = 420;
-            hasPower = hasItems = hasLiquids = true;
             drawer = new DrawMulti(new DrawDefault(), new DrawFade());
             consumePower(2.2F);
             consumeItems(ItemStack.with(Items.titanium, 1, Items.graphite, 1));
@@ -215,7 +199,6 @@ public class TBlocks {
             size = 2;
             outputItem = new ItemStack(TItems.crystal, 1);
             health = 120;
-            hasPower = hasLiquids = hasItems = true;
             craftEffect = Fx.healWave;
             drawer = new DrawMulti(new DrawDefault(), new DrawFade());
             consumePower(2.0F);
@@ -229,7 +212,6 @@ public class TBlocks {
             size = 2;
             outputLiquid = new LiquidStack(TLiquids.mercury, 0.01f);
             health = 120;
-            hasLiquids = hasItems = true;
             drawer = new DrawMulti(new DrawDefault(), new DrawFade());
             consumeItems(ItemStack.with(TItems.vermillion, 2));
             alwaysUnlocked = true;
@@ -237,7 +219,6 @@ public class TBlocks {
         bee_plant = new Separator("bee-plant") {{
             requirements(Category.crafting, ItemStack.with(Items.scrap, 40, Items.copper, 100, Items.graphite, 50, Items.silicon, 5));
             results = ItemStack.with(TItems.bee, 10, TItems.beeq, 1);
-            hasPower = true;
             craftTime = 60.0F;
             size = 3;
             itemCapacity = 20;
@@ -249,12 +230,10 @@ public class TBlocks {
         }};
         mica_press = new GenericCrafter("mica-press") {{
             requirements(Category.crafting, ItemStack.with(Items.silicon, 24, Items.lead, 80, Items.graphite, 20, Items.copper, 140));
-            hasItems = true;
             craftTime = 290.0F;
             outputItem = new ItemStack(TItems.mica, 1);
             size = 2;
             health = 420;
-            hasPower = true;
             craftEffect = Fx.smokeCloud;
             drawer = new DrawMulti(new DrawDefault());
             consumePower(0.333F);
@@ -264,7 +243,6 @@ public class TBlocks {
         concrete_mixer = new GenericCrafter("concrete_mixer") {{
             requirements(Category.crafting, ItemStack.with(Items.copper, 60, Items.silicon, 12, Items.lead, 35));
             outputItems = ItemStack.with(TItems.concrete, 4, Items.scrap, 2);
-            hasPower = true;
             craftTime = 20.0F;
             size = 2;
             itemCapacity = 30;
@@ -277,43 +255,6 @@ public class TBlocks {
     }
 
     private static void loadDefenses() {
-        teslaCoil = new PowerTurret("tesla_coil") {
-            {
-                this.requirements(Category.turret, ItemStack.with(new Object[]{Items.copper, 400, Items.titanium, 100, TItems.battery, 32}));
-                this.range = 240.0F;
-                this.shoot.firstShotDelay = 60.0F;
-                this.recoil = 2.0F;
-                this.reload = 1800.0F;
-                this.shake = 3.0F;
-                this.shootEffect = Fx.lancerLaserShoot;
-                this.smokeEffect = Fx.none;
-                this.heatColor = Color.red;
-                this.size = 2;
-                this.scaledHealth = 320.0F;
-                this.targetAir = true;
-                this.targetGround = false;
-                this.moveWhileCharging = true;
-                this.accurateDelay = false;
-                this.shootSound = Sounds.laser;
-                this.consumePower(24.0F);
-                this.shootType = new LightningBulletType() {
-                    {
-                        this.damage = 600;
-                        this.chargeEffect = new MultiEffect(new Effect[]{Fx.lancerLaserCharge, Fx.lancerLaserChargeBegin});
-                        this.buildingDamageMultiplier = 0.01F;
-                        this.hitEffect = Fx.hitLancer;
-                        this.hitSize = 8.0F;
-                        this.lifetime = 16.0F;
-                        this.drawSize = 400.0F;
-                        this.collidesAir = true;
-                        this.collideFloor = false;
-                        this.collidesGround = false;
-                        this.ammoMultiplier = 1.0F;
-                        this.pierceCap = 8;
-                    }
-                };
-            }
-        };
         concrete_wall = new Wall("concrete_wall") {{
             requirements(Category.defense, ItemStack.with(TItems.concrete, 50));
             health = 320 * 3;
@@ -474,6 +415,41 @@ public class TBlocks {
     }
 
     private static void loadTurrets() {
+        teslaCoil = new PowerTurret("tesla_coil") {{
+            requirements(Category.turret, ItemStack.with(Items.copper, 400, Items.titanium, 100, TItems.battery, 100));
+            range = 240.0F;
+            shoot.firstShotDelay = 60.0F;
+            recoil = 2.0F;
+            reload = 1400.0F;
+            shake = 3.0F;
+            shootEffect = Fx.lancerLaserShoot;
+            smokeEffect = Fx.none;
+            heatColor = Color.red;
+            size = 2;
+            scaledHealth = 320.0F;
+            targetAir = true;
+            targetGround = false;
+            moveWhileCharging = true;
+            accurateDelay = false;
+            shootSound = Sounds.laser;
+            consumePower(24.0F);
+            shootType = new LightningBulletType() {
+                {
+                    damage = 600;
+                    chargeEffect = new MultiEffect(Fx.lancerLaserCharge, Fx.lancerLaserChargeBegin);
+                    buildingDamageMultiplier = 0.01F;
+                    hitEffect = Fx.hitLancer;
+                    hitSize = 8.0F;
+                    lifetime = 16.0F;
+                    drawSize = 400.0F;
+                    collidesAir = true;
+                    collideFloor = false;
+                    collidesGround = false;
+                    ammoMultiplier = 1.0F;
+                    pierceCap = 8;
+                }
+            };
+        }};
         RMG202 = new LiquidTurret("RMG202") {{
             requirements(Category.turret, with(TItems.tantalium, 700, TItems.tets_ingot, 125, Items.metaglass, 525, Items.graphite, 250));
             size = 2;
@@ -514,7 +490,7 @@ public class TBlocks {
             requirements(Category.turret, with(Items.lead, 200, Items.graphite, 25, Items.metaglass, 25, Items.copper, 125));
             size = 2;
             inaccuracy = 12;
-            reload = 3;
+            reload = 4;
             shootCone = 2;
             rotateSpeed = 3;
             shootSound = Sounds.pew;
@@ -528,13 +504,27 @@ public class TBlocks {
                         hitEffect = Fx.hitFlameSmall;
                     }},
                     Items.coal, new FireBulletType(4, 8) {{
-                        lifetime = 60;
+
+                        lifetime = 55;
                         reloadMultiplier = 0.9f;
                         hitSize = 7;
                         shootEffect = Fx.shootPyraFlame;
                         hitEffect = Fx.hitFlameSmall;
                         ammoMultiplier = 3;
                         status = StatusEffects.burning;
+                        pierce = true;
+                        keepVelocity = false;
+                        hittable = false;
+                    }},
+                    TItems.poop, new FlakBulletType(4.5f, 2) {{
+                        shoot = new ShootBarrel() {{
+                            barrels = new float[]{1.75f, 1.75f, 1.75f};
+                        }};
+                        shoot.shots = 3;
+                        splashDamage = 7;
+                        ammoMultiplier = 4;
+                        reloadMultiplier = 0.3333f;
+                        status = StatusEffects.slow;
                     }});
             alwaysUnlocked = true;
         }};
@@ -566,7 +556,7 @@ public class TBlocks {
                 }
             };
             range = 300;
-            ammo(TItems.bee, new MissileBulletType(1, 3.5f, "bee") {{
+            ammo(TItems.bee, new MissileBulletType(1, 3.5f, "tets-craft-mod-bee") {{
                         backColor = new Color(0, 0, 0, 0);
                         splashDamage = 15;
                         splashDamageRadius = 16;
@@ -581,7 +571,7 @@ public class TBlocks {
                         hitEffect = Fx.hitFlameSmall;
                         ammoMultiplier = 1f;
                     }},
-                    TItems.beeq, new MissileBulletType(0.6f, 8.5f, "beeq") {{
+                    TItems.beeq, new MissileBulletType(0.6f, 8.5f, "tets-craft-mod-beeq") {{
                         backColor = new Color(0, 0, 0, 0);
                         splashDamage = 41;
                         splashDamageRadius = 24;
@@ -624,7 +614,7 @@ public class TBlocks {
                         hitEffect = Fx.hitFlameSmall;
                         pierce = true;
                         pierceBuilding = true;
-                        pierceCap = 100;
+                        pierceCap = 10;
                         ammoMultiplier = 4;
                         fragBullets = 4;
                         fragBullet = new BasicBulletType(1.9f, 20) {{
@@ -638,7 +628,7 @@ public class TBlocks {
                             hitEffect = Fx.hitFlameSmall;
                             pierce = true;
                             pierceBuilding = true;
-                            pierceCap = 10;
+                            pierceCap = 5;
                         }};
                     }},
                     TItems.battery, new FlakBulletType(12, 10) {{
@@ -652,7 +642,7 @@ public class TBlocks {
                         width = 3;
                         height = 50;
                         hitEffect = Fx.hitFlameSmall;
-                        pierceCap = 25;
+                        pierceCap = 5;
                         ammoMultiplier = 1.4f;
                     }}
             );
@@ -694,16 +684,16 @@ public class TBlocks {
             alwaysUnlocked = true;
         }};
         bangun = new ItemTurret("bangun") {{
-            requirements(Category.turret, with(TItems.concrete, 150, TItems.tantalium, 135, TItems.tets_ingot, 60));
-            ammo(TItems.concrete, new ArtilleryBulletType(1.5f, 500, "shell") {{
+            requirements(Category.turret, with(TItems.concrete, 1500, TItems.tantalium, 334, TItems.tets_ingot, 160));
+            ammo(TItems.concrete, new ArtilleryBulletType(3.5f, 100, "shell") {{
                 knockback = 1f;
                 lifetime = 8000f;
                 width = height = 30f;
                 collidesTiles = false;
-                splashDamageRadius = 3000f;
+                splashDamageRadius = 400f;
                 hitEffect = Fx.blastExplosion;
                 splashDamage = 145f;
-                fragBullet = new BasicBulletType(3.5f, 115, "shell") {{
+                fragBullet = new FlakBulletType(3.5f, 115) {{
                     width = 10f;
                     height = 12f;
                     shrinkY = 1f;
@@ -711,7 +701,7 @@ public class TBlocks {
                     despawnEffect = Fx.absorb;
                     hitEffect = Fx.plasticExplosionFlak;
                     collidesAir = false;
-                    fragBullet = new BasicBulletType(1.5f, 15, "shell") {{
+                    fragBullet = new FlakBulletType(1.5f, 15) {{
                         width = 4f;
                         height = 5f;
                         shrinkY = 1f;
@@ -749,7 +739,7 @@ public class TBlocks {
                 splashDamageRadius = 4f;
                 hitEffect = Fx.blastExplosion;
                 splashDamage = 1f;
-                fragBullet = new BasicBulletType(4f, 3, "poop"){{
+                fragBullet = new BasicBulletType(4f, 3, "poop") {{
                     width = 5f;
                     height = 5f;
                     shrinkY = 1f;
@@ -757,7 +747,7 @@ public class TBlocks {
                     despawnEffect = Fx.absorb;
                     hitEffect = Fx.plasticExplosionFlak;
                     collidesAir = true;
-                    fragBullet = new BasicBulletType(2f, 3, "poop"){{
+                    fragBullet = new BasicBulletType(2f, 3, "poop") {{
                         width = 2f;
                         height = 2f;
                         shrinkY = 1f;
@@ -837,7 +827,7 @@ public class TBlocks {
 
     }
 
-    private static void loadMixins(){
+    private static void loadMixins() {
         ((UnitFactory) Blocks.groundFactory).plans.add(new UnitFactory.UnitPlan(TUnits.miniMiner, 2100.0F, ItemStack.with(new Object[]{Items.silicon, 40, Items.lead, 30})));
         ((UnitFactory) Blocks.airFactory).plans.add(new UnitFactory.UnitPlan(TUnits.UFO, 180.0F, ItemStack.with(new Object[]{Items.silicon, 5, TItems.battery, 2})));
     }
