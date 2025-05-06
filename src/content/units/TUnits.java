@@ -3,35 +3,73 @@ package content.units;
 import mindustry.ai.UnitCommand;
 import mindustry.ai.types.MinerAI;
 import mindustry.content.Fx;
-import mindustry.content.Items;
 import mindustry.content.StatusEffects;
 import mindustry.content.UnitTypes;
-import mindustry.ctype.Content;
-import mindustry.entities.Units;
+import mindustry.entities.bullet.BasicBulletType;
 import mindustry.entities.bullet.BombBulletType;
 import mindustry.gen.*;
 import mindustry.type.UnitType;
 import mindustry.type.Weapon;
-import mindustry.type.ammo.ItemAmmoType;
 import mindustry.type.ammo.PowerAmmoType;
 import mindustry.world.meta.BlockFlag;
 
 public class TUnits {
 
+    //Basic (T0)
+    public static UnitType UFO, walkingBaseUnit;
+
     //T1
-    public static UnitType UFO, miniMiner;
+    public static UnitType miniMiner, smallArtillery;
+
     //T2
-    public static UnitType UF1, mediMiner;
+    public static UnitType UF1_Energy, mediMiner, mediumArtillery;
+
     //T3
-    public static UnitType UF2;
+    public static UnitType UF2_Energy;
 
     public static void init(){
+        initBasicTier();
         initTier1();
         initTier2();
         initTier3();
     }
 
+    private static void initBasicTier(){
+        walkingBaseUnit = new UnitType("walking_unit_base") {
+            {
+                this.speed = 0.8F;
+                this.hitSize = 8.0F;
+                this.health = 50.0F;
+                constructor = UnitTypes.dagger.constructor;
+            }
+        };
+    }
+
     private static void initTier1(){
+        smallArtillery = new UnitType("small_artillery") {
+            {
+                this.speed = 0.6F;
+                this.hitSize = 8.0F;
+                this.health = 120.0F;
+                this.weapons.add(new Weapon("large-weapon") {
+                    {
+                        this.reload = 13.0F;
+                        this.x = 4.0F;
+                        this.y = 2.0F;
+                        this.top = false;
+                        this.ejectEffect = Fx.casing1;
+                        this.bullet = new BasicBulletType(2.5F, 9.0F) {
+                            {
+                                this.width = 7.0F;
+                                this.height = 9.0F;
+                                this.lifetime = 80.0F;
+                            }
+                        };
+                    }
+                });
+                constructor = UnitTypes.dagger.constructor;
+            }
+        };
         miniMiner = new UnitType("mini_miner") {
             {
                 this.defaultCommand = UnitCommand.mineCommand;
@@ -63,7 +101,31 @@ public class TUnits {
     }
 
     private static void initTier2(){
-        UF1 = new UnitType("uf1") {
+        mediumArtillery = new UnitType("medium_artillery") {
+            {
+                this.speed = 0.5F;
+                this.hitSize = 8.0F;
+                this.health = 150.0F;
+                this.weapons.add(new Weapon("large-weapon") {
+                    {
+                        this.reload = 16.0F;
+                        this.x = 4.0F;
+                        this.y = 2.0F;
+                        this.top = false;
+                        this.ejectEffect = Fx.casing1;
+                        this.bullet = new BasicBulletType(3.0F, 12.0F) {
+                            {
+                                this.width = 7.0F;
+                                this.height = 9.0F;
+                                this.lifetime = 120.0F;
+                            }
+                        };
+                    }
+                });
+                constructor = UnitTypes.dagger.constructor;
+            }
+        };
+        UF1_Energy = new UnitType("uf1_energy") {
             {
                 this.speed = 3.4F;
                 this.accel = 0.10F;
@@ -121,7 +183,7 @@ public class TUnits {
     }
 
     private static void initTier3(){
-        UF2 = new UnitType("uf2") {
+        UF2_Energy = new UnitType("uf2_energy") {
             {
                 this.speed = 3.2F;
                 this.accel = 0.8F;
