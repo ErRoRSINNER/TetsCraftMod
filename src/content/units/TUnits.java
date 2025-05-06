@@ -62,7 +62,8 @@ public class TUnits {
                             {
                                 this.width = 7.0F;
                                 this.height = 9.0F;
-                                this.lifetime = 50.0F;
+                                this.lifetime = 35.0F;
+                                buildingDamageMultiplier = 1.4f;
                             }
                         };
                     }
@@ -90,7 +91,7 @@ public class TUnits {
             {
                 this.speed = 3.8F;
                 this.accel = 0.12F;
-                this.drag = 1.0F;
+                this.drag = 0.05F;
                 this.flying = true;
                 this.health = 4.0F;
                 this.hitSize = 9.0F;
@@ -104,7 +105,7 @@ public class TUnits {
     private static void initTier2(){
         mediumArtillery = new UnitType("medium_artillery") {
             {
-                this.speed = 0.5F;
+                this.speed = 0.3F;
                 this.hitSize = 8.0F;
                 this.health = 150.0F;
                 this.weapons.add(new Weapon("large-weapon") {
@@ -118,7 +119,8 @@ public class TUnits {
                             {
                                 this.width = 7.0F;
                                 this.height = 9.0F;
-                                this.lifetime = 70.0F;
+                                this.lifetime = 60.0F;
+                                buildingDamageMultiplier = 1.6f;
                             }
                         };
                     }
@@ -145,13 +147,13 @@ public class TUnits {
                         this.minShootVelocity = 0.75F;
                         this.x = 3.0F;
                         this.shootY = 0.0F;
-                        this.reload = 6.0F;
-                        this.shootCone = 180.0F;
+                        this.reload = 5.0F;
+                        this.shootCone = 0.0F;
                         this.ejectEffect = Fx.teleport;
-                        this.inaccuracy = 15.0F;
+                        this.inaccuracy = 5.0F;
                         this.ignoreRotation = true;
                         this.shootSound = Sounds.none;
-                        this.bullet = new BombBulletType(40.0F, 6.0F) {
+                        this.bullet = new BombBulletType(60.0F, 16.0F) {
                             {
                                 this.width = 10.0F;
                                 this.height = 14.0F;
@@ -189,9 +191,9 @@ public class TUnits {
             {
                 this.speed = 3.2F;
                 this.accel = 0.8F;
-                this.drag = 0.F;
+                this.drag = 0.05F;
                 this.flying = true;
-                this.health = 420.0F;
+                this.health = 340.0F;
                 armor = 12f;
                 this.hitSize = 9.0F;
                 this.itemCapacity = 80;
@@ -204,13 +206,13 @@ public class TUnits {
                         this.minShootVelocity = 0.75F;
                         this.x = 3.0F;
                         this.shootY = 0.0F;
-                        this.reload = 4.0F;
-                        this.shootCone = 180.0F;
+                        this.reload = 4F;
+                        this.shootCone = 0.0F;
                         this.ejectEffect = Fx.teleport;
-                        this.inaccuracy = 15.0F;
+                        this.inaccuracy = 5.0F;
                         this.ignoreRotation = true;
                         this.shootSound = Sounds.none;
-                        this.bullet = new BombBulletType(90.0F, 9.0F) {
+                        this.bullet = new BombBulletType(70.0F, 32.0F) {
                             {
                                 this.width = 10.0F;
                                 this.height = 14.0F;
