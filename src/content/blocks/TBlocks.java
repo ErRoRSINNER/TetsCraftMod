@@ -794,17 +794,14 @@ public class TBlocks {
     }
 
     private static void loadDistributions() {
-        tetsBridge = new BufferedItemBridge("tets_bridge-conveyor") {
-            {
-                this.requirements(Category.distribution, ItemStack.with(new Object[]{TItems.battery, 4, TItems.tets_ingot, 4, TItems.concrete, 8}));
+        tetsBridge = new BufferedItemBridge("tets_bridge-conveyor") {{
+                this.requirements(Category.distribution, ItemStack.with(TItems.battery, 4, TItems.tets_ingot, 4, TItems.concrete, 8));
                 this.fadeIn = this.moveArrows = false;
                 this.range = 16;
                 this.speed = 30.0F;
                 this.arrowSpacing = 7.0F;
                 this.bufferCapacity = 28;
-                size = 2;
-            }
-        };
+            }};
         tets_conveyor = new Conveyor("tets-conveyor") {{
             requirements(Category.distribution, ItemStack.with(TItems.battery, 1, TItems.tets_ingot, 1, TItems.concrete, 1));
             itemCapacity = 4;
