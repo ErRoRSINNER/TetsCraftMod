@@ -43,7 +43,7 @@ public class TBlocks {
             estrella_de_platino, small_shield_projector, concrete_wall, concrete_wall_large, prav_wall, prav_wall_large, daew, poop_wall, battery_factory, bee_plant,
             concrete_mixer, crystalizer, shit_mixer, vermillion, tantalium_factory, mica_press, mercury_purificator, tetsonator, aacd_FIFNYA, hoover,
             beeshot, quick_fire, RMG202, superconductor_plant, absolute_zero, bingQiLingMixer, pravoslaviumMixer, tetsBridge, teslaCoil, copperPulverizer,
-            erekinator, serpulinator, bardovovizator;
+            erekinator, serpulinator, bardovovizator, apiary, composter;
 
     public static void load() {
         loadCrafting();
@@ -61,13 +61,13 @@ public class TBlocks {
     private static void loadCrafting() {
         bardovovizator = new GenericCrafter("bardovovizator") {{
             requirements(Category.crafting, ItemStack.with(Items.silicon, 30, TItems.tantalium, 70, TItems.concrete, 160, TItems.tets_ingot, 30, Items.metaglass, 130));
-            outputLiquid = new LiquidStack(TLiquids.super_cryofluid, 0.03f);
+            outputLiquid = new LiquidStack(TLiquids.red_mercury, 0.01f);
             craftTime = 40.0F;
             size = 2;
             drawer = new DrawMulti(new DrawDefault(), new DrawFade());
-            consumeLiquids(LiquidStack.with(TLiquids.mercury, 0.5f, Liquids.oil, 0.2f));
-            consumeItems(ItemStack.with(TItems.vermillion, 5, TItems.beeq, 1));
-            consumePower(4.7F);
+            consumeLiquids(LiquidStack.with(TLiquids.mercury, 0.4f, Liquids.oil, 0.1f));
+            consumeItems(ItemStack.with(TItems.vermillion, 5, TItems.bee, 1));
+            consumePower(7.7F);
             alwaysUnlocked = true;
         }};
         erekinator = new Separator("erekinator") {{
@@ -130,8 +130,8 @@ public class TBlocks {
             craftEffect = Fx.colorSparkBig;
             drawer = new DrawMulti(new DrawDefault(), new DrawFade());
             consumePower(0.4F);
-            consumeItems(ItemStack.with(Items.sporePod, 4));
-            consumeLiquids(LiquidStack.with(Liquids.water, 0.3f));
+            consumeItems(ItemStack.with(Items.sporePod, 2));
+            consumeLiquids(LiquidStack.with(Liquids.water, 0.15f));
             alwaysUnlocked = true;
         }};
         absolute_zero = new GenericCrafter("absolute_zero") {{
@@ -239,6 +239,27 @@ public class TBlocks {
             consumePower(0.2F);
             consumeItem(TItems.bing_qi_ling, 1);
             consumeLiquid(Liquids.water, 0.04F);
+            alwaysUnlocked = true;
+        }};
+        apiary = new GenericCrafter("apiary") {{
+            requirements(Category.crafting, ItemStack.with(Items.scrap, 60, Items.copper, 100, TItems.bing_qi_ling, 50));
+            craftTime = 500.0F;
+            liquidOutputDirections = new int[]{1, 3};
+            outputLiquids = LiquidStack.with(TLiquids.honey, 0.025f, Liquids.oil, 0.01f);
+            drawer = new DrawMulti(new DrawDefault());
+            consumeItems(ItemStack.with(TItems.bee, 10, TItems.beeq, 5, TItems.bing_qi_ling, 12));
+            consumeLiquid(Liquids.water, 0.035f);
+            size = 2;
+            alwaysUnlocked = true;
+        }};
+        composter = new GenericCrafter("composter") {{
+            requirements(Category.crafting, ItemStack.with(Items.scrap, 40, Items.copper, 40, TItems.bing_qi_ling, 25, TItems.poop, 300));
+            craftTime = 100.0F;
+            outputLiquid = new LiquidStack(Liquids.arkycite, 0.3f);
+            drawer = new DrawMulti(new DrawDefault());
+            consumeItems(ItemStack.with(TItems.bee, 3, TItems.poop, 10));
+            consumeLiquid(TLiquids.honey, 0.3f);
+            size = 2;
             alwaysUnlocked = true;
         }};
         mica_press = new GenericCrafter("mica-press") {{
@@ -811,7 +832,6 @@ public class TBlocks {
             requirements(Category.distribution, ItemStack.with(TItems.tets_ingot, 30, TItems.battery, 13, TItems.hyperalloy, 5));
             for (ItemStack stack : requirements) {
                 health += (int) ((stack.item.cost * stack.item.cost + 1) * stack.amount);
-
             }
             size = 1;
             range = 1280;
