@@ -909,12 +909,12 @@ public class TBlocks {
         //T3
         tetsMultiplicativeReconstructorEnergy = new Reconstructor("tets_multiplicative_reconstructor_energy") {
             {
-                this.requirements(Category.units, ItemStack.with(new Object[]{Items.carbide, 200, Items.lead, 120, Items.titanium, 80, TItems.battery, 80}));
+                this.requirements(Category.units, ItemStack.with(new Object[]{Items.tungsten, 200, Items.lead, 120, Items.titanium, 80, TItems.battery, 80}));
                 this.size = 5;
                 health = 1000;
                 this.consumePower(4.0F);
-                this.consumeItems(ItemStack.with(new Object[]{Items.beryllium, 80, Items.carbide, 60, TItems.battery, 40, TItems.tantalium, 40}));
-                this.consumeLiquid(Liquids.cryofluid, 1f);
+                this.consumeItems(ItemStack.with(new Object[]{Items.beryllium, 80, Items.tungsten, 60, TItems.battery, 40, TItems.tantalium, 20}));
+                //this.consumeLiquid(Liquids.cryofluid, 1f);
                 this.constructTime = 2400.0F;
                 this.upgrades.addAll(new UnitType[][]{{TUnits.UF1_Energy, TUnits.UF2_Energy}});
             }

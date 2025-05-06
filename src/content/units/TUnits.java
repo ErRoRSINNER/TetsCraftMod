@@ -58,11 +58,11 @@ public class TUnits {
                         this.y = 2.0F;
                         this.top = false;
                         this.ejectEffect = Fx.casing1;
-                        this.bullet = new BasicBulletType(2.5F, 9.0F) {
+                        this.bullet = new BasicBulletType(3.5F, 18.0F) {
                             {
                                 this.width = 7.0F;
                                 this.height = 9.0F;
-                                this.lifetime = 80.0F;
+                                this.lifetime = 50.0F;
                             }
                         };
                     }
@@ -81,6 +81,7 @@ public class TUnits {
                 this.ammoType = new PowerAmmoType(500.0F);
                 this.mineTier = 1;
                 this.mineSpeed = 3F;
+                this.itemCapacity = 60;
                 constructor = UnitTypes.dagger.constructor;
                 this.controller = (u) -> new MinerAI();
             }
@@ -89,7 +90,7 @@ public class TUnits {
             {
                 this.speed = 3.8F;
                 this.accel = 0.12F;
-                this.drag = 0.04F;
+                this.drag = 1.0F;
                 this.flying = true;
                 this.health = 4.0F;
                 this.hitSize = 9.0F;
@@ -108,16 +109,16 @@ public class TUnits {
                 this.health = 150.0F;
                 this.weapons.add(new Weapon("large-weapon") {
                     {
-                        this.reload = 16.0F;
+                        this.reload = 300.0F;
                         this.x = 4.0F;
                         this.y = 2.0F;
                         this.top = false;
                         this.ejectEffect = Fx.casing1;
-                        this.bullet = new BasicBulletType(3.0F, 12.0F) {
+                        this.bullet = new BasicBulletType(4.0F, 40.0F) {
                             {
                                 this.width = 7.0F;
                                 this.height = 9.0F;
-                                this.lifetime = 120.0F;
+                                this.lifetime = 70.0F;
                             }
                         };
                     }
@@ -176,6 +177,7 @@ public class TUnits {
                 this.ammoType = new PowerAmmoType(1000.0F);
                 this.mineTier = 2;
                 this.mineSpeed = 6F;
+                this.itemCapacity = 120;
                 constructor = UnitTypes.quasar.constructor;
                 this.controller = (u) -> new MinerAI();
             }
@@ -189,7 +191,7 @@ public class TUnits {
                 this.accel = 0.8F;
                 this.drag = 0.F;
                 this.flying = true;
-                this.health = 400.0F;
+                this.health = 420.0F;
                 armor = 12f;
                 this.hitSize = 9.0F;
                 this.itemCapacity = 80;
@@ -208,7 +210,7 @@ public class TUnits {
                         this.inaccuracy = 15.0F;
                         this.ignoreRotation = true;
                         this.shootSound = Sounds.none;
-                        this.bullet = new BombBulletType(70.0F, 8.0F) {
+                        this.bullet = new BombBulletType(90.0F, 9.0F) {
                             {
                                 this.width = 10.0F;
                                 this.height = 14.0F;
