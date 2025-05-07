@@ -1,6 +1,7 @@
 package content.blocks;
 
 import arc.graphics.Color;
+import arc.struct.Seq;
 import content.items.TItems;
 import content.liquids.TLiquids;
 import content.units.TUnits;
@@ -10,15 +11,9 @@ import mindustry.entities.effect.MultiEffect;
 import mindustry.entities.pattern.ShootBarrel;
 import mindustry.entities.pattern.ShootPattern;
 import mindustry.gen.Sounds;
-import mindustry.type.Category;
-import mindustry.type.ItemStack;
-import mindustry.type.LiquidStack;
-import mindustry.type.UnitType;
+import mindustry.type.*;
 import mindustry.world.Block;
-import mindustry.world.blocks.defense.ForceProjector;
-import mindustry.world.blocks.defense.OverdriveProjector;
-import mindustry.world.blocks.defense.ShieldWall;
-import mindustry.world.blocks.defense.Wall;
+import mindustry.world.blocks.defense.*;
 import mindustry.world.blocks.defense.turrets.ItemTurret;
 import mindustry.world.blocks.defense.turrets.LiquidTurret;
 import mindustry.world.blocks.defense.turrets.PowerTurret;
@@ -33,6 +28,7 @@ import mindustry.world.blocks.production.GenericCrafter;
 import mindustry.world.blocks.production.Separator;
 import mindustry.world.blocks.units.Reconstructor;
 import mindustry.world.blocks.units.UnitFactory;
+import mindustry.world.consumers.ConsumePayloads;
 import mindustry.world.draw.DrawDefault;
 import mindustry.world.draw.DrawFade;
 import mindustry.world.draw.DrawMulti;
@@ -47,6 +43,7 @@ public class TBlocks {
             beeshot, quick_fire, RMG202, superconductor_plant, absolute_zero, bingQiLingMixer, pravoslaviumMixer, tetsBridge, teslaCoil, copperPulverizer,
             erekinator, serpulinator, bardovovizator, apiary, composter, tetsBasicReconstructorEnergy, tetsBasicReconstructorAttack, tetsAdditiveReconstructorAttack,
             tetsAdditiveReconstructorEnergy, tetsMultiplicativeReconstructorEnergy, tetsore;
+    public static Block test1;
 
     public static void load() {
         loadCrafting();
@@ -402,12 +399,13 @@ public class TBlocks {
             consumePower(3.0F);
             alwaysUnlocked = true;
         }};
-        made_in_heaven = new OverdriveProjector("estrella_de_platino") {{
-            requirements(Category.effect, ItemStack.with(TItems.battery, 1, TItems.tets_ingot, 3, TItems.concrete, 10, TItems.superconductor, 12));
+        made_in_heaven = new OverdriveProjector("made_in_heaven") {{
+            requirements(Category.effect, ItemStack.with(TItems.battery, 800, TItems.tets_ingot, 100, TItems.concrete, 170, TItems.superconductor, 70));
             consumePower(5F);
             consumeItem(TItems.goddamm_ingot, 6).boost();
+            size = 3;
             speedBoostPhase = 0.87654321f;
-            phaseRangeBoost = 50;
+            phaseRangeBoost = 150;
             range = 800.0F;
             speedBoost = 2.5F;
             useTime = 400.0F;
