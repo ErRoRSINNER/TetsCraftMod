@@ -1,13 +1,13 @@
 package content.blocks;
 
 import arc.graphics.Color;
-import arc.struct.Seq;
 import content.items.TItems;
 import content.liquids.TLiquids;
 import content.units.TUnits;
 import mindustry.content.*;
 import mindustry.entities.bullet.*;
 import mindustry.entities.effect.MultiEffect;
+import mindustry.entities.part.RegionPart;
 import mindustry.entities.pattern.ShootBarrel;
 import mindustry.entities.pattern.ShootPattern;
 import mindustry.gen.Sounds;
@@ -28,11 +28,7 @@ import mindustry.world.blocks.production.GenericCrafter;
 import mindustry.world.blocks.production.Separator;
 import mindustry.world.blocks.units.Reconstructor;
 import mindustry.world.blocks.units.UnitFactory;
-import mindustry.world.consumers.ConsumePayloads;
-import mindustry.world.draw.DrawDefault;
-import mindustry.world.draw.DrawFade;
-import mindustry.world.draw.DrawMulti;
-import mindustry.world.draw.DrawRegion;
+import mindustry.world.draw.*;
 
 import static mindustry.type.ItemStack.with;
 
@@ -42,7 +38,7 @@ public class TBlocks {
             concrete_mixer, crystalizer, shit_mixer, vermillion, tantalium_factory, mica_press, mercury_purificator, tetsonator, aacd_FIFNYA, hoover,
             beeshot, quick_fire, RMG202, superconductor_plant, absolute_zero, bingQiLingMixer, pravoslaviumMixer, tetsBridge, teslaCoil, copperPulverizer,
             erekinator, serpulinator, bardovovizator, apiary, composter, tetsBasicReconstructorEnergy, tetsBasicReconstructorAttack, tetsAdditiveReconstructorAttack,
-            tetsAdditiveReconstructorEnergy, tetsMultiplicativeReconstructorEnergy, tetsore;
+            tetsAdditiveReconstructorEnergy, tetsMultiplicativeReconstructorEnergy, tetsOre, cirnoGun;
     public static Block test1;
 
     public static void load() {
@@ -421,7 +417,7 @@ public class TBlocks {
             oreScale = 15.3F;
             alwaysUnlocked = true;
         }};
-        tetsore = new OreBlock("tetsore", TItems.tets_coin) {{
+        tetsOre = new OreBlock("tetsore", TItems.tets_coin) {{
             oreDefault = true;
             oreThreshold = 0.7F;
             oreScale = 15.3F;
@@ -455,6 +451,45 @@ public class TBlocks {
     }
 
     private static void loadTurrets() {
+        cirnoGun = new LiquidTurret("cirno_gun"){{
+            //afflict
+            requirements(Category.turret, with(Items.titanium, 99, TItems.battery, 99, TItems.bing_qi_ling, 99, Items.graphite, 99));
+            size = 3;
+            range = 300;
+            reload = 6.0F;
+            velocityRnd = 0.0F;
+            inaccuracy = 5.0F;
+            recoil = 1.0F;
+            shootCone = 60.0F;
+            liquidCapacity = 150.0F;
+            shootEffect = Fx.shootLiquid;
+            ammo(Liquids.water, new LiquidBulletType(Liquids.water) {{
+                lifetime = 100.0F;
+                speed = 10.0F;
+                knockback = 0.0F;
+                puddleSize = 0.0F;
+                orbSize = 2.0F;
+                damage = 0.0F;
+                drag = 0.005F;
+                ammoMultiplier = 0.4F;
+                statusDuration = 240.0F;
+                status = StatusEffects.freezing;
+            }});
+
+            this.drawer = new DrawTurret("cirno_gun"){{
+                this.parts.add(new RegionPart("-barrel") {
+                    {
+                        this.progress = PartProgress.constant(1);
+                        this.mirror = false;
+                        this.under = false;
+                        this.moveX = 0.0F;
+                        this.moveY = 10.0F;
+                    }
+                });
+            }};
+            alwaysUnlocked = true;
+        }};
+
         teslaCoil = new PowerTurret("tesla_coil") {{
             requirements(Category.turret, ItemStack.with(Items.copper, 400, Items.titanium, 200, TItems.battery, 200));
             range = 240.0F;
