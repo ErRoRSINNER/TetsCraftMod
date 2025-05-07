@@ -42,10 +42,11 @@ import static mindustry.type.ItemStack.with;
 
 public class TBlocks {
     public static Block homoDrill, miniDrill, nihonDrill, tetsDrill, bangun, govnomet, teleporter, tets_conveyor, solpanel, tets_battery, crystal_powerblock,
-            estrella_de_platino, small_shield_projector, concrete_wall, concrete_wall_large, prav_wall, prav_wall_large, daew, poop_wall, battery_factory, bee_plant,
+            made_in_heaven, small_shield_projector, concrete_wall, concrete_wall_large, prav_wall, prav_wall_large, daew, poop_wall, battery_factory, bee_plant,
             concrete_mixer, crystalizer, shit_mixer, vermillion, tantalium_factory, mica_press, mercury_purificator, tetsonator, aacd_FIFNYA, hoover,
             beeshot, quick_fire, RMG202, superconductor_plant, absolute_zero, bingQiLingMixer, pravoslaviumMixer, tetsBridge, teslaCoil, copperPulverizer,
-            erekinator, serpulinator, bardovovizator, apiary, composter, tetsBasicReconstructorEnergy, tetsBasicReconstructorAttack, tetsAdditiveReconstructorAttack, tetsAdditiveReconstructorEnergy, tetsMultiplicativeReconstructorEnergy;
+            erekinator, serpulinator, bardovovizator, apiary, composter, tetsBasicReconstructorEnergy, tetsBasicReconstructorAttack, tetsAdditiveReconstructorAttack,
+            tetsAdditiveReconstructorEnergy, tetsMultiplicativeReconstructorEnergy, tetsore;
 
     public static void load() {
         loadCrafting();
@@ -105,10 +106,10 @@ public class TBlocks {
             updateEffect = Fx.pulverizeSmall;
             hasItems = this.hasPower = true;
             drawer = new DrawMulti(new DrawDefault(), new DrawRegion("-rotator", 3, true), new DrawRegion("-top"));
-            this.ambientSound = Sounds.grinding;
-            this.ambientSoundVolume = 0.025F;
-            this.consumeItem(Items.copper, 3);
-            this.consumePower(0.45F);
+            ambientSound = Sounds.grinding;
+            ambientSoundVolume = 0.025F;
+            consumeItem(Items.copper, 3);
+            consumePower(0.45F);
             alwaysUnlocked = true;
         }};
         pravoslaviumMixer = new GenericCrafter("pravoslavium_mixer") {{
@@ -119,7 +120,7 @@ public class TBlocks {
             health = 800;
             craftEffect = Fx.lightningCharge;
             drawer = new DrawMulti(new DrawDefault(), new DrawRegion("-rotator", 0.4f, true));
-            consumeLiquid(Liquids.water, 0.5f);
+            consumeLiquid(Liquids.water, 0.4f);
             consumePower(1F);
             consumeItems(ItemStack.with(TItems.tets_coin, 8));
             alwaysUnlocked = true;
@@ -169,7 +170,7 @@ public class TBlocks {
             drawer = new DrawMulti(new DrawDefault(), new DrawRegion("-rotator", 1.1f, true));
             consumeLiquid(Liquids.water, 0.33f);
             consumePower(0.07F);
-            consumeItems(ItemStack.with(Items.coal, 2, Items.sporePod, 3, Items.lead, 2, Items.copper, 1));
+            consumeItems(ItemStack.with(Items.coal, 2, Items.sporePod, 3, Items.lead, 1, Items.copper, 1));
             alwaysUnlocked = true;
         }};
         battery_factory = new GenericCrafter("battery_factory") {{
@@ -182,6 +183,7 @@ public class TBlocks {
             drawer = new DrawMulti(new DrawDefault(), new DrawFade());
             consumePower(1.2F);
             consumeItems(ItemStack.with(Items.coal, 2, Items.silicon, 2, Items.lead, 2, Items.copper, 1));
+            consumeLiquid(Liquids.water, 0.066f);
             alwaysUnlocked = true;
         }};
         tetsonator = new GenericCrafter("tetsonator") {{
@@ -226,7 +228,7 @@ public class TBlocks {
             requirements(Category.crafting, ItemStack.with(Items.copper, 30, Items.graphite, 15, Items.metaglass, 10));
             craftTime = 30.0F;
             size = 2;
-            outputLiquid = new LiquidStack(TLiquids.mercury, 0.01f);
+            outputLiquid = new LiquidStack(TLiquids.mercury, 0.033f);
             health = 120;
             drawer = new DrawMulti(new DrawDefault(), new DrawFade());
             consumeItems(ItemStack.with(TItems.vermillion, 2));
@@ -234,13 +236,13 @@ public class TBlocks {
         }};
         bee_plant = new Separator("bee-plant") {{
             requirements(Category.crafting, ItemStack.with(Items.scrap, 40, Items.copper, 100, Items.graphite, 50, Items.silicon, 5));
-            results = ItemStack.with(TItems.bee, 10, TItems.beeq, 1);
-            craftTime = 60.0F;
+            results = ItemStack.with(TItems.bee, 7, TItems.beeq, 1);
+            craftTime = 180.0F;
             size = 3;
             itemCapacity = 20;
             drawer = new DrawMulti(new DrawDefault(), new DrawFade());
             consumePower(0.2F);
-            consumeItem(TItems.bing_qi_ling, 1);
+            consumeItem(TItems.bing_qi_ling, 2);
             consumeLiquid(Liquids.water, 0.04F);
             alwaysUnlocked = true;
         }};
@@ -250,7 +252,7 @@ public class TBlocks {
             liquidOutputDirections = new int[]{1, 3};
             outputLiquids = LiquidStack.with(TLiquids.honey, 0.025f, Liquids.oil, 0.01f);
             drawer = new DrawMulti(new DrawDefault());
-            consumeItems(ItemStack.with(TItems.bee, 10, TItems.beeq, 5, TItems.bing_qi_ling, 12));
+            consumeItems(ItemStack.with(TItems.bee, 10, TItems.beeq, 5, TItems.bing_qi_ling, 4));
             consumeLiquid(Liquids.water, 0.035f);
             size = 2;
             alwaysUnlocked = true;
@@ -400,29 +402,33 @@ public class TBlocks {
             consumePower(3.0F);
             alwaysUnlocked = true;
         }};
-        estrella_de_platino = new OverdriveProjector("estrella_de_platino") {{
+        made_in_heaven = new OverdriveProjector("estrella_de_platino") {{
             requirements(Category.effect, ItemStack.with(TItems.battery, 1, TItems.tets_ingot, 3, TItems.concrete, 10, TItems.superconductor, 12));
-            consumePower(3F);
-            consumeItem(TItems.bee, 5).boost();
-            speedBoostPhase = 0.2f;
-            phaseRangeBoost = 10;
-            range = 45.0F;
-            speedBoost = 1.5F;
+            consumePower(5F);
+            consumeItem(TItems.goddamm_ingot, 6).boost();
+            speedBoostPhase = 0.87654321f;
+            phaseRangeBoost = 50;
+            range = 800.0F;
+            speedBoost = 2.5F;
             useTime = 400.0F;
-            consumeItems(ItemStack.with(TItems.battery, 1));
+            consumeItems(ItemStack.with(TItems.bee, 2));
             alwaysUnlocked = true;
         }};
     }
 
     private static void loadOres() {
-        vermillion = new OreBlock("vermillion", TItems.vermillion) {
-            {
-                this.oreDefault = true;
-                this.oreThreshold = 0.9F;
-                this.oreScale = 15.3F;
-                alwaysUnlocked = true;
-            }
-        };
+        vermillion = new OreBlock("vermillion", TItems.vermillion) {{
+            oreDefault = true;
+            oreThreshold = 0.9F;
+            oreScale = 15.3F;
+            alwaysUnlocked = true;
+        }};
+        tetsore = new OreBlock("tetsore", TItems.tets_coin) {{
+            oreDefault = true;
+            oreThreshold = 0.7F;
+            oreScale = 15.3F;
+            alwaysUnlocked = true;
+        }};
     }
 
     private static void loadPower() {
@@ -722,12 +728,12 @@ public class TBlocks {
         bangun = new ItemTurret("bangun") {{
             requirements(Category.turret, with(TItems.concrete, 1500, TItems.tantalium, 334, TItems.tets_ingot, 160));
             ammo(TItems.concrete, new ArtilleryBulletType(3.5f, 100, "shell") {{
-                knockback = 1f;
+                knockback = 4f;
                 lifetime = 8000f;
                 width = height = 30f;
                 collidesTiles = false;
                 splashDamageRadius = 400f;
-                hitEffect = Fx.blastExplosion;
+                hitEffect = Fx.explosion;
                 splashDamage = 145f;
                 fragBullet = new FlakBulletType(3.5f, 115) {{
                     width = 10f;
@@ -752,13 +758,13 @@ public class TBlocks {
             targetAir = false;
             size = 8;
             range = 1000;
-            minRange = 100f;
+            minRange = 70f;
             rotateSpeed = 0.15f;
             inaccuracy = 10f;
             reload = 360f;
             ammoEjectBack = 50f;
             ammoUseEffect = Fx.casing3Double;
-            ammoPerShot = 4;
+            ammoPerShot = 10;
             velocityRnd = 0.7f;
             recoil = 9f;
             shake = 5f;
@@ -816,13 +822,13 @@ public class TBlocks {
 
     private static void loadDistributions() {
         tetsBridge = new BufferedItemBridge("tets_bridge-conveyor") {{
-                this.requirements(Category.distribution, ItemStack.with(TItems.battery, 4, TItems.tets_ingot, 4, TItems.concrete, 8));
-                this.fadeIn = this.moveArrows = false;
-                this.range = 16;
-                this.speed = 30.0F;
-                this.arrowSpacing = 7.0F;
-                this.bufferCapacity = 28;
-            }};
+            this.requirements(Category.distribution, ItemStack.with(TItems.battery, 4, TItems.tets_ingot, 4, TItems.concrete, 8));
+            this.fadeIn = this.moveArrows = false;
+            this.range = 16;
+            this.speed = 30.0F;
+            this.arrowSpacing = 7.0F;
+            this.bufferCapacity = 28;
+        }};
         tets_conveyor = new Conveyor("tets-conveyor") {{
             requirements(Category.distribution, ItemStack.with(TItems.battery, 1, TItems.tets_ingot, 1, TItems.concrete, 1));
             itemCapacity = 4;
@@ -856,7 +862,7 @@ public class TBlocks {
         }};
     }
 
-    private static void loadUnits(){
+    private static void loadUnits() {
         //T1
         tetsBasicReconstructorAttack = new Reconstructor("tets_basic_reconstructor_attack") {
             {
