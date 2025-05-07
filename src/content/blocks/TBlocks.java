@@ -867,6 +867,7 @@ public class TBlocks {
                 this.consumeItems(ItemStack.with(new Object[]{Items.pyratite, 10, Items.silicon, 10}));
                 this.constructTime = 300.0F;
                 this.upgrades.addAll(new UnitType[][]{{TUnits.walkingBaseUnit, TUnits.smallArtillery}});
+                alwaysUnlocked = true;
             }
         };
         tetsBasicReconstructorEnergy = new Reconstructor("tets_basic_reconstructor_energy") {
@@ -878,6 +879,7 @@ public class TBlocks {
                 this.consumeItems(ItemStack.with(new Object[]{TItems.battery, 5, Items.graphite, 10}));
                 this.constructTime = 300.0F;
                 this.upgrades.addAll(new UnitType[][]{{TUnits.walkingBaseUnit, TUnits.miniMiner}});
+                alwaysUnlocked = true;
             }
         };
 
@@ -892,6 +894,7 @@ public class TBlocks {
                 this.consumeItems(ItemStack.with(new Object[]{Items.titanium, 10, Items.silicon, 20, Items.blastCompound, 20}));
                 this.constructTime = 1200.0F;
                 this.upgrades.addAll(new UnitType[][]{{TUnits.smallArtillery, TUnits.mediumArtillery}});
+                alwaysUnlocked = true;
             }
         };
         tetsAdditiveReconstructorEnergy = new Reconstructor("tets_additive_reconstructor_energy") {
@@ -903,6 +906,7 @@ public class TBlocks {
                 this.consumeItems(ItemStack.with(new Object[]{Items.beryllium, 10, Items.graphite, 20, TItems.battery, 40}));
                 this.constructTime = 1200.0F;
                 this.upgrades.addAll(new UnitType[][]{{TUnits.UFO, TUnits.UF1_Energy}, {TUnits.miniMiner, TUnits.mediMiner}});
+                alwaysUnlocked = true;
             }
         };
 
@@ -917,6 +921,7 @@ public class TBlocks {
                 //this.consumeLiquid(Liquids.cryofluid, 1f);
                 this.constructTime = 2400.0F;
                 this.upgrades.addAll(new UnitType[][]{{TUnits.UF1_Energy, TUnits.UF2_Energy}});
+                alwaysUnlocked = true;
             }
         };
     }
