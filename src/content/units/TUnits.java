@@ -149,8 +149,8 @@ public class TUnits {
                 this.engineOffset = 7.8F;
                 this.targetFlags = new BlockFlag[]{BlockFlag.unitAssembler, null};
                 constructor = UnitTypes.poly.constructor;
-                this.ammoType = new PowerAmmoType(300);
-                this.ammoCapacity = 30;
+                this.ammoType = new PowerAmmoType(1000);
+                this.ammoCapacity = 10;
                 this.circleTarget = true;
                 this.weapons.add(new Weapon() {
                     {
@@ -212,8 +212,8 @@ public class TUnits {
                 this.engineOffset = 7.8F;
                 this.targetFlags = new BlockFlag[]{BlockFlag.battery, null};
                 constructor = UnitTypes.poly.constructor;
-                this.ammoType = new PowerAmmoType(300);
-                this.ammoCapacity = 60;
+                this.ammoType = new PowerAmmoType(3500);
+                this.ammoCapacity = 20;
                 this.circleTarget = true;
                 this.weapons.add(new Weapon() {
                     {
