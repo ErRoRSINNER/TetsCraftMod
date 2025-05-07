@@ -5,6 +5,7 @@ import mindustry.ai.types.MinerAI;
 import mindustry.content.Fx;
 import mindustry.content.StatusEffects;
 import mindustry.content.UnitTypes;
+import mindustry.entities.bullet.ArtilleryBulletType;
 import mindustry.entities.bullet.BasicBulletType;
 import mindustry.entities.bullet.BombBulletType;
 import mindustry.gen.*;
@@ -53,12 +54,12 @@ public class TUnits {
                 this.health = 120.0F;
                 this.weapons.add(new Weapon("large-weapon") {
                     {
-                        this.reload = 13.0F;
+                        this.reload = 200.0F;
                         this.x = 4.0F;
                         this.y = 2.0F;
                         this.top = false;
                         this.ejectEffect = Fx.casing1;
-                        this.bullet = new BasicBulletType(3.5F, 18.0F) {
+                        this.bullet = new BasicBulletType(3.5F, 35.0F) {
                             {
                                 this.width = 7.0F;
                                 this.height = 9.0F;
@@ -98,6 +99,7 @@ public class TUnits {
                 this.itemCapacity = 40;
                 this.engineOffset = 5.75F;
                 constructor = UnitTypes.poly.constructor;
+                this.circleTarget = true;
             }
         };
     }
@@ -115,12 +117,17 @@ public class TUnits {
                         this.y = 2.0F;
                         this.top = false;
                         this.ejectEffect = Fx.casing1;
-                        this.bullet = new BasicBulletType(4.0F, 40.0F) {
+                        this.bullet = new ArtilleryBulletType(4.0F, 50.0F) {
                             {
                                 this.width = 7.0F;
                                 this.height = 9.0F;
                                 this.lifetime = 60.0F;
+                                this.scaleLife = false;
+                                this.splashDamagePierce = true;
+                                this.splashDamageRadius = 16;
+                                this.splashDamage = this.damage/2.3f;
                                 buildingDamageMultiplier = 1.6f;
+
                             }
                         };
                     }
@@ -141,7 +148,8 @@ public class TUnits {
                 this.engineOffset = 7.8F;
                 this.targetFlags = new BlockFlag[]{BlockFlag.unitAssembler, null};
                 constructor = UnitTypes.poly.constructor;
-                this.ammoType = new PowerAmmoType(1500);
+                this.ammoType = new PowerAmmoType(9000);
+                this.circleTarget = true;
                 this.weapons.add(new Weapon() {
                     {
                         this.minShootVelocity = 0.75F;
@@ -153,7 +161,7 @@ public class TUnits {
                         this.inaccuracy = 5.0F;
                         this.ignoreRotation = true;
                         this.shootSound = Sounds.none;
-                        this.bullet = new BombBulletType(60.0F, 16.0F) {
+                        this.bullet = new BombBulletType(120.0F, 16.0F) {
                             {
                                 this.width = 10.0F;
                                 this.height = 14.0F;
@@ -162,6 +170,7 @@ public class TUnits {
                                 this.smokeEffect = Fx.none;
                                 this.status = StatusEffects.shocked;
                                 this.statusDuration = 120.0F;
+                                buildingDamageMultiplier = 1.3f;
                             }
                         };
                     }
@@ -200,7 +209,8 @@ public class TUnits {
                 this.engineOffset = 7.8F;
                 this.targetFlags = new BlockFlag[]{BlockFlag.battery, null};
                 constructor = UnitTypes.poly.constructor;
-                this.ammoType = new PowerAmmoType(1500);
+                this.ammoType = new PowerAmmoType(15000);
+                this.circleTarget = true;
                 this.weapons.add(new Weapon() {
                     {
                         this.minShootVelocity = 0.75F;
@@ -212,7 +222,7 @@ public class TUnits {
                         this.inaccuracy = 5.0F;
                         this.ignoreRotation = true;
                         this.shootSound = Sounds.none;
-                        this.bullet = new BombBulletType(70.0F, 32.0F) {
+                        this.bullet = new BombBulletType(140.0F, 32.0F) {
                             {
                                 this.width = 10.0F;
                                 this.height = 14.0F;
@@ -221,6 +231,7 @@ public class TUnits {
                                 this.smokeEffect = Fx.none;
                                 this.status = StatusEffects.shocked;
                                 this.statusDuration = 120.0F;
+                                buildingDamageMultiplier = 1.4f;
                             }
                         };
                     }
