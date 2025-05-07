@@ -21,7 +21,7 @@ public class TItems {
         beeq = new Item("beeq", Color.valueOf("fdaa00")) {{
             cost = 1.5f;
         }};
-        bing_qi_ling = new Item("bing_qi_ling", Color.valueOf("#EBEBEB")) {{
+        bing_qi_ling = new Item("bing_qi_ling", Color.valueOf("#fffdd0")) {{
             cost = 0.2f;
         }};
         capsule_of_oxigen = new Item("capsule_of_oxigen", Color.valueOf("#6dd5f8")) {{
