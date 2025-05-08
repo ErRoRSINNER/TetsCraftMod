@@ -98,6 +98,7 @@ public class TUnits {
                 this.hitSize = 9.0F;
                 this.itemCapacity = 40;
                 this.engineOffset = 5.75F;
+                lightRadius = 64;
                 constructor = UnitTypes.poly.constructor;
                 this.circleTarget = true;
             }

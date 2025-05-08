@@ -520,25 +520,36 @@ public class TBlocks {
             setHealth(this);
             size = 3;
             range = 300;
-            reload = 6.0F;
+            reload = 4.0F;
             velocityRnd = 0.0F;
             inaccuracy = 5.0F;
             recoil = 1.0F;
             shootCone = 60.0F;
             liquidCapacity = 150.0F;
             shootEffect = Fx.shootLiquid;
-            ammo(Liquids.water, new LiquidBulletType(Liquids.cryofluid) {{
-                lifetime = 100.0F;
-                speed = 10.0F;
+            ammo(Liquids.water, new PointLaserBulletType() {{
+                //lifetime = 40.0F;
+                //speed = 300f/40f;
+                //speed = range;
+                knockback = 0.0F;
+                damage = 0.0F;
+                //drag = 0.005F;
+                ammoMultiplier = 0.3F;
+                statusDuration = 540.0F;
+                status = StatusEffects.freezing;
+            }});
+            /*ammo(Liquids.water, new LiquidBulletType(Liquids.cryofluid) {{
+                lifetime = 40.0F;
+                speed = 300f/40f;
                 knockback = 0.0F;
                 puddleSize = 0.0F;
-                orbSize = 2.0F;
+                orbSize = 3.0F;
                 damage = 0.0F;
                 drag = 0.005F;
                 ammoMultiplier = 0.3F;
                 statusDuration = 540.0F;
                 status = StatusEffects.freezing;
-            }});
+            }})*/;
 
             this.drawer = new DrawTurret("cirno_gun") {{
                 this.parts.add(new RegionPart("-barrel") {
@@ -547,7 +558,39 @@ public class TBlocks {
                         this.mirror = false;
                         this.under = false;
                         this.moveX = 0.0F;
+                        this.moveY = 12.0F;
+                    }
+                }, new RegionPart("-wing") {
+                    {
+                        this.progress = PartProgress.warmup;
+                        this.mirror = true;
+                        this.under = false;
+                        this.moveX = -17.0F;
+                        this.moveY = 0.0F;
+                        this.xScl = 1.8f;
+                        this.yScl = 1.8f;
+                    }
+                }, new RegionPart("-wing") {
+                    {
+                        this.progress = PartProgress.warmup;
+                        this.mirror = true;
+                        this.under = false;
+                        this.moveRot = -45f; //Upper Pair
+                        this.moveX = -17.0F;
                         this.moveY = 10.0F;
+                        this.xScl = 1.8f;
+                        this.yScl = 1.8f;
+                    }
+                }, new RegionPart("-wing") {
+                    {
+                        this.progress = PartProgress.warmup;
+                        this.mirror = true;
+                        this.under = false;
+                        this.moveRot = 45f; //Lower pair
+                        this.moveX = -17.0F;
+                        this.moveY = -10.0F;
+                        this.xScl = 1.8f;
+                        this.yScl = 1.8f;
                     }
                 });
             }};
@@ -908,23 +951,23 @@ public class TBlocks {
                 lifetime = 800f;
                 width = height = 10f;
                 collidesTiles = false;
-                splashDamageRadius = 4f;
+                splashDamageRadius = 16f;
                 hitEffect = Fx.blastExplosion;
-                splashDamage = 1f;
+                splashDamage = 4f;
                 fragBullet = new BasicBulletType(4f, 3, "poop") {{
                     width = 5f;
                     height = 5f;
                     shrinkY = 1f;
                     lifetime = 30f;
                     despawnEffect = Fx.absorb;
-                    hitEffect = Fx.plasticExplosionFlak;
+                    hitEffect = Fx.blastExplosion;
                     collidesAir = true;
                     fragBullet = new BasicBulletType(2f, 3, "poop") {{
                         width = 2f;
                         height = 2f;
                         shrinkY = 1f;
                         lifetime = 15f;
-                        despawnEffect = Fx.flakExplosionBig;
+                        despawnEffect = Fx.blastExplosion;
                         collidesAir = true;
                     }};
                     fragBullets = 5;
@@ -1028,11 +1071,11 @@ public class TBlocks {
         };
         tetsAdditiveReconstructorEnergy = new Reconstructor("tets_additive_reconstructor_energy") {
             {
-                this.requirements(Category.units, ItemStack.with(Items.copper, 200, Items.lead, 120, Items.titanium, 80, TItems.battery, 80));
+                this.requirements(Category.units, ItemStack.with(Items.copper, 200, Items.lead, 120, Items.titanium, 80, TItems.battery, 160, TItems.tantalium, 100));
                 this.size = 3;
                 health = 600;
                 this.consumePower(3.0F);
-                this.consumeItems(ItemStack.with(Items.beryllium, 10, Items.graphite, 20, TItems.battery, 40));
+                this.consumeItems(ItemStack.with(Items.beryllium, 10, Items.graphite, 20, TItems.battery, 80));
                 this.constructTime = 1200.0F;
                 this.upgrades.addAll(new UnitType[][]{{TUnits.UFO, TUnits.UF1_Energy}, {TUnits.miniMiner, TUnits.mediMiner}});
                 alwaysUnlocked = true;
@@ -1042,11 +1085,11 @@ public class TBlocks {
         //T3
         tetsMultiplicativeReconstructorEnergy = new Reconstructor("tets_multiplicative_reconstructor_energy") {
             {
-                this.requirements(Category.units, ItemStack.with(Items.tungsten, 200, Items.lead, 120, Items.titanium, 80, TItems.battery, 80));
+                this.requirements(Category.units, ItemStack.with(Items.tungsten, 400, Items.lead, 240, Items.titanium, 200, TItems.battery, 250, TItems.tantalium, 200));
                 this.size = 5;
                 health = 1000;
                 this.consumePower(4.0F);
-                this.consumeItems(ItemStack.with(Items.beryllium, 80, Items.tungsten, 60, TItems.battery, 40, TItems.tantalium, 20));
+                this.consumeItems(ItemStack.with(Items.beryllium, 80, Items.tungsten, 60, TItems.battery, 120, TItems.tantalium, 40));
                 //this.consumeLiquid(Liquids.cryofluid, 1f);
                 this.constructTime = 2400.0F;
                 this.upgrades.addAll(new UnitType[][]{{TUnits.UF1_Energy, TUnits.UF2_Energy}});
@@ -1061,7 +1104,7 @@ public class TBlocks {
 
     private static void loadMixins() {
         ((UnitFactory) Blocks.groundFactory).plans.add(new UnitFactory.UnitPlan(TUnits.walkingBaseUnit, 2100.0F, ItemStack.with(Items.silicon, 30, Items.lead, 30, Items.copper, 30)));
-        ((UnitFactory) Blocks.airFactory).plans.add(new UnitFactory.UnitPlan(TUnits.UFO, 180.0F, ItemStack.with(Items.silicon, 5, TItems.battery, 2)));
+        ((UnitFactory) Blocks.airFactory).plans.add(new UnitFactory.UnitPlan(TUnits.UFO, 230.0F, ItemStack.with(Items.silicon, 5, TItems.battery, 2)));
     }
 
     private static void setHealth(Block block) {
