@@ -8,12 +8,10 @@ public class TItems {
             mica, nihonium, pingwan, poop, superconductor, tantalium, tets_ingot, vermillion, bing_qi_ling, tets_coin;
 
     public static void load() {
-        tets_coin = new Item("tets_coin", Color.valueOf("fef37c")) {{
-            cost = 1;
-        }};
+        tets_coin = new Item("tets_coin", Color.valueOf("fef37c"));
         battery = new Item("battery", Color.valueOf("9badb7")) {{
             charge = 1.5f;
-            cost = 3;
+            cost = 2;
         }};
         bee = new Item("bee", Color.valueOf("fdff00")) {{
             cost = 0.5f;
@@ -35,7 +33,7 @@ public class TItems {
             buildable = false;
         }};
         crystal = new Item("crystal", Color.valueOf("C6F4FF")) {{
-            cost = 5;
+            cost = 3;
             radioactivity = 0.1f;
             healthScaling = 1f;
         }};
@@ -74,14 +72,14 @@ public class TItems {
             explosiveness = 0.5f;
         }};
         superconductor = new Item("superconductor", Color.valueOf("2fc791")) {{
-            cost = 1.2f;
+            cost = 1.3f;
             charge = 0.2f;
         }};
         tantalium = new Item("tantalium", Color.valueOf("7496a7")) {{
-            cost = 1.01f;
+            cost = 1.2f;
         }};
         tets_ingot = new Item("tets_ingot", Color.valueOf("53e6a4")) {{
-            cost = 1.98f;
+            cost = 3f;
         }};
         vermillion = new Item("vermillion", Color.valueOf("e04938")) {{
             buildable = false;
