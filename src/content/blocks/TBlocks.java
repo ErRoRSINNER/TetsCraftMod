@@ -14,10 +14,12 @@ import mindustry.entities.pattern.ShootAlternate;
 import mindustry.entities.pattern.ShootBarrel;
 import mindustry.entities.pattern.ShootPattern;
 import mindustry.gen.Sounds;
+import mindustry.graphics.Pal;
 import mindustry.type.*;
 import mindustry.world.Block;
 import mindustry.world.blocks.defense.*;
 import mindustry.world.blocks.defense.turrets.ItemTurret;
+import mindustry.world.blocks.defense.turrets.LaserTurret;
 import mindustry.world.blocks.defense.turrets.LiquidTurret;
 import mindustry.world.blocks.defense.turrets.PowerTurret;
 import mindustry.world.blocks.distribution.BufferedItemBridge;
@@ -34,6 +36,7 @@ import mindustry.world.blocks.units.Reconstructor;
 import mindustry.world.blocks.units.UnitFactory;
 import mindustry.world.consumers.ConsumeCoolant;
 import mindustry.world.consumers.ConsumeItemFilter;
+import mindustry.world.consumers.ConsumeLiquid;
 import mindustry.world.draw.*;
 
 import static mindustry.type.ItemStack.with;
@@ -44,7 +47,7 @@ public class TBlocks {
             concrete_mixer, crystalizer, shit_mixer, vermillion, tantalium_factory, mica_press, mercury_purificator, tetsonator, aacd_FIFNYA, hoover,
             beeshot, quick_fire, RMG202, superconductor_plant, absolute_zero, bingQiLingMixer, pravoslaviumMixer, tetsBridge, teslaCoil, copperPulverizer,
             erekinator, serpulinator, bardovovizator, apiary, composter, tetsBasicReconstructorEnergy, tetsBasicReconstructorAttack, tetsAdditiveReconstructorAttack,
-            tetsAdditiveReconstructorEnergy, tetsMultiplicativeReconstructorEnergy, tetsOre, cirnoGun, tantal_router, goddamn_gun;
+            tetsAdditiveReconstructorEnergy, tetsMultiplicativeReconstructorEnergy, tetsOre, cirnoGun, tantal_router, goddamn_gun, tantal_mine;
     public static Block test1;
 
     public static void load() {
@@ -59,6 +62,91 @@ public class TBlocks {
         loadUnits();
         loadOther();
         loadMixins();
+        test1 = new LaserTurret("cirno_gunv") {
+            {
+                this.firingMoveFract = 1.5F;
+                this.shootDuration = 230.0F;
+                this.shootSound = Sounds.laserbig;
+                this.loopSound = Sounds.beam;
+                this.loopSoundVolume = 1.0F;
+                this.envEnabled |= 2;
+
+                requirements(Category.turret, with(Items.titanium, 999, TItems.battery, 999, TItems.bing_qi_ling, 999, Items.graphite, 999));
+                setHealth(this);
+
+                size = 3;
+                range = 300;
+                reload = 4.0F;
+                velocityRnd = 0.0F;
+                inaccuracy = 5.0F;
+                recoil = 1.0F;
+                shootCone = 60.0F;
+                liquidCapacity = 150.0F;
+                shootEffect = Fx.shootLiquid;
+                coolant = new ConsumeLiquid(Liquids.water, 0.1f);
+                linearWarmup = true;
+                this.shootType = new ContinuousLaserBulletType(78.0F) {
+                    {
+                        this.length = 300.0F;
+                        this.hitEffect = Fx.hitLaser;
+                        this.hitColor = Pal.techBlue;
+                        this.status = StatusEffects.freezing;
+                        this.drawSize = 420.0F;
+                        this.incendChance = 0.4F;
+                        this.incendSpread = 5.0F;
+                        this.incendAmount = 1;
+                        this.ammoMultiplier = 1.0F;
+                        colors = new Color[]{Liquids.cryofluid.color, Liquids.water.color, Liquids.cryofluid.gasColor};
+                        width = 3;
+                    }
+                };
+                this.scaledHealth = 200.0F;
+                this.consumePower(17.0F);
+                this.drawer = new DrawTurret("cirno_gun") {{
+                    this.parts.add(new RegionPart("-barrel") {
+                        {
+                            this.progress = PartProgress.constant(1);
+                            this.mirror = false;
+                            this.under = false;
+                            this.moveX = 0.0F;
+                            this.moveY = 12.0F;
+                        }
+                    }, new RegionPart("-wing") {
+                        {
+                            this.progress = PartProgress.warmup;
+                            this.mirror = true;
+                            this.under = false;
+                            this.moveX = -17.0F;
+                            this.moveY = 0.0F;
+                            this.xScl = 1.8f;
+                            this.yScl = 1.8f;
+                        }
+                    }, new RegionPart("-wing") {
+                        {
+                            this.progress = PartProgress.warmup;
+                            this.mirror = true;
+                            this.under = false;
+                            this.moveRot = -45f; //Upper Pair
+                            this.moveX = -17.0F;
+                            this.moveY = 10.0F;
+                            this.xScl = 1.8f;
+                            this.yScl = 1.8f;
+                        }
+                    }, new RegionPart("-wing") {
+                        {
+                            this.progress = PartProgress.warmup;
+                            this.mirror = true;
+                            this.under = false;
+                            this.moveRot = 45f; //Lower pair
+                            this.moveX = -17.0F;
+                            this.moveY = -10.0F;
+                            this.xScl = 1.8f;
+                            this.yScl = 1.8f;
+                        }
+                    });
+                }};
+            }
+        };
     }
 
     private static void loadCrafting() {
@@ -301,6 +389,15 @@ public class TBlocks {
     }
 
     private static void loadDefenses() {
+        tantal_mine = new ShockMine("tantal_mine") {{
+            requirements(Category.effect, ItemStack.with(TItems.tantalium, 10, TItems.battery, 12));
+            hasShadow = false;
+            health = 150;
+            damage = 60.0F;
+            tileDamage = 10.0F;
+            length = 12;
+            tendrils = 13;
+        }};
         concrete_wall = new Wall("concrete_wall") {{
             requirements(Category.defense, ItemStack.with(TItems.concrete, 50));
             health = 322 * 3;
@@ -431,14 +528,14 @@ public class TBlocks {
     private static void loadOres() {
         vermillion = new OreBlock("vermillion", TItems.vermillion) {{
             oreDefault = true;
-            oreThreshold = 0.9F;
-            oreScale = 15.3F;
+            oreThreshold = 0.86F;
+            oreScale = 16.3F;
             alwaysUnlocked = true;
         }};
         tetsOre = new OreBlock("tetsore", TItems.tets_coin) {{
             oreDefault = true;
-            oreThreshold = 0.7F;
-            oreScale = 15.3F;
+            oreThreshold = 0.95F;
+            oreScale = 20.3F;
             alwaysUnlocked = true;
         }};
     }
@@ -520,9 +617,10 @@ public class TBlocks {
             requirements(Category.turret, with(Items.titanium, 99, TItems.battery, 99, TItems.bing_qi_ling, 99, Items.graphite, 99));
             ammo(Liquids.water, new PointLaserBulletType() {{
                 knockback = 0.0F;
-                damage = 0.0F;
+                damage = 0.009F;
                 ammoMultiplier = 0.3F;
                 statusDuration = 540.0F;
+                color = Liquids.cryofluid.color;
                 status = StatusEffects.freezing;
             }});
             setHealth(this);
@@ -737,6 +835,7 @@ public class TBlocks {
             range = 300;
             ammo(TItems.bee, new MissileBulletType(1, 3.5f, "tets-craft-mod-bee") {{
                         backColor = new Color(0, 0, 0, 0);
+                        rotationOffset = 90;
                         splashDamage = 15;
                         splashDamageRadius = 16;
                         knockback = 0.2f;
@@ -752,6 +851,7 @@ public class TBlocks {
                     }},
                     TItems.beeq, new MissileBulletType(0.6f, 8.5f, "tets-craft-mod-beeq") {{
                         backColor = new Color(0, 0, 0, 0);
+                        rotationOffset = 90;
                         splashDamage = 41;
                         splashDamageRadius = 24;
                         knockback = 1.4f;
@@ -1091,6 +1191,22 @@ public class TBlocks {
     private static void loadMixins() {
         ((UnitFactory) Blocks.groundFactory).plans.add(new UnitFactory.UnitPlan(TUnits.walkingBaseUnit, 2100.0F, ItemStack.with(Items.silicon, 30, Items.lead, 30, Items.copper, 30)));
         ((UnitFactory) Blocks.airFactory).plans.add(new UnitFactory.UnitPlan(TUnits.UFO, 230.0F, ItemStack.with(Items.silicon, 5, TItems.battery, 2)));
+
+        ((ItemTurret) Blocks.duo).ammoTypes.put(TItems.bee, new BasicBulletType(1.3f, 10) {{
+            lifetime = ((ItemTurret) Blocks.duo).range / speed + 10;
+            pierce = true;
+            weaveMag = 10;
+            weaveScale = 0.1f;
+            range = 100f;
+        }});
+        ((ItemTurret) Blocks.duo).ammoTypes.put(TItems.beeq, new BasicBulletType(2.3f, 0) {{
+            lifetime = ((ItemTurret) Blocks.duo).range / speed + 10;
+            healAmount = 1;
+            healPercent = 100;
+            homingPower = 1;
+            homingRange = 100;
+            collidesTiles = collidesTeam = true;
+        }});
     }
 
     private static void setHealth(Block block) {
