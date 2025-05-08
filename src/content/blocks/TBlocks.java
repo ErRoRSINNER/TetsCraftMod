@@ -1,6 +1,7 @@
 package content.blocks;
 
 import arc.graphics.Color;
+import arc.math.Interp;
 import content.items.TItems;
 import content.liquids.TLiquids;
 import content.units.TUnits;
@@ -8,6 +9,7 @@ import mindustry.content.*;
 import mindustry.entities.bullet.*;
 import mindustry.entities.effect.MultiEffect;
 import mindustry.entities.part.RegionPart;
+import mindustry.entities.pattern.ShootAlternate;
 import mindustry.entities.pattern.ShootBarrel;
 import mindustry.entities.pattern.ShootPattern;
 import mindustry.gen.Sounds;
@@ -41,7 +43,7 @@ public class TBlocks {
             concrete_mixer, crystalizer, shit_mixer, vermillion, tantalium_factory, mica_press, mercury_purificator, tetsonator, aacd_FIFNYA, hoover,
             beeshot, quick_fire, RMG202, superconductor_plant, absolute_zero, bingQiLingMixer, pravoslaviumMixer, tetsBridge, teslaCoil, copperPulverizer,
             erekinator, serpulinator, bardovovizator, apiary, composter, tetsBasicReconstructorEnergy, tetsBasicReconstructorAttack, tetsAdditiveReconstructorAttack,
-            tetsAdditiveReconstructorEnergy, tetsMultiplicativeReconstructorEnergy, tetsOre, cirnoGun, tantal_router;
+            tetsAdditiveReconstructorEnergy, tetsMultiplicativeReconstructorEnergy, tetsOre, cirnoGun, tantal_router, goddamn_gun;
     public static Block test1;
 
     public static void load() {
@@ -318,7 +320,7 @@ public class TBlocks {
             alwaysUnlocked = true;
         }};
         prav_wall_large = new Wall("prav_wall-large") {{
-            requirements(Category.defense, ItemStack.mult(TBlocks.prav_wall.requirements, 4));
+            requirements(Category.defense, ItemStack.mult(TBlocks.prav_wall.requirements, 5));
             health = (int) (333 * 4 * 4.5f);
             chanceDeflect = 0.33f;
             lightningChance = 0.33f;
@@ -469,6 +471,49 @@ public class TBlocks {
     }
 
     private static void loadTurrets() {
+        goddamn_gun = new ItemTurret("goddamn_gun") {{
+            requirements(Category.turret, with(TItems.tantalium, 33, TItems.goddamm_ingot, 33, TItems.bee, 33, TItems.beeq, 3));
+            setHealth(this);
+            size = 3;
+            maxAmmo = 333;
+            reload = 60;
+            ammoPerShot = 33;
+            shoot.shots = 33;
+            range = 200;
+            recoilTime = 6;
+            rotateSpeed = 3;
+            inaccuracy = 33.3f;
+            shootCone = 33.3f;
+            coolant = new ConsumeCoolant(0.333f);
+            ammo(TItems.bee, new BasicBulletType(3.33f, 3.33f) {{
+                splashDamage = 33f;
+                splashDamageRadius = 3.33f;
+                width = height = hitSize = 33;
+                knockback = 3.33f;
+                shrinkInterp = Interp.smooth;
+                status = StatusEffects.shocked;
+                ammoMultiplier = 3;
+            }}, TItems.beeq, new BasicBulletType(3.33f, 4.44f) {{
+                splashDamage = 33f;
+                splashDamageRadius = 4.44f;
+                width = height = hitSize = 33;
+                knockback = 3.33f;
+                shrinkInterp = Interp.smooth;
+                status = StatusEffects.shocked;
+                reloadMultiplier = 0.777f;
+                ammoMultiplier = 3.33f;
+            }}, TItems.goddamm_ingot, new BasicBulletType(3.33f, 7.77f) {{
+                splashDamage = 44.4f;
+                splashDamageRadius = 7.77f;
+                width = height = hitSize = 33;
+                knockback = 33.3f;
+                shrinkInterp = Interp.smooth;
+                status = StatusEffects.unmoving;
+                reloadMultiplier = 0.666f;
+                ammoMultiplier = 33;
+            }});
+            alwaysUnlocked = true;
+        }};
         cirnoGun = new LiquidTurret("cirno_gun") {{
             //afflict
             requirements(Category.turret, with(Items.titanium, 99, TItems.battery, 99, TItems.bing_qi_ling, 99, Items.graphite, 99));
@@ -603,7 +648,7 @@ public class TBlocks {
                         shootEffect = Fx.shootPyraFlame;
                         hitEffect = Fx.hitFlameSmall;
                     }},
-                    Items.coal, new FireBulletType(4, 8) {{
+                    Items.coal, new BulletType(4, 16) {{
 
                         lifetime = 55;
                         reloadMultiplier = 0.9f;
@@ -612,13 +657,16 @@ public class TBlocks {
                         hitEffect = Fx.hitFlameSmall;
                         ammoMultiplier = 3;
                         status = StatusEffects.burning;
-                        pierce = true;
                         keepVelocity = false;
                         hittable = false;
+                        pierce = true;
+                        collidesAir = false;
                     }},
-                    TItems.poop, new FlakBulletType(4.5f, 2) {{
-                        shoot = new ShootBarrel() {{
-                            barrels = new float[]{1.75f, 1.75f, 1.75f};
+                    TItems.poop, new FlakBulletType(4.5f, 4) {{
+                        shoot = new ShootAlternate(){{
+                            spread = 4.7f;
+                            shots = 4;
+                            barrels = 4;
                         }};
                         shoot.shots = 3;
                         splashDamage = 7;
