@@ -48,7 +48,7 @@ public class TBlocks {
             beeshot, quick_fire, RMG202, superconductor_plant, absolute_zero, bingQiLingMixer, pravoslaviumMixer, tetsBridge, teslaCoil, copperPulverizer,
             erekinator, serpulinator, bardovovizator, apiary, composter, tetsBasicReconstructorEnergy, tetsBasicReconstructorAttack, tetsAdditiveReconstructorAttack,
             tetsAdditiveReconstructorEnergy, tetsMultiplicativeReconstructorEnergy, tetsOre, cirnoGun, tantal_router, goddamn_gun, tantal_mine;
-    public static Block test1;
+    public static Block test1, test2, test3, test4;
 
     public static void load() {
         loadCrafting();
@@ -498,6 +498,8 @@ public class TBlocks {
             setHealth(this);
             size = 2;
             radius = 75F;
+            sides = 4;
+            shieldRotation = 45;
             shieldHealth = 750.0F;
             coolantConsumer = new ConsumeCoolant(0.1f);
             cooldownNormal = 1.5F;
