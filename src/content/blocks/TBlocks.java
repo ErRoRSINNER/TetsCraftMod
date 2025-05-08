@@ -6,6 +6,7 @@ import content.items.TItems;
 import content.liquids.TLiquids;
 import content.units.TUnits;
 import mindustry.content.*;
+import mindustry.entities.UnitSorts;
 import mindustry.entities.bullet.*;
 import mindustry.entities.effect.MultiEffect;
 import mindustry.entities.part.RegionPart;
@@ -517,6 +518,13 @@ public class TBlocks {
         cirnoGun = new LiquidTurret("cirno_gun") {{
             //afflict
             requirements(Category.turret, with(Items.titanium, 99, TItems.battery, 99, TItems.bing_qi_ling, 99, Items.graphite, 99));
+            ammo(Liquids.water, new PointLaserBulletType() {{
+                knockback = 0.0F;
+                damage = 0.0F;
+                ammoMultiplier = 0.3F;
+                statusDuration = 540.0F;
+                status = StatusEffects.freezing;
+            }});
             setHealth(this);
             size = 3;
             range = 300;
@@ -527,29 +535,7 @@ public class TBlocks {
             shootCone = 60.0F;
             liquidCapacity = 150.0F;
             shootEffect = Fx.shootLiquid;
-            ammo(Liquids.water, new PointLaserBulletType() {{
-                //lifetime = 40.0F;
-                //speed = 300f/40f;
-                //speed = range;
-                knockback = 0.0F;
-                damage = 0.0F;
-                //drag = 0.005F;
-                ammoMultiplier = 0.3F;
-                statusDuration = 540.0F;
-                status = StatusEffects.freezing;
-            }});
-            /*ammo(Liquids.water, new LiquidBulletType(Liquids.cryofluid) {{
-                lifetime = 40.0F;
-                speed = 300f/40f;
-                knockback = 0.0F;
-                puddleSize = 0.0F;
-                orbSize = 3.0F;
-                damage = 0.0F;
-                drag = 0.005F;
-                ammoMultiplier = 0.3F;
-                statusDuration = 540.0F;
-                status = StatusEffects.freezing;
-            }})*/;
+            this.unitSort = UnitSorts.strongest;
 
             this.drawer = new DrawTurret("cirno_gun") {{
                 this.parts.add(new RegionPart("-barrel") {
