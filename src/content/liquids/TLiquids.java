@@ -5,18 +5,13 @@ import mindustry.content.StatusEffects;
 import mindustry.type.Liquid;
 
 public class TLiquids {
-    public static Liquid honey, liquid_hydrogen, liquid_matter, liquid_oxygen, super_cryofluid, mercury, red_mercury;
+    public static Liquid honey, liquid_matter, super_cryofluid, mercury, red_mercury;
     public static void load() {
         honey = new Liquid("honey", Color.valueOf("EEEEAA")) {{
             heatCapacity = 0.1f;
             effect = StatusEffects.slow;
             boilPoint = 0.1f;
             viscosity = 0.75f;
-            coolant = false;
-        }};
-        liquid_hydrogen = new Liquid("liquid_hydrogen", Color.valueOf("1c9cd2")) {{
-            flammability = 1f;
-            explosiveness = 1f;
             coolant = false;
         }};
         liquid_matter = new Liquid("liquid_matter", Color.valueOf("C241B5")) {{
@@ -27,11 +22,6 @@ public class TLiquids {
             effect = StatusEffects.burning;
             boilPoint = 0.01f;
             viscosity = 0.01f;
-            coolant = false;
-        }};
-        liquid_oxygen = new Liquid("liquid_oxygen", Color.valueOf("3dbed2")) {{
-            flammability = 2f;
-            explosiveness = 1f;
             coolant = false;
         }};
         super_cryofluid = new Liquid("super_cryofluid", Color.valueOf("00FFD4")){{

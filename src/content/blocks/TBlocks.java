@@ -61,7 +61,7 @@ public class TBlocks {
     private static void loadCrafting() {
         bardovovizator = new GenericCrafter("bardovovizator") {{
             requirements(Category.crafting, ItemStack.with(TItems.battery, 140, TItems.tantalium, 30, TItems.concrete, 160, TItems.tets_ingot, 30, TItems.crystal, 50));
-            setHealth(this);
+            setHealth(this, 0.3f);
             outputLiquid = new LiquidStack(TLiquids.red_mercury, 0.01f);
             craftTime = 40.0F;
             size = 2;
@@ -482,7 +482,6 @@ public class TBlocks {
             shootCone = 60.0F;
             liquidCapacity = 150.0F;
             shootEffect = Fx.shootLiquid;
-            shoot.shots = 3;
             ammo(Liquids.water, new LiquidBulletType(Liquids.cryofluid) {{
                 lifetime = 100.0F;
                 speed = 10.0F;
@@ -927,6 +926,7 @@ public class TBlocks {
             smokeEffect = Fx.colorSpark;
             receiveEffect = Fx.mineBig;
             shootSound = Sounds.pew;
+            consumePower(1f);
             bullet = new MassDriverBolt() {{
                 collidesTiles = false;
                 lifetime = 1f;
@@ -941,11 +941,11 @@ public class TBlocks {
         //T1
         tetsBasicReconstructorAttack = new Reconstructor("tets_basic_reconstructor_attack") {
             {
-                this.requirements(Category.units, ItemStack.with(new Object[]{Items.copper, 100, Items.lead, 60}));
+                this.requirements(Category.units, ItemStack.with(Items.copper, 100, Items.lead, 60));
                 this.size = 3;
                 health = 300;
                 this.consumePower(1.0F);
-                this.consumeItems(ItemStack.with(new Object[]{Items.pyratite, 10, Items.silicon, 10}));
+                this.consumeItems(ItemStack.with(Items.pyratite, 10, Items.silicon, 10));
                 this.constructTime = 300.0F;
                 this.upgrades.addAll(new UnitType[][]{{TUnits.walkingBaseUnit, TUnits.smallArtillery}});
                 alwaysUnlocked = true;
@@ -953,11 +953,11 @@ public class TBlocks {
         };
         tetsBasicReconstructorEnergy = new Reconstructor("tets_basic_reconstructor_energy") {
             {
-                this.requirements(Category.units, ItemStack.with(new Object[]{Items.copper, 100, Items.lead, 60}));
+                this.requirements(Category.units, ItemStack.with(Items.copper, 100, Items.lead, 60));
                 this.size = 3;
                 health = 300;
                 this.consumePower(1.0F);
-                this.consumeItems(ItemStack.with(new Object[]{TItems.battery, 5, Items.graphite, 10}));
+                this.consumeItems(ItemStack.with(TItems.battery, 5, Items.graphite, 10));
                 this.constructTime = 300.0F;
                 this.upgrades.addAll(new UnitType[][]{{TUnits.walkingBaseUnit, TUnits.miniMiner}});
                 alwaysUnlocked = true;
@@ -968,11 +968,11 @@ public class TBlocks {
         //T2
         tetsAdditiveReconstructorAttack = new Reconstructor("tets_additive_reconstructor_attack") {
             {
-                this.requirements(Category.units, ItemStack.with(new Object[]{Items.copper, 200, Items.lead, 120, Items.titanium, 80, TItems.concrete, 100}));
+                this.requirements(Category.units, ItemStack.with(Items.copper, 200, Items.lead, 120, Items.titanium, 80, TItems.concrete, 100));
                 this.size = 3;
                 health = 600;
                 this.consumePower(3.0F);
-                this.consumeItems(ItemStack.with(new Object[]{Items.titanium, 10, Items.silicon, 20, Items.blastCompound, 20}));
+                this.consumeItems(ItemStack.with(Items.titanium, 10, Items.silicon, 20, Items.blastCompound, 20));
                 this.constructTime = 1200.0F;
                 this.upgrades.addAll(new UnitType[][]{{TUnits.smallArtillery, TUnits.mediumArtillery}});
                 alwaysUnlocked = true;
@@ -980,11 +980,11 @@ public class TBlocks {
         };
         tetsAdditiveReconstructorEnergy = new Reconstructor("tets_additive_reconstructor_energy") {
             {
-                this.requirements(Category.units, ItemStack.with(new Object[]{Items.copper, 200, Items.lead, 120, Items.titanium, 80, TItems.battery, 80}));
+                this.requirements(Category.units, ItemStack.with(Items.copper, 200, Items.lead, 120, Items.titanium, 80, TItems.battery, 80));
                 this.size = 3;
                 health = 600;
                 this.consumePower(3.0F);
-                this.consumeItems(ItemStack.with(new Object[]{Items.beryllium, 10, Items.graphite, 20, TItems.battery, 40}));
+                this.consumeItems(ItemStack.with(Items.beryllium, 10, Items.graphite, 20, TItems.battery, 40));
                 this.constructTime = 1200.0F;
                 this.upgrades.addAll(new UnitType[][]{{TUnits.UFO, TUnits.UF1_Energy}, {TUnits.miniMiner, TUnits.mediMiner}});
                 alwaysUnlocked = true;
@@ -994,11 +994,11 @@ public class TBlocks {
         //T3
         tetsMultiplicativeReconstructorEnergy = new Reconstructor("tets_multiplicative_reconstructor_energy") {
             {
-                this.requirements(Category.units, ItemStack.with(new Object[]{Items.tungsten, 200, Items.lead, 120, Items.titanium, 80, TItems.battery, 80}));
+                this.requirements(Category.units, ItemStack.with(Items.tungsten, 200, Items.lead, 120, Items.titanium, 80, TItems.battery, 80));
                 this.size = 5;
                 health = 1000;
                 this.consumePower(4.0F);
-                this.consumeItems(ItemStack.with(new Object[]{Items.beryllium, 80, Items.tungsten, 60, TItems.battery, 40, TItems.tantalium, 20}));
+                this.consumeItems(ItemStack.with(Items.beryllium, 80, Items.tungsten, 60, TItems.battery, 40, TItems.tantalium, 20));
                 //this.consumeLiquid(Liquids.cryofluid, 1f);
                 this.constructTime = 2400.0F;
                 this.upgrades.addAll(new UnitType[][]{{TUnits.UF1_Energy, TUnits.UF2_Energy}});
