@@ -27,6 +27,8 @@ import mindustry.world.blocks.distribution.Conveyor;
 import mindustry.world.blocks.distribution.MassDriver;
 import mindustry.world.blocks.distribution.Router;
 import mindustry.world.blocks.environment.OreBlock;
+import mindustry.world.blocks.logic.LogicBlock;
+import mindustry.world.blocks.logic.LogicDisplay;
 import mindustry.world.blocks.power.Battery;
 import mindustry.world.blocks.power.SolarGenerator;
 import mindustry.world.blocks.production.Drill;
@@ -48,7 +50,9 @@ public class TBlocks {
             concrete_mixer, crystalizer, shit_mixer, vermillion, tantalium_factory, mica_press, mercury_purificator, tetsonator, aacd_FIFNYA, hoover,
             beeshot, quick_fire, RMG202, superconductor_plant, absolute_zero, bingQiLingMixer, pravoslaviumMixer, tetsBridge, teslaCoil, copperPulverizer,
             erekinator, serpulinator, bardovovizator, apiary, composter, tetsBasicReconstructorEnergy, tetsBasicReconstructorAttack, tetsAdditiveReconstructorAttack,
-            tetsAdditiveReconstructorEnergy, tetsMultiplicativeReconstructorEnergy, tetsOre, cirnoGun, tantal_router, goddamn_gun, tantal_mine, vault, vault_big;
+            tetsAdditiveReconstructorEnergy, tetsMultiplicativeReconstructorEnergy, tetsOre, cirnoGun, tantal_router, goddamn_gun, tantal_mine, vault, vault_big,
+            tets_display, tets_processor;
+
     public static Block test1, test2, test3, test4;
 
     public static void load() {
@@ -805,7 +809,7 @@ public class TBlocks {
                         collidesAir = false;
                     }},
                     TItems.poop, new FlakBulletType(4.5f, 4) {{
-                        shoot = new ShootAlternate(){{
+                        shoot = new ShootAlternate() {{
                             spread = 4.7f;
                             shots = 4;
                             barrels = 4;
@@ -1200,7 +1204,27 @@ public class TBlocks {
     }
 
     private static void loadOther() {
+        tets_display = new LogicDisplay("tets_display") {{
+            requirements(Category.logic, with(TItems.tantalium, 300, TItems.tets_ingot, 150, TItems.battery, 200, Items.metaglass, 150, Items.phaseFabric, 80));
+            setHealth(this, 0.12f);
 
+            displaySize = 7 * 32 - 8 - 8;
+
+            size = 7;
+        }};
+
+        tets_processor = new LogicBlock("tets_processor"){{
+            requirements(Category.logic, with(TItems.tantalium, 400, TItems.tets_ingot, 250, TItems.battery, 350, TItems.superconductor, 175, Items.surgeAlloy, 100));
+            setHealth(this, 0.1f);
+
+            consumeLiquid(TLiquids.super_cryofluid, 0.02f);
+            consumePower(0.1f);
+            liquidCapacity = 100;
+
+            instructionsPerTick = 48;
+            range = 9 * 64;
+            size = 4;
+        }};
     }
 
     private static void loadMixins() {
