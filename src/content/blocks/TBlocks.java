@@ -6,6 +6,7 @@ import content.items.TItems;
 import content.liquids.TLiquids;
 import content.units.TUnits;
 import mindustry.content.*;
+import mindustry.entities.Effect;
 import mindustry.entities.UnitSorts;
 import mindustry.entities.bullet.*;
 import mindustry.entities.effect.MultiEffect;
@@ -38,7 +39,6 @@ import mindustry.world.blocks.storage.StorageBlock;
 import mindustry.world.blocks.units.Reconstructor;
 import mindustry.world.blocks.units.UnitFactory;
 import mindustry.world.consumers.ConsumeCoolant;
-import mindustry.world.consumers.ConsumeItemFilter;
 import mindustry.world.consumers.ConsumeLiquid;
 import mindustry.world.draw.*;
 
@@ -53,6 +53,13 @@ public class TBlocks {
             tetsAdditiveReconstructorEnergy, tetsMultiplicativeReconstructorEnergy, tetsOre, cirnoGun, tantal_router, goddamn_gun, tantal_mine, vault, vault_big,
             tets_display, tets_processor;
 
+    //Fake 2 by 2
+    public static Block fakeCopperWallLarge, fakeTitaniumWallLarge, fakeThoriumWallLarge, fakeGraphitePress, fakeKiln, fakeMechanicalDrill, fakePneumaticDrill,
+    fakePlastaniumCompressor, fakeSiliconSmelter, fakeSteamGenerator, fakeThermalGenerator, fakeLancer, fakeScatter;
+
+    //Fake 3 by 3
+    public static Block fakeCoreShard, fakeBatteryLarge, fakeMultiPress, fakeSiliconCrucible, fakeRipple, fakeFuse, fakeThoriumReactor, fakeSolarPanelLarge;
+
     public static Block test1, test2, test3, test4;
 
     public static void load() {
@@ -66,6 +73,7 @@ public class TBlocks {
         loadDistributions();
         loadUnits();
         loadOther();
+        loadFake();
         loadMixins();
         test1 = new LaserTurret("cirno_gunv") {
             {
@@ -1225,6 +1233,222 @@ public class TBlocks {
             range = 9 * 64;
             size = 4;
         }};
+    }
+
+    private static void loadFake(){
+        fakeCopperWallLarge = new Wall("fake_copper_wall_large") {{
+            requirements(Category.defense, ItemStack.with(Items.copper, 80, Items.lead, 20));
+            health = 420;
+            alwaysUnlocked = true;
+            size = 2;
+        }};
+        fakeTitaniumWallLarge = new Wall("fake_titanium_wall_large") {{
+            requirements(Category.defense, ItemStack.with(Items.copper, 80, Items.lead, 20));
+            health = 420;
+            alwaysUnlocked = true;
+            size = 2;
+        }};
+        fakeThoriumWallLarge = new Wall("fake_thorium_wall_large") {{
+            requirements(Category.defense, ItemStack.with(Items.copper, 80, Items.lead, 20));
+            health = 420;
+            alwaysUnlocked = true;
+            size = 2;
+        }};
+        fakeMechanicalDrill = new Wall("fake_mechanical_drill") {{
+            requirements(Category.defense, ItemStack.with(Items.copper, 80, Items.lead, 20));
+            health = 420;
+            alwaysUnlocked = true;
+            size = 2;
+        }};
+        fakePneumaticDrill = new Wall("fake_pneumatic_drill") {{
+            requirements(Category.defense, ItemStack.with(Items.copper, 80, Items.lead, 20));
+            health = 420;
+            alwaysUnlocked = true;
+            size = 2;
+        }};
+        fakeGraphitePress = new Wall("fake_graphite_press") {{
+            requirements(Category.defense, ItemStack.with(Items.copper, 80, Items.lead, 20));
+            health = 420;
+            alwaysUnlocked = true;
+            size = 2;
+            this.consumePower(0.05F);
+        }};
+        fakeKiln = new Wall("fake_kiln") {{
+            requirements(Category.defense, ItemStack.with(Items.copper, 80, Items.lead, 20));
+            health = 420;
+            alwaysUnlocked = true;
+            size = 2;
+            this.consumePower(0.05F);
+        }};
+        fakePlastaniumCompressor = new Wall("fake_plastanium_compressor") {{
+            requirements(Category.defense, ItemStack.with(Items.copper, 80, Items.lead, 20));
+            health = 420;
+            alwaysUnlocked = true;
+            size = 2;
+            this.consumePower(0.05F);
+        }};
+        fakeSiliconSmelter = new Wall("fake_silicon_smelter") {{
+            requirements(Category.defense, ItemStack.with(Items.copper, 80, Items.lead, 20));
+            health = 420;
+            alwaysUnlocked = true;
+            size = 2;
+            this.consumePower(0.05F);
+        }};
+        fakeSteamGenerator = new Wall("fake_steam_generator") {{
+            requirements(Category.defense, ItemStack.with(Items.copper, 80, Items.lead, 20));
+            health = 420;
+            alwaysUnlocked = true;
+            size = 2;
+            this.consumePower(0.05F);
+        }};
+        fakeThermalGenerator = new Wall("fake_thermal_generator") {{
+            requirements(Category.defense, ItemStack.with(Items.copper, 80, Items.lead, 20));
+            health = 420;
+            alwaysUnlocked = true;
+            size = 2;
+            this.consumePower(0.05F);
+        }};
+        fakeLancer = new PowerTurret("fake_lancer") {
+            {
+                this.requirements(Category.defense, ItemStack.with(new Object[]{Items.copper, 80, Items.lead, 20}));
+                health = 420;
+                alwaysUnlocked = true;
+                this.size = 2;
+                this.range = 165.0F;
+                this.shoot.firstShotDelay = 999999.0F;
+                this.recoil = 0.0F;
+                this.reload = 999999.0F;
+                this.shake = 2.0F;
+                this.targetAir = false;
+                this.moveWhileCharging = false;
+                this.consumePower(0.05F);
+                this.shootEffect = Fx.none;
+                this.smokeEffect = Fx.none;
+                this.shootType = new LaserBulletType(0.0F) {{
+                    this.shootEffect = Fx.none;
+                    this.smokeEffect = Fx.none;
+                    this.hitEffect = Fx.none;
+                    this.chargeEffect = Fx.none;
+                }};
+            }
+        };
+        fakeScatter = new PowerTurret("fake_scatter") {
+            {
+                this.requirements(Category.defense, ItemStack.with(new Object[]{Items.copper, 80, Items.lead, 20}));
+                health = 420;
+                this.size = 2;
+                alwaysUnlocked = true;
+                this.range = 220.0F;
+                this.shoot.firstShotDelay = 999999.0F;
+                this.recoil = 0.0F;
+                this.reload = 999999.0F;
+                this.targetAir = true;
+                this.targetGround = false;
+                this.consumePower(0.05F);
+                this.shootEffect = Fx.none;
+                this.smokeEffect = Fx.none;
+                this.shootType = new LaserBulletType(0.0F) {{
+                    this.shootEffect = Fx.none;
+                    this.smokeEffect = Fx.none;
+                    this.hitEffect = Fx.none;
+                    this.chargeEffect = Fx.none;
+                }};
+            }
+        };
+        //
+
+        fakeBatteryLarge = new Battery("fake_battery_large") {
+            {
+                this.requirements(Category.defense, ItemStack.with(new Object[]{Items.copper, 120, Items.lead, 50}));
+                health = 820;
+                this.size = 3;
+                this.consumePowerBuffered(0.0F);
+                this.baseExplosiveness = 0.0F;
+            }
+        };
+        fakeSolarPanelLarge = new SolarGenerator("fake_solar_panel_large") {
+            {
+                this.requirements(Category.defense, ItemStack.with(new Object[]{Items.copper, 120, Items.lead, 50}));
+                health = 820;
+                this.size = 3;
+                this.consumePowerBuffered(0.0F);
+                this.baseExplosiveness = 0.0F;
+            }
+        };
+        fakeCoreShard = new Wall("fake_core_shard") {{
+            requirements(Category.defense, ItemStack.with(Items.copper, 120, Items.lead, 50));
+            health = 820;
+            alwaysUnlocked = true;
+            size = 3;
+            this.itemCapacity = 0;
+        }};
+        fakeMultiPress = new Wall("fake_multi_press") {{
+            requirements(Category.defense, ItemStack.with(Items.copper, 120, Items.lead, 50));
+            health = 820;
+            alwaysUnlocked = true;
+            size = 3;
+            this.consumePower(0.05F);
+        }};
+        fakeSiliconCrucible = new Wall("fake_silicon_crucible") {{
+            requirements(Category.defense, ItemStack.with(Items.copper, 120, Items.lead, 50));
+            health = 820;
+            alwaysUnlocked = true;
+            size = 3;
+            this.consumePower(0.05F);
+        }};
+        fakeThoriumReactor = new Wall("fake_thorium_reactor") {{
+            requirements(Category.defense, ItemStack.with(Items.copper, 120, Items.lead, 50));
+            health = 820;
+            alwaysUnlocked = true;
+            size = 3;
+            this.consumePower(0.05F);
+        }};
+        fakeFuse = new PowerTurret("fake_fuse") {
+            {
+                this.requirements(Category.defense, ItemStack.with(new Object[]{Items.copper, 120, Items.lead, 50}));
+                health = 820;
+                this.size = 3;
+                alwaysUnlocked = true;
+                this.range = 90.0F;
+                this.shoot.firstShotDelay = 999999.0F;
+                this.recoil = 0.0F;
+                this.reload = 999999.0F;
+                this.targetAir = true;
+                this.targetGround = true;
+                this.consumePower(0.05F);
+                this.shootEffect = Fx.none;
+                this.smokeEffect = Fx.none;
+                this.shootType = new LaserBulletType(0.0F) {{
+                    this.shootEffect = Fx.none;
+                    this.smokeEffect = Fx.none;
+                    this.hitEffect = Fx.none;
+                    this.chargeEffect = Fx.none;
+                }};
+            }
+        };
+        fakeRipple = new PowerTurret("fake_ripple") {
+            {
+                this.requirements(Category.defense, ItemStack.with(new Object[]{Items.copper, 120, Items.lead, 50}));
+                health = 820;
+                this.size = 3;
+                alwaysUnlocked = true;
+                this.range = 290.0F;
+                this.shoot.firstShotDelay = 999999.0F;
+                this.recoil = 0.0F;
+                this.reload = 999999.0F;
+                this.targetAir = false;
+                this.targetGround = true;
+                this.consumePower(0.05F);
+                this.shootEffect = Fx.none;
+                this.smokeEffect = Fx.none;
+                this.shootType = new LaserBulletType(0.0F) {{
+                    this.shootEffect = Fx.none;
+                    this.smokeEffect = Fx.none;
+                    this.hitEffect = Fx.none;
+                    this.chargeEffect = Fx.none;
+                }};
+            }
+        };
     }
 
     private static void loadMixins() {
