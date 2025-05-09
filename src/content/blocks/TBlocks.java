@@ -32,6 +32,7 @@ import mindustry.world.blocks.power.SolarGenerator;
 import mindustry.world.blocks.production.Drill;
 import mindustry.world.blocks.production.GenericCrafter;
 import mindustry.world.blocks.production.Separator;
+import mindustry.world.blocks.storage.StorageBlock;
 import mindustry.world.blocks.units.Reconstructor;
 import mindustry.world.blocks.units.UnitFactory;
 import mindustry.world.consumers.ConsumeCoolant;
@@ -47,7 +48,7 @@ public class TBlocks {
             concrete_mixer, crystalizer, shit_mixer, vermillion, tantalium_factory, mica_press, mercury_purificator, tetsonator, aacd_FIFNYA, hoover,
             beeshot, quick_fire, RMG202, superconductor_plant, absolute_zero, bingQiLingMixer, pravoslaviumMixer, tetsBridge, teslaCoil, copperPulverizer,
             erekinator, serpulinator, bardovovizator, apiary, composter, tetsBasicReconstructorEnergy, tetsBasicReconstructorAttack, tetsAdditiveReconstructorAttack,
-            tetsAdditiveReconstructorEnergy, tetsMultiplicativeReconstructorEnergy, tetsOre, cirnoGun, tantal_router, goddamn_gun, tantal_mine;
+            tetsAdditiveReconstructorEnergy, tetsMultiplicativeReconstructorEnergy, tetsOre, cirnoGun, tantal_router, goddamn_gun, tantal_mine, vault, vault_big;
     public static Block test1, test2, test3, test4;
 
     public static void load() {
@@ -524,6 +525,18 @@ public class TBlocks {
             useTime = 400.0F;
             consumeItems(ItemStack.with(TItems.bee, 5));
             alwaysUnlocked = true;
+        }};
+        vault = new StorageBlock("vault") {{
+            requirements(Category.effect, ItemStack.with(TItems.concrete, 500, TItems.tantalium, 125));
+            setHealth(this, 0.4f);
+            size = 4;
+            itemCapacity = 4000;
+        }};
+        vault_big = new StorageBlock("tantal_vault") {{
+            requirements(Category.effect, ItemStack.with(TItems.tantalium, 512, TItems.tets_ingot, 75, TItems.concrete, 300));
+            setHealth(this, 0.45f);
+            size = 5;
+            itemCapacity = 9000;
         }};
     }
 
