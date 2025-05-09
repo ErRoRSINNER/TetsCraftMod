@@ -44,6 +44,7 @@ import mindustry.world.blocks.units.UnitFactory;
 import mindustry.world.consumers.ConsumeCoolant;
 import mindustry.world.consumers.ConsumeLiquid;
 import mindustry.world.draw.*;
+import mindustry.world.meta.BuildVisibility;
 import multicraft.IOEntry;
 import multicraft.MultiCrafter;
 import multicraft.Recipe;
@@ -90,7 +91,7 @@ public class TBlocks {
                 this.loopSoundVolume = 1.0F;
                 this.envEnabled |= 2;
 
-                requirements(Category.turret, with(Items.titanium, 999, TItems.battery, 999, TItems.bing_qi_ling, 999, Items.graphite, 999));
+                requirements(Category.turret, BuildVisibility.sandboxOnly, with(Items.titanium, 999, TItems.battery, 999, TItems.bing_qi_ling, 999, Items.graphite, 999));
                 setHealth(this);
 
                 size = 3;
@@ -350,9 +351,9 @@ public class TBlocks {
             setHealth(this);
             craftTime = 30.0F;
             size = 2;
-            outputLiquid = new LiquidStack(TLiquids.mercury, 0.033f);
+            outputLiquid = new LiquidStack(TLiquids.mercury, 0.06666f);
             drawer = new DrawMulti(new DrawDefault(), new DrawFade());
-            consumeItems(ItemStack.with(TItems.vermillion, 2));
+            consumeItems(ItemStack.with(TItems.vermillion, 3));
             alwaysUnlocked = true;
         }};
         bee_plant = new Separator("bee-plant") {{
@@ -406,7 +407,7 @@ public class TBlocks {
         concrete_mixer = new GenericCrafter("concrete_mixer") {{
             requirements(Category.crafting, ItemStack.with(Items.copper, 60, Items.silicon, 12, Items.lead, 35));
             setHealth(this);
-            outputItems = ItemStack.with(TItems.concrete, 3, Items.scrap, 1);
+            outputItems = ItemStack.with(TItems.concrete, 2, Items.scrap, 1);
             craftTime = 66.6F;
             size = 2;
             drawer = new DrawMulti(new DrawDefault(), new DrawRegion("-rotor", 3, true));
@@ -513,17 +514,18 @@ public class TBlocks {
         }};
         nihonDrill = new Drill("nihon-drill") {{
             requirements(Category.production, ItemStack.with(TItems.nihonium, 240, Items.lead, 24));
+            setHealth(this);
             tier = 6;
             drillTime = 200.0F;
             size = 5;
             //this.researchCost = ItemStack.with(new Object[]{Items.copper, 100, Items.lead, 60});
             consumeLiquid(Liquids.cryofluid, 0.1F).boost();
             consumePower(4.3f);
-            health = 180;
             alwaysUnlocked = true;
         }};
         tetsDrill = new Drill("tets-drill") {{
-            requirements(Category.production, ItemStack.with(TItems.concrete, 320, TItems.tets_ingot, 69, TItems.battery, 30));
+            requirements(Category.production, ItemStack.with(TItems.concrete, 320, TItems.tets_ingot, 69, TItems.battery, 50, TItems.tantalium, 120));
+            setHealth(this);
             tier = 5;
             size = 3;
             drillTime = 50;
@@ -535,7 +537,7 @@ public class TBlocks {
 
     private static void loadEffects() {
         small_shield_projector = new ForceProjector("small_shield_projector") {{
-            requirements(Category.effect, ItemStack.with(TItems.tantalium, 50, Items.titanium, 75, Items.silicon, 70, TItems.battery, 10));
+            requirements(Category.effect, ItemStack.with(TItems.tantalium, 45, Items.silicon, 35, TItems.battery, 10));
             setHealth(this);
             size = 2;
             radius = 75F;
@@ -557,7 +559,7 @@ public class TBlocks {
             setHealth(this, 0.1f);
             consumePower(5F);
             consumeItem(TItems.goddamm_ingot, 6).boost();
-            size = 3;
+            size = 4;
             speedBoostPhase = 0.654321f;
             phaseRangeBoost = 150;
             range = 800.0F;
@@ -626,7 +628,7 @@ public class TBlocks {
     private static void loadTurrets() {
         goddamn_gun = new ItemTurret("goddamn_gun") {{
             requirements(Category.turret, with(TItems.tantalium, 33, TItems.goddamm_ingot, 33, TItems.bee, 33, TItems.beeq, 3));
-            setHealth(this);
+            setHealth(this, 0.85f);
             size = 3;
             maxAmmo = 333;
             reload = 60;
@@ -738,7 +740,7 @@ public class TBlocks {
 
         teslaCoil = new PowerTurret("tesla_coil") {{
             requirements(Category.turret, ItemStack.with(Items.copper, 400, Items.titanium, 200, TItems.battery, 200));
-            setHealth(this);
+            setHealth(this, 0.75f);
             range = 240.0F;
             shoot.firstShotDelay = 60.0F;
             recoil = 2.0F;
@@ -776,7 +778,7 @@ public class TBlocks {
         }};
         RMG202 = new LiquidTurret("RMG202") {{
             requirements(Category.turret, with(TItems.tantalium, 700, TItems.tets_ingot, 125, Items.metaglass, 525, Items.graphite, 250));
-            setHealth(this);
+            setHealth(this, 0.56f);
             size = 2;
             range = 200;
             reload = 2.0F;
@@ -860,7 +862,7 @@ public class TBlocks {
         }};
         beeshot = new ItemTurret("beeshot") {{
             requirements(Category.turret, with(TItems.mica, 200, TItems.bee, 525, TItems.beeq, 25, Items.copper, 125, Items.scrap, 225));
-            setHealth(this);
+            setHealth(this, 0.742f);
             targetAir = false;
             targetGround = true;
             size = 2;
@@ -924,7 +926,7 @@ public class TBlocks {
         }};
         hoover = new ItemTurret("hoover") {{
             requirements(Category.turret, with(TItems.tantalium, 200, TItems.battery, 400, Items.thorium, 25, TItems.crystal, 25, TItems.mica, 100));
-            setHealth(this);
+            setHealth(this, 0.6657f);
             targetAir = false;
             targetGround = true;
             size = 2;
@@ -985,7 +987,7 @@ public class TBlocks {
             alwaysUnlocked = true;
         }};
         aacd_FIFNYA = new ItemTurret("aacd_FIFNYA") {{
-            requirements(Category.turret, with(TItems.concrete, 125, TItems.tantalium, 20, Items.metaglass, 25));
+            requirements(Category.turret, with(TItems.concrete, 125, TItems.tantalium, 40, Items.metaglass, 30));
             setHealth(this);
             targetAir = true;
             targetGround = false;
@@ -1023,7 +1025,7 @@ public class TBlocks {
         }};
         bangun = new ItemTurret("bangun") {{
             requirements(Category.turret, with(TItems.concrete, 1500, TItems.tantalium, 334, TItems.tets_ingot, 160));
-            setHealth(this, 1.5f);
+            setHealth(this);
             targetAir = false;
             size = 8;
             range = 1000;
@@ -1117,7 +1119,6 @@ public class TBlocks {
             }});
             alwaysUnlocked = true;
         }};
-
     }
 
     private static void loadDistributions() {
