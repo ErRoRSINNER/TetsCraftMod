@@ -8,7 +8,9 @@ public class TItems {
             mica, nihonium, pingwan, poop, superconductor, tantalium, tets_ingot, vermillion, bing_qi_ling, tets_coin;
 
     public static void load() {
-        tets_coin = new Item("tets_coin", Color.valueOf("fef37c"));
+        tets_coin = new Item("tets_coin", Color.valueOf("fef37c")) {{
+            hardness = 5;
+        }};
         battery = new Item("battery", Color.valueOf("9badb7")) {{
             charge = 1.5f;
             cost = 2;

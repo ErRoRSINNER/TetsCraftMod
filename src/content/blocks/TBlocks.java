@@ -540,7 +540,7 @@ public class TBlocks {
             requirements(Category.effect, ItemStack.with(TItems.tantalium, 45, Items.silicon, 35, TItems.battery, 10));
             setHealth(this);
             size = 2;
-            radius = 75F;
+            radius = 80F;
             sides = 4;
             shieldRotation = 45;
             shieldHealth = 750.0F;
@@ -549,8 +549,8 @@ public class TBlocks {
             cooldownLiquid = 1.2F;
             cooldownBrokenBase = 0.35F;
             consumeItem(TItems.bee, 8).boost();
-            phaseRadiusBoost = 40.0F;
-            phaseShieldBoost = 10;
+            phaseRadiusBoost = 70.0F;
+            phaseShieldBoost = 20;
             consumePower(3.0F);
             alwaysUnlocked = true;
         }};
@@ -640,26 +640,26 @@ public class TBlocks {
             inaccuracy = 33.3f;
             shootCone = 33.3f;
             coolant = new ConsumeCoolant(0.333f);
-            ammo(TItems.bee, new BasicBulletType(3.33f, 3.33f) {{
-                splashDamage = 33f;
-                splashDamageRadius = 3.33f;
+            ammo(TItems.bee, new BasicBulletType(3.33f, 33.3f) {{
+                splashDamage = 33.3f;
+                splashDamageRadius = 33.3f;
                 width = height = hitSize = 33;
                 knockback = 3.33f;
                 shrinkInterp = Interp.smooth;
                 status = StatusEffects.shocked;
                 ammoMultiplier = 3;
-            }}, TItems.beeq, new BasicBulletType(3.33f, 4.44f) {{
-                splashDamage = 33f;
-                splashDamageRadius = 4.44f;
+            }}, TItems.beeq, new BasicBulletType(3.33f, 44.4f) {{
+                splashDamage = 33.3f;
+                splashDamageRadius = 44.4f;
                 width = height = hitSize = 33;
                 knockback = 3.33f;
                 shrinkInterp = Interp.smooth;
                 status = StatusEffects.shocked;
                 reloadMultiplier = 0.777f;
                 ammoMultiplier = 3.33f;
-            }}, TItems.goddamm_ingot, new BasicBulletType(3.33f, 7.77f) {{
+            }}, TItems.goddamm_ingot, new BasicBulletType(3.33f, 77.7f) {{
                 splashDamage = 44.4f;
-                splashDamageRadius = 7.77f;
+                splashDamageRadius = 77.7f;
                 width = height = hitSize = 33;
                 knockback = 33.3f;
                 shrinkInterp = Interp.smooth;
@@ -794,7 +794,7 @@ public class TBlocks {
                 knockback = 1.3F;
                 puddleSize = 8.0F;
                 orbSize = 4.0F;
-                damage = 12.5F;
+                damage = 78.5F;
                 drag = 0.005F;
                 ammoMultiplier = 0.4F;
                 statusDuration = 240.0F;
@@ -805,7 +805,7 @@ public class TBlocks {
                 knockback = 1.3F;
                 puddleSize = 8.0F;
                 orbSize = 4.0F;
-                damage = 33F;
+                damage = 133F;
                 drag = 0.005F;
                 ammoMultiplier = 0.4F;
                 statusDuration = 240.0F;
@@ -890,11 +890,11 @@ public class TBlocks {
                 }
             };
             range = 300;
-            ammo(TItems.bee, new MissileBulletType(1, 3.5f, "tets-craft-mod-bee") {{
+            ammo(TItems.bee, new MissileBulletType(1, 15.5f, "tets-craft-mod-bee") {{
                         backColor = new Color(0, 0, 0, 0);
                         rotationOffset = 90;
-                        splashDamage = 15;
-                        splashDamageRadius = 16;
+                        splashDamage = 50;
+                        splashDamageRadius = 50;
                         knockback = 0.2f;
                         status = StatusEffects.shocked;
                         homingPower = 0.2f;
@@ -906,11 +906,11 @@ public class TBlocks {
                         hitEffect = Fx.hitFlameSmall;
                         ammoMultiplier = 1f;
                     }},
-                    TItems.beeq, new MissileBulletType(0.6f, 8.5f, "tets-craft-mod-beeq") {{
+                    TItems.beeq, new MissileBulletType(0.6f, 18.5f, "tets-craft-mod-beeq") {{
                         backColor = new Color(0, 0, 0, 0);
                         rotationOffset = 90;
-                        splashDamage = 41;
-                        splashDamageRadius = 24;
+                        splashDamage = 99;
+                        splashDamageRadius = 80;
                         knockback = 1.4f;
                         status = StatusEffects.shocked;
                         homingPower = 0.3f;
