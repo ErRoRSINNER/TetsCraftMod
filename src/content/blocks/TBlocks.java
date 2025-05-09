@@ -4,6 +4,7 @@ import arc.graphics.Color;
 import arc.graphics.g2d.Draw;
 import arc.graphics.g2d.Fill;
 import arc.math.Interp;
+import arc.struct.Seq;
 import content.items.TItems;
 import content.liquids.TLiquids;
 import content.units.TUnits;
@@ -43,6 +44,9 @@ import mindustry.world.blocks.units.UnitFactory;
 import mindustry.world.consumers.ConsumeCoolant;
 import mindustry.world.consumers.ConsumeLiquid;
 import mindustry.world.draw.*;
+import multicraft.IOEntry;
+import multicraft.MultiCrafter;
+import multicraft.Recipe;
 
 import static mindustry.type.ItemStack.with;
 
@@ -216,17 +220,27 @@ public class TBlocks {
             consumePower(0.45F);
             alwaysUnlocked = true;
         }};
-        pravoslaviumMixer = new GenericCrafter("pravoslavium_mixer") {{
+        pravoslaviumMixer = new MultiCrafter("pravoslavium_mixer") {{
             requirements(Category.crafting, ItemStack.with(TItems.tantalium, 100, Items.thorium, 25, TItems.concrete, 50));
             setHealth(this);
-            craftTime = 100.0F;
-            outputItem = new ItemStack(TItems.goddamm_ingot, 1);
+
+            resolvedRecipes = Seq.with(
+                    new Recipe(
+                            new IOEntry(
+                                    Seq.with(ItemStack.with(TItems.tets_coin, 8, TItems.tantalium, 1)),
+                                    Seq.with(LiquidStack.with(Liquids.water, 2f))
+                            ),
+                            new IOEntry(
+                                    Seq.with(ItemStack.with(TItems.goddamm_ingot, 1)),
+                                    Seq.with()
+                            ),
+                            3
+                    )
+            );
+
             size = 3;
             craftEffect = Fx.lightningCharge;
             drawer = new DrawMulti(new DrawDefault(), new DrawRegion("-rotator", 0.4f, true));
-            consumeLiquid(Liquids.water, 0.4f);
-            consumePower(1F);
-            consumeItems(ItemStack.with(TItems.tets_coin, 8));
             alwaysUnlocked = true;
         }};
         bingQiLingMixer = new GenericCrafter("bing_qi_ling_mixer") {{
