@@ -1,6 +1,8 @@
 package content.blocks;
 
 import arc.graphics.Color;
+import arc.graphics.g2d.Draw;
+import arc.graphics.g2d.Fill;
 import arc.math.Interp;
 import content.items.TItems;
 import content.liquids.TLiquids;
@@ -51,7 +53,7 @@ public class TBlocks {
             beeshot, quick_fire, RMG202, superconductor_plant, absolute_zero, bingQiLingMixer, pravoslaviumMixer, tetsBridge, teslaCoil, copperPulverizer,
             erekinator, serpulinator, bardovovizator, apiary, composter, tetsBasicReconstructorEnergy, tetsBasicReconstructorAttack, tetsAdditiveReconstructorAttack,
             tetsAdditiveReconstructorEnergy, tetsMultiplicativeReconstructorEnergy, tetsOre, cirnoGun, tantal_router, goddamn_gun, tantal_mine, vault, vault_big,
-            tets_display, tets_processor;
+            tets_display, tets_processor, hidingShield;
 
     //Fake 2 by 2
     public static Block fakeCopperWallLarge, fakeTitaniumWallLarge, fakeThoriumWallLarge, fakeGraphitePress, fakeKiln, fakeMechanicalDrill, fakePneumaticDrill,
@@ -402,6 +404,18 @@ public class TBlocks {
     }
 
     private static void loadDefenses() {
+        /*hidingShield = new BaseShield("hiding_shield") {{
+            requirements(Category.defense, ItemStack.with(TItems.tantalium, 40, TItems.battery, 100));
+            health = 250;
+            alwaysUnlocked = true;
+            size = 3;
+            this.radius = 32;
+
+            //if(paramBuild != null){
+            //    Draw.alpha(1.0F);
+            //    Fill.poly(paramBuild.x(), paramBuild.y(), 3, 24, 0f);
+            //}
+        }};*/
         tantal_mine = new ShockMine("tantal_mine") {{
             requirements(Category.effect, ItemStack.with(TItems.tantalium, 10, TItems.battery, 12));
             hasShadow = false;
