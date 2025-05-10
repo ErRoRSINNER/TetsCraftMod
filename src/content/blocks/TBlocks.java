@@ -52,22 +52,42 @@ import multicraft.Recipe;
 import static mindustry.type.ItemStack.with;
 
 public class TBlocks {
-    public static Block homoDrill, miniDrill, nihonDrill, tetsDrill, bangun, govnomet, teleporter, tets_conveyor, solpanel, tets_battery, crystal_powerblock,
-            made_in_heaven, small_shield_projector, concrete_wall, concrete_wall_large, prav_wall, prav_wall_large, daew, poop_wall, battery_factory, bee_plant,
-            concrete_mixer, crystalizer, shit_mixer, vermillion, tantalium_factory, mica_press, mercury_purificator, tetsonator, aacd_FIFNYA, hoover,
-            beeshot, quick_fire, RMG202, superconductor_plant, absolute_zero, bingQiLingMixer, pravoslaviumMixer, tetsBridge, teslaCoil, copperPulverizer,
-            erekinator, serpulinator, bardovovizator, apiary, composter, tetsBasicReconstructorEnergy, tetsBasicReconstructorAttack, tetsAdditiveReconstructorAttack,
-            tetsAdditiveReconstructorEnergy, tetsMultiplicativeReconstructorEnergy, tetsOre, cirnoGun, tantal_router, goddamn_gun, tantal_mine, vault, vault_big,
-            tets_display, tets_processor, hidingShield;
 
-    //Fake 2 by 2
+    public static Block solpanel, tets_battery, crystal_powerblock,
+            tetsBasicReconstructorEnergy, tetsBasicReconstructorAttack, tetsAdditiveReconstructorAttack,
+            tetsAdditiveReconstructorEnergy, tetsMultiplicativeReconstructorEnergy, hidingShield;
+
+    // Crafting
+    public static Block battery_factory, bee_plant, concrete_mixer, crystalizer, shit_mixer, tantalium_factory, mica_press, mercury_purificator, tetsonator,
+            superconductor_plant, absolute_zero, bingQiLingMixer, pravoslaviumMixer, erekinator, serpulinator, bardovovizator, apiary, composter, copperPulverizer;
+
+    // Drills
+    public static Block homoDrill, miniDrill, nihonDrill, tetsDrill;
+
+    // Turrets
+    public static Block bangun, govnomet, aacd_FIFNYA, hoover, beeshot, quick_fire, RMG202, teslaCoil, cirnoGun, goddamn_gun;
+
+    // Walls
+    public static Block daew, poop_wall, concrete_wall, concrete_wall_large, prav_wall, prav_wall_large;
+
+    // Distributions
+    public static Block teleporter, tets_conveyor, tantal_router, tetsBridge;
+
+    // Effects
+    public static Block made_in_heaven, small_shield_projector;
+
+    // Fake 2 by 2
     public static Block fakeCopperWallLarge, fakeTitaniumWallLarge, fakeThoriumWallLarge, fakeGraphitePress, fakeKiln, fakeMechanicalDrill, fakePneumaticDrill,
-    fakePlastaniumCompressor, fakeSiliconSmelter, fakeSteamGenerator, fakeThermalGenerator, fakeLancer, fakeScatter;
+            fakePlastaniumCompressor, fakeSiliconSmelter, fakeSteamGenerator, fakeThermalGenerator, fakeLancer, fakeScatter;
 
-    //Fake 3 by 3
+    // Fake 3 by 3
     public static Block fakeCoreShard, fakeBatteryLarge, fakeMultiPress, fakeSiliconCrucible, fakeRipple, fakeFuse, fakeThoriumReactor, fakeSolarPanelLarge;
 
-    public static Block test1, test2, test3, test4;
+    // Other
+    public static Block tantal_mine, vault, vault_big, tets_display, tets_processor, vermillion, tetsOre;
+
+
+    public static Block test1, test2;
 
     public static void load() {
         loadCrafting();
@@ -1263,7 +1283,7 @@ public class TBlocks {
             size = 7;
         }};
 
-        tets_processor = new LogicBlock("tets_processor"){{
+        tets_processor = new LogicBlock("tets_processor") {{
             requirements(Category.logic, with(TItems.tantalium, 400, TItems.tets_ingot, 250, TItems.battery, 350, TItems.superconductor, 175, Items.surgeAlloy, 100));
             setHealth(this, 0.1f);
 
@@ -1277,7 +1297,7 @@ public class TBlocks {
         }};
     }
 
-    private static void loadFake(){
+    private static void loadFake() {
         fakeCopperWallLarge = new Wall("fake_copper_wall_large") {{
             requirements(Category.defense, ItemStack.with(Items.copper, 80, Items.lead, 20));
             health = 420;
