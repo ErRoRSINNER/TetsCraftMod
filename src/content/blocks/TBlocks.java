@@ -452,18 +452,21 @@ public class TBlocks {
     }
 
     private static void loadDefenses() {
-        /*hidingShield = new BaseShield("hiding_shield") {{
-            requirements(Category.defense, ItemStack.with(TItems.tantalium, 40, TItems.battery, 100));
-            health = 250;
-            alwaysUnlocked = true;
+        hidingShield = new CustomForceProjector("hiding_shield") {{
+            requirements(Category.defense, ItemStack.with(Items.thorium, 20, TItems.tantalium, 50, TItems.battery, 120));
             size = 3;
-            this.radius = 32;
-
-            //if(paramBuild != null){
-            //    Draw.alpha(1.0F);
-            //    Fill.poly(paramBuild.x(), paramBuild.y(), 3, 24, 0f);
-            //}
-        }};*/
+            health = 250;
+            transparency = 255f;
+            sides = 4;
+            shieldRotation = 45;
+            this.radius = 85;
+            this.shieldHealth = 120;
+            this.cooldownNormal = 3.5F;
+            this.cooldownLiquid = 2.8F;
+            this.cooldownBrokenBase = 0.35F;
+            this.consumePower(4.0F);
+            alwaysUnlocked = true;
+        }};
         tantal_mine = new ShockMine("tantal_mine") {{
             requirements(Category.effect, ItemStack.with(TItems.tantalium, 10, TItems.battery, 12));
             hasShadow = false;
