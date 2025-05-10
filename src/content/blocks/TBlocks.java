@@ -229,13 +229,26 @@ public class TBlocks {
                     new Recipe(
                             new IOEntry(
                                     Seq.with(ItemStack.with(TItems.tets_coin, 8, TItems.tantalium, 1)),
-                                    Seq.with(LiquidStack.with(Liquids.water, 2f))
+                                    Seq.with(LiquidStack.with(Liquids.water, 2f)),
+                                    3
                             ),
                             new IOEntry(
                                     Seq.with(ItemStack.with(TItems.goddamm_ingot, 1)),
                                     Seq.with()
                             ),
-                            3
+                            120
+                    ),
+                    new Recipe(
+                            new IOEntry(
+                                    Seq.with(ItemStack.with(TItems.tets_coin, 2, TItems.bee, 3)),
+                                    Seq.with(LiquidStack.with(TLiquids.honey, 0.05f)),
+                                    2
+                            ),
+                            new IOEntry(
+                                    Seq.with(ItemStack.with(TItems.beeq, 2)),
+                                    Seq.with()
+                            ),
+                            50
                     )
             );
 
@@ -513,14 +526,14 @@ public class TBlocks {
             alwaysUnlocked = true;
         }};
         nihonDrill = new Drill("nihon-drill") {{
-            requirements(Category.production, ItemStack.with(TItems.nihonium, 240, Items.lead, 24));
+            requirements(Category.production, ItemStack.with(TItems.nihonium, 240, TItems.tets_ingot, 1000));
             setHealth(this);
             tier = 6;
-            drillTime = 200.0F;
+            drillTime = 20.0F;
             size = 5;
             //this.researchCost = ItemStack.with(new Object[]{Items.copper, 100, Items.lead, 60});
-            consumeLiquid(Liquids.cryofluid, 0.1F).boost();
-            consumePower(4.3f);
+            consumeLiquid(Liquids.cryofluid, 0.2F).boost();
+            consumePower(5.3f);
             alwaysUnlocked = true;
         }};
         tetsDrill = new Drill("tets-drill") {{
@@ -592,7 +605,7 @@ public class TBlocks {
         tetsOre = new OreBlock("tetsore", TItems.tets_coin) {{
             oreDefault = true;
             oreThreshold = 0.95F;
-            oreScale = 20.3F;
+            oreScale = 23.3F;
             alwaysUnlocked = true;
         }};
     }
