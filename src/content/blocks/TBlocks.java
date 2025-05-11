@@ -804,7 +804,7 @@ public class TBlocks {
         }};
         cirnoGun = new LiquidTurret("cirno_gun") {{
             //afflict
-            requirements(Category.turret, with(Items.titanium, 99, TItems.battery, 99, TItems.bing_qi_ling, 99, Items.graphite, 99));
+            requirements(Category.turret, with(Items.titanium, 99, TItems.bing_qi_ling, 99, Items.graphite, 99));
             ammo(Liquids.water, new PointLaserBulletType() {{
                 knockback = 0.0F;
                 damage = 0.009F;
