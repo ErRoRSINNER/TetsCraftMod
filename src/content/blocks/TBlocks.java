@@ -196,7 +196,7 @@ public class TBlocks {
         bardovovizator = new GenericCrafter("bardovovizator") {{
             requirements(Category.crafting, ItemStack.with(TItems.battery, 140, TItems.tantalium, 30, TItems.concrete, 160, TItems.tets_ingot, 30, TItems.crystal, 50));
             setHealth(this, 0.3f);
-            outputLiquid = new LiquidStack(TLiquids.red_mercury, 0.01f);
+            outputLiquid = new LiquidStack(TLiquids.red_mercury, 0.03f);
             craftTime = 40.0F;
             size = 2;
             drawer = new DrawMulti(new DrawDefault(), new DrawFade());
@@ -292,7 +292,7 @@ public class TBlocks {
                     new Recipe(
                             new IOEntry(
                                     Seq.with(ItemStack.with(Items.surgeAlloy, 6, Items.phaseFabric, 16, TItems.tets_ingot, 7)),
-                                    Seq.with(LiquidStack.with(TLiquids.super_cryofluid, 0.5f, TLiquids.red_mercury, 0.1f, TLiquids.honey, 2.4f)),
+                                    Seq.with(LiquidStack.with(TLiquids.super_cryofluid, 0.5f, TLiquids.red_mercury, 0.3f, TLiquids.honey, 1.4f)),
                                     32 * 60,
                                     30
                             ),
@@ -321,7 +321,7 @@ public class TBlocks {
                             new IOEntry(
                                     Seq.with(ItemStack.with(Items.thorium, 18, TItems.tets_ingot, 24)),
                                     Seq.with(LiquidStack.with(TLiquids.super_cryofluid, 0.3333f)),
-                                    60.4f * 60,
+                                    58 * 60,
                                     160
                             ),
                             new IOEntry(
@@ -352,7 +352,7 @@ public class TBlocks {
                             new IOEntry(
                                     Seq.with(),
                                     Seq.with(LiquidStack.with(Liquids.neoplasm, 0.1f)),
-                                    34 * 12, 20
+                                    35 * 12, 20
                             ),
                             60
                     )
@@ -481,7 +481,7 @@ public class TBlocks {
             setHealth(this);
             craftTime = 30.0F;
             size = 2;
-            outputLiquid = new LiquidStack(TLiquids.mercury, 0.06666f);
+            outputLiquid = new LiquidStack(TLiquids.mercury, 0.045f);
             drawer = new DrawMulti(new DrawDefault(), new DrawFade());
             consumeItems(ItemStack.with(TItems.vermillion, 3));
             alwaysUnlocked = true;
@@ -1274,28 +1274,28 @@ public class TBlocks {
         tets_conveyor = new Conveyor("tets-conveyor") {{
             requirements(Category.distribution, ItemStack.with(TItems.battery, 1, TItems.tets_ingot, 1, TItems.concrete, 1));
             setHealth(this);
-            itemCapacity = 4;
-            speed = 0.14f;
+            itemCapacity = 20;
+            speed = 0.5f;
             displayedSpeed = 9.0F;
             health = 260;
             alwaysUnlocked = true;
         }};
         teleporter = new MassDriver("teleporter") {{
-            requirements(Category.distribution, ItemStack.with(TItems.tets_ingot, 30, TItems.battery, 13, TItems.hyperalloy, 5));
+            requirements(Category.distribution, ItemStack.with(TItems.tets_ingot, 300, TItems.battery, 130, TItems.hyperalloy, 6));
             setHealth(this);
             size = 1;
-            range = 1280;
-            reload = 10;
+            range = 12800;
+            reload = 3;
             shake = 0;
-            bulletSpeed = 20;
+            bulletSpeed = 220;
             shootEffect = Fx.lightningShoot;
             smokeEffect = Fx.colorSpark;
             receiveEffect = Fx.mineBig;
             shootSound = Sounds.pew;
-            consumePower(1f);
+            consumePower(3f);
             bullet = new MassDriverBolt() {{
                 collidesTiles = false;
-                lifetime = 1f;
+                lifetime = 100f;
                 despawnEffect = Fx.dropItem;
                 hitEffect = Fx.hitLaser;
             }};
