@@ -2,15 +2,27 @@ package main;
 
 import arc.Core;
 import arc.Events;
+import arc.graphics.Color;
+import arc.graphics.Texture;
+import arc.graphics.TextureData;
+import arc.graphics.g2d.TextureRegion;
+import arc.scene.style.BaseDrawable;
+import arc.scene.style.Drawable;
+import arc.scene.style.TextureRegionDrawable;
 import arc.util.Log;
 import arc.util.Time;
 import content.blocks.LiquidAccurateSolarCrafter;
+import content.blocks.SolarHeatProducer;
 import content.blocks.TBlocks;
 import content.items.TItems;
 import content.liquids.TLiquids;
 import content.units.TUnits;
 import mindustry.game.EventType.ClientLoadEvent;
+import mindustry.gen.Icon;
+import mindustry.logic.LCategory;
 import mindustry.mod.Mod;
+import mindustry.type.Category;
+import mindustry.ui.Fonts;
 import mindustry.ui.dialogs.BaseDialog;
 
 public class MainJavaMod extends Mod{
@@ -34,7 +46,11 @@ public class MainJavaMod extends Mod{
 
     @Override
     public void loadContent(){
-        LiquidAccurateSolarCrafter.CustomSolarCrafterBuild.create();
+        //TextureRegionDrawable steamIcon = Fonts.getGlyph(Fonts.icon, '☁');
+        //Icon.icons.put("steam", steamIcon);
+
+        LiquidAccurateSolarCrafter.LiquidAccurateSolarCrafterBuild.create();
+        SolarHeatProducer.SolarHeatProducerBuild.create();
 
         TLiquids.load();
         TItems.load();

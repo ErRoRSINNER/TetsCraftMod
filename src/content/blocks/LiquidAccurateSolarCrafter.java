@@ -6,7 +6,6 @@ import mindustry.Vars;
 import mindustry.graphics.Pal;
 import mindustry.ui.Bar;
 import mindustry.world.blocks.production.GenericCrafter;
-import mindustry.world.consumers.Consume;
 import mindustry.world.meta.Attribute;
 import mindustry.world.meta.Stat;
 import mindustry.world.meta.StatUnit;
@@ -25,7 +24,7 @@ public class LiquidAccurateSolarCrafter extends GenericCrafter {
     @Override
     public void setBars(){
         super.setBars();
-        addBar("efficiency", (LiquidAccurateSolarCrafter.CustomSolarCrafterBuild entity) ->
+        addBar("efficiency", (LiquidAccurateSolarCrafterBuild entity) ->
                 new Bar(() ->
                         Core.bundle.format("bar.efficiency", entity.solarEfficiency * 100),
                         () -> Pal.lightOrange,
@@ -53,10 +52,10 @@ public class LiquidAccurateSolarCrafter extends GenericCrafter {
         }
     }
 
-    public class CustomSolarCrafterBuild extends GenericCrafter.GenericCrafterBuild {
+    public class LiquidAccurateSolarCrafterBuild extends GenericCrafter.GenericCrafterBuild {
         public float solarEfficiency = 1.0F;
 
-        public CustomSolarCrafterBuild() {
+        public LiquidAccurateSolarCrafterBuild() {
             super();
         }
 
