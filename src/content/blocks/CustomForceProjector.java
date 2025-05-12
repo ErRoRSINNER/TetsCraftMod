@@ -36,6 +36,7 @@ import mindustry.world.meta.Stat;
 import mindustry.world.meta.StatUnit;
 import mindustry.world.meta.StatValues;
 
+//TODO Переделать. Сделать нормальным
 public class CustomForceProjector extends ForceProjector {
 
     public final int timerUse;

@@ -32,6 +32,7 @@ import mindustry.world.blocks.environment.OreBlock;
 import mindustry.world.blocks.logic.LogicBlock;
 import mindustry.world.blocks.logic.LogicDisplay;
 import mindustry.world.blocks.power.Battery;
+import mindustry.world.blocks.power.ConsumeGenerator;
 import mindustry.world.blocks.power.PowerGenerator;
 import mindustry.world.blocks.power.SolarGenerator;
 import mindustry.world.blocks.production.Drill;
@@ -62,7 +63,7 @@ public class TBlocks {
     // Crafting
     public static Block solarHeater, solarBoiler, boiler, electric_boiler, customSteamGenerator, battery_factory, bee_plant, concrete_mixer, crystalizer, shit_mixer,
             tantalium_factory, mica_press, mercury_purificator, tetsonator, superconductor_plant, absolute_zero, bingQiLingMixer, pravoslaviumMixer, erekinator,
-            serpulinator, bardovovizator, apiary, composter, copperPulverizer, fusion_reactor, atmosphericCondenser;
+            serpulinator, bardovovizator, apiary, composter, copperPulverizer, fusion_reactor, atmosphericCondenser, steamCompressor;
 
     // Drills
     public static Block homoDrill, miniDrill, nihonDrill, tetsDrill;
@@ -193,15 +194,27 @@ public class TBlocks {
     }
 
     private static void loadCrafting() {
+        steamCompressor = new GenericCrafter("steam_compressor") {{
+            this.requirements(Category.crafting, ItemStack.with(Items.lead, 160, Items.titanium, 80, Items.graphite, 40, Items.metaglass, 40));
+            size = 3;
+            this.health = 520;
+            this.craftTime = 60;
+            liquidCapacity = 120;
+
+            this.consumeLiquid(TLiquids.steam, 1f);
+            this.outputLiquid = new LiquidStack(TLiquids.compressed_steam, 0.1F);
+            alwaysUnlocked = true;
+        }};
         atmosphericCondenser = new GenericCrafter("atmospheric_condenser") {{
             requirements(Category.crafting, ItemStack.with(TItems.concrete, 500, Items.titanium, 80));
             health = 1200;
             size = 5;
             outputLiquid = new LiquidStack(Liquids.water, 1 / 60f);
+            liquidCapacity = 120;
             alwaysUnlocked = true;
         }};
         solarHeater = new SolarHeatProducer("solar_heater") {{
-            requirements(Category.crafting, with(Items.lead, 80, Items.tungsten, 10, Items.oxide, 5));
+            requirements(Category.crafting, with(Items.lead, 80, Items.tungsten, 10));
             size = 2;
             heatOutput = 0.5f;
             itemCapacity = 0;
@@ -213,6 +226,7 @@ public class TBlocks {
             size = 3;
             this.health = 320;
             this.craftTime = 240;
+            liquidCapacity = 30;
 
             this.consumeLiquid(Liquids.water, 0.1f);
             this.outputLiquid = new LiquidStack(TLiquids.steam, 0.1F);
@@ -224,10 +238,11 @@ public class TBlocks {
                 this.requirements(Category.crafting, ItemStack.with(Items.copper, 40, Items.lead, 80));
                 this.health = 180;
                 this.craftTime = 60.0F;
-                this.heatRequirement = 5.0F;
+                this.heatRequirement = 10.0F;
+                liquidCapacity = 20;
 
-                this.consumeLiquid(Liquids.water, 0.4f);
-                this.outputLiquid = new LiquidStack(TLiquids.steam, 0.5F);
+                this.consumeLiquid(Liquids.water, 0.15f);
+                this.outputLiquid = new LiquidStack(TLiquids.steam, 0.2F);
                 alwaysUnlocked = true;
             }
         };
@@ -236,10 +251,11 @@ public class TBlocks {
                 size = 2;
                 this.requirements(Category.crafting, ItemStack.with(Items.copper, 40, Items.lead, 40, Items.graphite, 30, Items.silicon, 30, TItems.battery, 10));
                 this.health = 200;
-                this.outputLiquid = new LiquidStack(TLiquids.steam, 0.1F);
+                this.outputLiquid = new LiquidStack(TLiquids.steam, 0.08F);
                 this.craftTime = 30.0F;
-                this.consumePower(1.0F);
+                this.consumePower(100/60f);
                 this.consumeLiquid(Liquids.water, 0.1f);
+                liquidCapacity = 20;
                 alwaysUnlocked = true;
             }
         };
@@ -283,7 +299,7 @@ public class TBlocks {
                                 ),
                                 new IOEntry(
                                         Seq.with(),
-                                        Seq.with(LiquidStack.with(TLiquids.steam, 0.1f))
+                                        Seq.with(LiquidStack.with(TLiquids.steam, 0.08f))
                                 ), 60
                         )
                 );
@@ -834,9 +850,22 @@ public class TBlocks {
     }
 
     private static void loadPower() {
-        steamTurbine = new PowerGenerator("steam_turbine") {{
+        steamTurbine = new ConsumeGenerator("steam_turbine") {{
             requirements(Category.power, ItemStack.with(TItems.battery, 160, Items.silicon, 60, Items.lead, 100, Items.metaglass, 50));
             health = 400;
+            size = 4;
+            baseExplosiveness = 2;
+            liquidCapacity = 40;
+            consumeLiquid(TLiquids.compressed_steam, 0.05f);
+            powerProduction = 30f;
+            drawer = new DrawMulti(
+                    new DrawRegion("-bottom"),
+                    new DrawWarmupRegion(),
+                    new DrawRegion("-turbine"){{
+                        rotateSpeed = 2f;
+                    }},
+                    new DrawDefault()
+            );
         }};
         batteryArray = new Battery("battery_array") {{
             requirements(Category.power, ItemStack.with(TItems.battery, 100, Items.silicon, 30, Items.lead, 50));
