@@ -1188,7 +1188,7 @@ public class TBlocks {
             range = 1000;
             coolant = new ConsumeCoolant(0.1f);
             ammo(TItems.crystal, new BasicBulletType(19, 200) {{
-                        lifetime = 1000/18f;
+                        lifetime = 1000 / 18f;
                         absorbable = false;
                         healPercent = 100;
                         healAmount = 500;
@@ -1222,7 +1222,7 @@ public class TBlocks {
                         }};
                     }},
                     TItems.battery, new BasicBulletType(12, 50) {{
-                        lifetime = 1000/11f;
+                        lifetime = 1000 / 11f;
                         status = StatusEffects.electrified;
                         absorbable = false;
                         splashDamage = 75;
@@ -1238,7 +1238,7 @@ public class TBlocks {
                         ammoMultiplier = 1.4f;
                     }},
                     TItems.superconductor, new BasicBulletType(20, 500) {{
-                        lifetime = 1000/19f;
+                        lifetime = 1000 / 19f;
                         status = StatusEffects.shocked;
                         absorbable = false;
                         reloadMultiplier = 1.15f;
@@ -1253,7 +1253,7 @@ public class TBlocks {
                         ammoMultiplier = 2.5f;
                     }},
                     TItems.tantalium, new BasicBulletType(13, 100) {{
-                        lifetime = 1000/12f;
+                        lifetime = 1000 / 12f;
                         status = StatusEffects.corroded;
                         absorbable = false;
                         reloadMultiplier = 0.95f;
@@ -1297,14 +1297,26 @@ public class TBlocks {
                 }
             };
             ammo(Items.sand, new MissileBulletType(6, 24) {{
-                status = StatusEffects.slow;
-                hitSize = 7;
-                width = 4;
-                height = 4;
-                shootEffect = Fx.shootPyraFlame;
-                hitEffect = Fx.hitFlameSmall;
-                ammoMultiplier = 3.4f;
-            }});
+                        status = StatusEffects.slow;
+                        hitSize = 7;
+                        width = 4;
+                        height = 4;
+                        shootEffect = Fx.shootPyraFlame;
+                        hitEffect = Fx.hitFlameSmall;
+                        ammoMultiplier = 3.4f;
+                    }},
+                    Items.silicon, new MissileBulletType(6, 30) {{
+                        lifetime = 50f;
+                        status = StatusEffects.electrified;
+                        hitSize = 7;
+                        width = 4;
+                        height = 4;
+                        rangeChange = 100;
+                        shootEffect = Fx.shootPyraFlame;
+                        hitEffect = Fx.hitFlameSmall;
+                        ammoMultiplier = 2f;
+                    }}
+            );
             alwaysUnlocked = true;
         }};
         bangun = new ItemTurret("bangun") {{
