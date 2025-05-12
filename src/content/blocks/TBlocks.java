@@ -1,8 +1,6 @@
 package content.blocks;
 
 import arc.graphics.Color;
-import arc.graphics.g2d.Draw;
-import arc.graphics.g2d.Fill;
 import arc.math.Interp;
 import arc.struct.EnumSet;
 import arc.struct.Seq;
@@ -10,7 +8,6 @@ import content.items.TItems;
 import content.liquids.TLiquids;
 import content.units.TUnits;
 import mindustry.content.*;
-import mindustry.entities.Effect;
 import mindustry.entities.UnitSorts;
 import mindustry.entities.bullet.*;
 import mindustry.entities.effect.MultiEffect;
@@ -38,6 +35,7 @@ import mindustry.world.blocks.power.Battery;
 import mindustry.world.blocks.power.SolarGenerator;
 import mindustry.world.blocks.production.Drill;
 import mindustry.world.blocks.production.GenericCrafter;
+import mindustry.world.blocks.production.HeatCrafter;
 import mindustry.world.blocks.production.Separator;
 import mindustry.world.blocks.storage.StorageBlock;
 import mindustry.world.blocks.units.Reconstructor;
@@ -55,12 +53,13 @@ import static mindustry.type.ItemStack.with;
 
 public class TBlocks {
 
-    public static Block solpanel, tets_battery, crystal_powerblock,
+    //Energy
+    public static Block  batteryArray, tetsPowerNode, solpanel, tets_battery, crystal_powerblock,
             tetsBasicReconstructorEnergy, tetsBasicReconstructorAttack, tetsAdditiveReconstructorAttack,
             tetsAdditiveReconstructorEnergy, tetsMultiplicativeReconstructorEnergy, hidingShield;
 
     // Crafting
-    public static Block battery_factory, bee_plant, concrete_mixer, crystalizer, shit_mixer, tantalium_factory, mica_press, mercury_purificator, tetsonator,
+    public static Block testBoiler, solarBoiler, boiler, electric_boiler, customSteamGenerator, battery_factory, bee_plant, concrete_mixer, crystalizer, shit_mixer, tantalium_factory, mica_press, mercury_purificator, tetsonator,
             superconductor_plant, absolute_zero, bingQiLingMixer, pravoslaviumMixer, erekinator, serpulinator, bardovovizator, apiary, composter, copperPulverizer,
             fusion_reactor;
 
@@ -74,7 +73,7 @@ public class TBlocks {
     public static Block daew, poop_wall, concrete_wall, concrete_wall_large, prav_wall, prav_wall_large;
 
     // Distributions
-    public static Block teleporter, tets_conveyor, tantal_router, tetsBridge;
+    public static Block smallContainer, teleporter, tets_conveyor, tantal_router, tetsBridge;
 
     // Effects
     public static Block made_in_heaven, small_shield_projector, vault, vault_big;
@@ -193,6 +192,84 @@ public class TBlocks {
     }
 
     private static void loadCrafting() {
+        solarBoiler = new LiquidAccurateSolarCrafter("solar_boiler"){{
+            this.requirements(Category.crafting, ItemStack.with(new Object[]{Items.lead, 160, Items.graphite, 30}));
+            size = 3;
+            this.health = 320;
+            this.craftTime = 240;
+
+            this.consumeLiquid(Liquids.water, 0.1f);
+            this.outputLiquid = new LiquidStack(TLiquids.steam, 0.1F);
+        }};
+        boiler = new HeatCrafter("boiler") {
+            {
+                size = 2;
+                this.requirements(Category.crafting, ItemStack.with(new Object[]{Items.copper, 40, Items.lead, 80}));
+                this.health = 180;
+                this.craftTime = 60.0F;
+                this.heatRequirement = 5.0F;
+
+                this.consumeLiquid(Liquids.water, 0.4f);
+                this.outputLiquid = new LiquidStack(TLiquids.steam, 0.5F);
+            }
+        };
+        electric_boiler = new GenericCrafter("electric_boiler") {
+            {
+                size = 2;
+                this.requirements(Category.crafting, ItemStack.with(new Object[]{Items.copper, 40, Items.lead, 40, Items.graphite, 30, Items.silicon, 30, TItems.battery, 10}));
+                this.health = 200;
+                this.outputLiquid = new LiquidStack(TLiquids.steam, 0.1F);
+                this.craftTime = 30.0F;
+                this.consumePower(1.0F);
+                this.consumeLiquid(Liquids.water, 0.1f);
+            }
+        };
+        customSteamGenerator = new MultiCrafter("custom_steam_generator") {
+            {
+                this.requirements(Category.power, ItemStack.with(new Object[]{Items.copper, 60, Items.graphite, 30, Items.lead, 40, Items.silicon, 40}));
+                this.size = 2;
+                craftEffect = Fx.generatespark;
+                this.ambientSound = Sounds.smelter;
+                this.ambientSoundVolume = 0.06F;
+                flags = EnumSet.of(BlockFlag.reactor, BlockFlag.generator, BlockFlag.factory);
+                this.drawer = new DrawMulti(new DrawBlock[]{new DrawDefault(), new DrawWarmupRegion(), new DrawRegion("-turbine") {
+                    {
+                        this.rotateSpeed = 2.0F;
+                    }
+                }, new DrawRegion("-turbine") {
+                    {
+                        this.rotateSpeed = -2.0F;
+                        this.rotation = 45.0F;
+
+                    }
+                }, new DrawRegion("-cap")
+                });
+
+                resolvedRecipes = Seq.with(
+                        new Recipe(
+                                new IOEntry(
+                                        Seq.with(ItemStack.with(Items.coal, 1)),
+                                        Seq.with(LiquidStack.with(Liquids.water, 0.1))
+                                ),
+                                new IOEntry(
+                                        Seq.with(),
+                                        Seq.with(),
+                                        5.5f
+                                ), 60
+                        ),
+                        new Recipe(
+                                new IOEntry(
+                                        Seq.with(ItemStack.with(Items.coal, 1)),
+                                        Seq.with(LiquidStack.with(Liquids.water, 0.1))
+                                ),
+                                new IOEntry(
+                                        Seq.with(),
+                                        Seq.with(LiquidStack.with(TLiquids.steam, 0.1f))
+                                ), 60
+                        )
+                );
+            }
+        };
         bardovovizator = new GenericCrafter("bardovovizator") {{
             requirements(Category.crafting, ItemStack.with(TItems.battery, 140, TItems.tantalium, 30, TItems.concrete, 160, TItems.tets_ingot, 30, TItems.crystal, 50));
             setHealth(this, 0.3f);
@@ -1632,6 +1709,8 @@ public class TBlocks {
             homingRange = 100;
             collidesTiles = collidesTeam = true;
         }});
+
+        //Blocks.steamGenerator.buildVisibility = BuildVisibility.editorOnly;
     }
 
     private static void setHealth(Block block) {

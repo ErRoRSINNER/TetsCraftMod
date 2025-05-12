@@ -4,6 +4,7 @@ import arc.Core;
 import arc.Events;
 import arc.util.Log;
 import arc.util.Time;
+import content.blocks.LiquidAccurateSolarCrafter;
 import content.blocks.TBlocks;
 import content.items.TItems;
 import content.liquids.TLiquids;
@@ -33,6 +34,8 @@ public class MainJavaMod extends Mod{
 
     @Override
     public void loadContent(){
+        LiquidAccurateSolarCrafter.CustomSolarCrafterBuild.create();
+
         TLiquids.load();
         TItems.load();
         TUnits.init();
