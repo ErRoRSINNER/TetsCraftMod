@@ -46,8 +46,6 @@ public class MainJavaMod extends Mod{
 
     @Override
     public void loadContent(){
-        //TextureRegionDrawable steamIcon = Fonts.getGlyph(Fonts.icon, '☁');
-        //Icon.icons.put("steam", steamIcon);
 
         LiquidAccurateSolarCrafter.LiquidAccurateSolarCrafterBuild.create();
         SolarHeatProducer.SolarHeatProducerBuild.create();
