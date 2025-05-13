@@ -11,6 +11,7 @@ import mindustry.content.*;
 import mindustry.entities.UnitSorts;
 import mindustry.entities.bullet.*;
 import mindustry.entities.effect.MultiEffect;
+import mindustry.entities.effect.WaveEffect;
 import mindustry.entities.part.RegionPart;
 import mindustry.entities.pattern.ShootAlternate;
 import mindustry.entities.pattern.ShootBarrel;
@@ -29,11 +30,11 @@ import mindustry.world.blocks.distribution.Conveyor;
 import mindustry.world.blocks.distribution.MassDriver;
 import mindustry.world.blocks.distribution.Router;
 import mindustry.world.blocks.environment.OreBlock;
+import mindustry.world.blocks.heat.HeatConductor;
 import mindustry.world.blocks.logic.LogicBlock;
 import mindustry.world.blocks.logic.LogicDisplay;
 import mindustry.world.blocks.power.Battery;
 import mindustry.world.blocks.power.ConsumeGenerator;
-import mindustry.world.blocks.power.PowerGenerator;
 import mindustry.world.blocks.power.SolarGenerator;
 import mindustry.world.blocks.production.Drill;
 import mindustry.world.blocks.production.GenericCrafter;
@@ -108,12 +109,12 @@ public class TBlocks {
         loadMixins();
         test1 = new LaserTurret("cirno_gunv") {
             {
-                this.firingMoveFract = 1.5F;
-                this.shootDuration = 230.0F;
-                this.shootSound = Sounds.laserbig;
-                this.loopSound = Sounds.beam;
-                this.loopSoundVolume = 1.0F;
-                this.envEnabled |= 2;
+                firingMoveFract = 1.5F;
+                shootDuration = 230.0F;
+                shootSound = Sounds.laserbig;
+                loopSound = Sounds.beam;
+                loopSoundVolume = 1.0F;
+                envEnabled |= 2;
 
                 requirements(Category.turret, BuildVisibility.sandboxOnly, with(Items.titanium, 999, TItems.battery, 999, TItems.bing_qi_ling, 999, Items.graphite, 999));
                 setHealth(this);
@@ -129,80 +130,88 @@ public class TBlocks {
                 shootEffect = Fx.shootLiquid;
                 coolant = new ConsumeLiquid(Liquids.water, 0.1f);
                 linearWarmup = true;
-                this.shootType = new ContinuousLaserBulletType(78.0F) {
+                shootType = new ContinuousLaserBulletType(78.0F) {
                     {
-                        this.length = 300.0F;
-                        this.hitEffect = Fx.hitLaser;
-                        this.hitColor = Pal.techBlue;
-                        this.status = StatusEffects.freezing;
-                        this.drawSize = 420.0F;
-                        this.incendChance = 0.4F;
-                        this.incendSpread = 5.0F;
-                        this.incendAmount = 1;
-                        this.ammoMultiplier = 1.0F;
+                        length = 300.0F;
+                        hitEffect = Fx.hitLaser;
+                        hitColor = Pal.techBlue;
+                        status = StatusEffects.freezing;
+                        drawSize = 420.0F;
+                        incendChance = 0.4F;
+                        incendSpread = 5.0F;
+                        incendAmount = 1;
+                        ammoMultiplier = 1.0F;
                         colors = new Color[]{Liquids.cryofluid.color, Liquids.water.color, Liquids.cryofluid.gasColor};
                         width = 3;
                     }
                 };
-                this.scaledHealth = 200.0F;
-                this.consumePower(17.0F);
-                this.drawer = new DrawTurret("cirno_gun") {{
-                    this.parts.add(new RegionPart("-barrel") {
+                scaledHealth = 200.0F;
+                consumePower(17.0F);
+                drawer = new DrawTurret("cirno_gun") {{
+                    parts.add(new RegionPart("-barrel") {
                         {
-                            this.progress = PartProgress.constant(1);
-                            this.mirror = false;
-                            this.under = false;
-                            this.moveX = 0.0F;
-                            this.moveY = 12.0F;
+                            progress = PartProgress.constant(1);
+                            mirror = false;
+                            under = false;
+                            moveX = 0.0F;
+                            moveY = 12.0F;
                         }
                     }, new RegionPart("-wing") {
                         {
-                            this.progress = PartProgress.warmup;
-                            this.mirror = true;
-                            this.under = false;
-                            this.moveX = -17.0F;
-                            this.moveY = 0.0F;
-                            this.xScl = 1.8f;
-                            this.yScl = 1.8f;
+                            progress = PartProgress.warmup;
+                            mirror = true;
+                            under = false;
+                            moveX = -17.0F;
+                            moveY = 0.0F;
+                            xScl = 1.8f;
+                            yScl = 1.8f;
                         }
                     }, new RegionPart("-wing") {
                         {
-                            this.progress = PartProgress.warmup;
-                            this.mirror = true;
-                            this.under = false;
-                            this.moveRot = -45f; //Upper Pair
-                            this.moveX = -17.0F;
-                            this.moveY = 10.0F;
-                            this.xScl = 1.8f;
-                            this.yScl = 1.8f;
+                            progress = PartProgress.warmup;
+                            mirror = true;
+                            under = false;
+                            moveRot = -45f; //Upper Pair
+                            moveX = -17.0F;
+                            moveY = 10.0F;
+                            xScl = 1.8f;
+                            yScl = 1.8f;
                         }
                     }, new RegionPart("-wing") {
                         {
-                            this.progress = PartProgress.warmup;
-                            this.mirror = true;
-                            this.under = false;
-                            this.moveRot = 45f; //Lower pair
-                            this.moveX = -17.0F;
-                            this.moveY = -10.0F;
-                            this.xScl = 1.8f;
-                            this.yScl = 1.8f;
+                            progress = PartProgress.warmup;
+                            mirror = true;
+                            under = false;
+                            moveRot = 45f; //Lower pair
+                            moveX = -17.0F;
+                            moveY = -10.0F;
+                            xScl = 1.8f;
+                            yScl = 1.8f;
                         }
                     });
                 }};
             }
         };
+        test2 = new HeatConductor("conductor") {{
+            requirements(Category.crafting, ItemStack.with(Items.tungsten, 16, TItems.tantalium, 16, Items.graphite, 20));
+            setHealth(this, 0.33f);
+            size = 1;
+            regionRotated1 = 1;
+            visualMaxHeat = 25;
+        }};
     }
 
     private static void loadCrafting() {
         steamCompressor = new GenericCrafter("steam_compressor") {{
-            this.requirements(Category.crafting, ItemStack.with(Items.lead, 160, Items.titanium, 80, Items.graphite, 40, Items.metaglass, 40));
+            requirements(Category.crafting, ItemStack.with(Items.lead, 160, Items.titanium, 80, Items.graphite, 40, Items.metaglass, 40));
             size = 3;
-            this.health = 520;
-            this.craftTime = 60;
+            health = 520;
+            craftTime = 60;
             liquidCapacity = 120;
+            ambientSoundVolume = 0.333f;
 
-            this.consumeLiquid(TLiquids.steam, 1f);
-            this.outputLiquid = new LiquidStack(TLiquids.compressed_steam, 0.1F);
+            consumeLiquid(TLiquids.steam, 1f);
+            outputLiquid = new LiquidStack(TLiquids.compressed_steam, 0.1F);
             alwaysUnlocked = true;
         }};
         atmosphericCondenser = new GenericCrafter("atmospheric_condenser") {{
@@ -211,6 +220,7 @@ public class TBlocks {
             size = 5;
             outputLiquid = new LiquidStack(Liquids.water, 1 / 60f);
             liquidCapacity = 120;
+            ambientSound = Sounds.none;
             alwaysUnlocked = true;
         }};
         solarHeater = new SolarHeatProducer("solar_heater") {{
@@ -219,63 +229,70 @@ public class TBlocks {
             heatOutput = 0.5f;
             itemCapacity = 0;
             health = 250;
+            ambientSound = Sounds.none;
             alwaysUnlocked = true;
         }};
         solarBoiler = new LiquidAccurateSolarCrafter("solar_boiler") {{
-            this.requirements(Category.crafting, ItemStack.with(Items.lead, 160, Items.graphite, 30));
+            requirements(Category.crafting, ItemStack.with(Items.lead, 160, Items.graphite, 30));
             size = 3;
-            this.health = 320;
-            this.craftTime = 240;
+            health = 320;
+            craftTime = 240;
             liquidCapacity = 30;
+            ambientSound = Sounds.electricHum;
+            ambientSoundVolume = 0.333f;
 
-            this.consumeLiquid(Liquids.water, 0.1f);
-            this.outputLiquid = new LiquidStack(TLiquids.steam, 0.1F);
+            consumeLiquid(Liquids.water, 0.1f);
+            outputLiquid = new LiquidStack(TLiquids.steam, 0.1F);
             alwaysUnlocked = true;
         }};
         boiler = new HeatCrafter("boiler") {
             {
                 size = 2;
-                this.requirements(Category.crafting, ItemStack.with(Items.copper, 40, Items.lead, 80));
-                this.health = 180;
-                this.craftTime = 60.0F;
-                this.heatRequirement = 10.0F;
+                requirements(Category.crafting, ItemStack.with(Items.copper, 40, Items.lead, 80));
+                health = 180;
+                craftTime = 60.0F;
+                heatRequirement = 10.0F;
                 liquidCapacity = 20;
+                ambientSound = Sounds.steam;
+                ambientSoundVolume = 0.333f;
 
-                this.consumeLiquid(Liquids.water, 0.15f);
-                this.outputLiquid = new LiquidStack(TLiquids.steam, 0.2F);
+                consumeLiquid(Liquids.water, 0.15f);
+                outputLiquid = new LiquidStack(TLiquids.steam, 0.2F);
                 alwaysUnlocked = true;
             }
         };
         electric_boiler = new GenericCrafter("electric_boiler") {
             {
                 size = 2;
-                this.requirements(Category.crafting, ItemStack.with(Items.copper, 40, Items.lead, 40, Items.graphite, 30, Items.silicon, 30, TItems.battery, 10));
-                this.health = 200;
-                this.outputLiquid = new LiquidStack(TLiquids.steam, 0.08F);
-                this.craftTime = 30.0F;
-                this.consumePower(100/60f);
-                this.consumeLiquid(Liquids.water, 0.1f);
+                requirements(Category.crafting, ItemStack.with(Items.copper, 40, Items.lead, 40, Items.graphite, 30, Items.silicon, 30, TItems.battery, 10));
+                health = 200;
+                outputLiquid = new LiquidStack(TLiquids.steam, 0.08F);
+                craftTime = 30.0F;
+                consumePower(100 / 60f);
+                consumeLiquid(Liquids.water, 0.1f);
+                ambientSound = Sounds.electricHum;
+                ambientSoundVolume = 0.333f;
                 liquidCapacity = 20;
                 alwaysUnlocked = true;
             }
         };
         customSteamGenerator = new MultiCrafter("custom_steam_generator") {
             {
-                this.requirements(Category.power, ItemStack.with(Items.copper, 60, Items.graphite, 30, Items.lead, 40, Items.silicon, 40));
-                this.size = 2;
+                requirements(Category.power, ItemStack.with(Items.copper, 60, Items.graphite, 30, Items.lead, 40, Items.silicon, 40));
+                size = 2;
                 craftEffect = Fx.generatespark;
-                this.ambientSound = Sounds.smelter;
-                this.ambientSoundVolume = 0.06F;
+                ambientSound = Sounds.smelter;
+                ambientSoundVolume = 0.06F;
                 flags = EnumSet.of(BlockFlag.reactor, BlockFlag.generator, BlockFlag.factory);
                 alwaysUnlocked = true;
-                this.drawer = new DrawMulti(new DrawDefault(), new DrawWarmupRegion(), new DrawRegion("-turbine") {
+                drawer = new DrawMulti(new DrawDefault(), new DrawWarmupRegion(), new DrawRegion("-turbine") {
                     {
-                        this.rotateSpeed = 2.0F;
+                        rotateSpeed = 2.0F;
                     }
                 }, new DrawRegion("-turbine") {
                     {
-                        this.rotateSpeed = -2.0F;
-                        this.rotation = 45.0F;
+                        rotateSpeed = -2.0F;
+                        rotation = 45.0F;
 
                     }
                 }, new DrawRegion("-cap"));
@@ -348,7 +365,7 @@ public class TBlocks {
             craftEffect = Fx.pulverize;
             craftTime = 40.0F;
             updateEffect = Fx.pulverizeSmall;
-            hasItems = this.hasPower = true;
+            hasItems = hasPower = true;
             drawer = new DrawMulti(new DrawDefault(), new DrawRegion("-rotator", 3, true), new DrawRegion("-top"));
             ambientSound = Sounds.grinding;
             ambientSoundVolume = 0.025F;
@@ -668,12 +685,12 @@ public class TBlocks {
             transparency = 255f;
             sides = 4;
             shieldRotation = 45;
-            this.radius = 85;
-            this.shieldHealth = 120;
-            this.cooldownNormal = 3.5F;
-            this.cooldownLiquid = 2.8F;
-            this.cooldownBrokenBase = 0.35F;
-            this.consumePower(4.0F);
+            radius = 85;
+            shieldHealth = 120;
+            cooldownNormal = 3.5F;
+            cooldownLiquid = 2.8F;
+            cooldownBrokenBase = 0.35F;
+            consumePower(4.0F);
             alwaysUnlocked = true;
         }};
         tantal_mine = new ShockMine("tantal_mine") {{
@@ -741,7 +758,7 @@ public class TBlocks {
             tier = 2;
             drillTime = 400.0F;
             size = 1;
-            //this.researchCost = ItemStack.with(new Object[]{Items.copper, 100});
+            //researchCost = ItemStack.with(new Object[]{Items.copper, 100});
             consumeLiquid(Liquids.water, 0.06F).boost();
             health = 100;
             alwaysUnlocked = true;
@@ -751,7 +768,7 @@ public class TBlocks {
             tier = 4;
             drillTime = 130.0F;
             size = 1;
-            //this.researchCost = ItemStack.with(new Object[]{TItems.concrete, 100, TItems.tantalium, 60});
+            //researchCost = ItemStack.with(new Object[]{TItems.concrete, 100, TItems.tantalium, 60});
             consumeLiquid(Liquids.water, 0.08F).boost();
             consumePower(0.15f);
             health = 120;
@@ -763,7 +780,7 @@ public class TBlocks {
             tier = 6;
             drillTime = 20.0F;
             size = 5;
-            //this.researchCost = ItemStack.with(new Object[]{Items.copper, 100, Items.lead, 60});
+            //researchCost = ItemStack.with(new Object[]{Items.copper, 100, Items.lead, 60});
             consumeLiquid(Liquids.cryofluid, 0.2F).boost();
             consumePower(5.3f);
             alwaysUnlocked = true;
@@ -861,7 +878,7 @@ public class TBlocks {
             drawer = new DrawMulti(
                     new DrawRegion("-bottom"),
                     new DrawWarmupRegion(),
-                    new DrawRegion("-turbine"){{
+                    new DrawRegion("-turbine") {{
                         rotateSpeed = 2f;
                     }},
                     new DrawDefault()
@@ -970,48 +987,48 @@ public class TBlocks {
             shootCone = 60.0F;
             liquidCapacity = 150.0F;
             shootEffect = Fx.shootLiquid;
-            this.unitSort = UnitSorts.strongest;
+            unitSort = UnitSorts.strongest;
 
-            this.drawer = new DrawTurret("cirno_gun") {{
-                this.parts.add(new RegionPart("-barrel") {
+            drawer = new DrawTurret("cirno_gun") {{
+                parts.add(new RegionPart("-barrel") {
                     {
-                        this.progress = PartProgress.constant(1);
-                        this.mirror = false;
-                        this.under = false;
-                        this.moveX = 0.0F;
-                        this.moveY = 12.0F;
+                        progress = PartProgress.constant(1);
+                        mirror = false;
+                        under = false;
+                        moveX = 0.0F;
+                        moveY = 12.0F;
                     }
                 }, new RegionPart("-wing") {
                     {
-                        this.progress = PartProgress.warmup;
-                        this.mirror = true;
-                        this.under = false;
-                        this.moveX = -17.0F;
-                        this.moveY = 0.0F;
-                        this.xScl = 1.8f;
-                        this.yScl = 1.8f;
+                        progress = PartProgress.warmup;
+                        mirror = true;
+                        under = false;
+                        moveX = -17.0F;
+                        moveY = 0.0F;
+                        xScl = 1.8f;
+                        yScl = 1.8f;
                     }
                 }, new RegionPart("-wing") {
                     {
-                        this.progress = PartProgress.warmup;
-                        this.mirror = true;
-                        this.under = false;
-                        this.moveRot = -45f; //Upper Pair
-                        this.moveX = -17.0F;
-                        this.moveY = 10.0F;
-                        this.xScl = 1.8f;
-                        this.yScl = 1.8f;
+                        progress = PartProgress.warmup;
+                        mirror = true;
+                        under = false;
+                        moveRot = -45f; //Upper Pair
+                        moveX = -17.0F;
+                        moveY = 10.0F;
+                        xScl = 1.8f;
+                        yScl = 1.8f;
                     }
                 }, new RegionPart("-wing") {
                     {
-                        this.progress = PartProgress.warmup;
-                        this.mirror = true;
-                        this.under = false;
-                        this.moveRot = 45f; //Lower pair
-                        this.moveX = -17.0F;
-                        this.moveY = -10.0F;
-                        this.xScl = 1.8f;
-                        this.yScl = 1.8f;
+                        progress = PartProgress.warmup;
+                        mirror = true;
+                        under = false;
+                        moveRot = 45f; //Lower pair
+                        moveX = -17.0F;
+                        moveY = -10.0F;
+                        xScl = 1.8f;
+                        yScl = 1.8f;
                     }
                 });
             }};
@@ -1094,25 +1111,24 @@ public class TBlocks {
             alwaysUnlocked = true;
         }};
         quick_fire = new ItemTurret("quick-fire") {{
-            requirements(Category.turret, with(Items.lead, 200, Items.graphite, 25, Items.metaglass, 25, Items.copper, 125));
+            requirements(Category.turret, with(Items.lead, 75, Items.graphite, 25, Items.metaglass, 25, Items.copper, 125));
             setHealth(this);
             size = 2;
-            inaccuracy = 35;
-            reload = 4;
+            inaccuracy = 15;
+            reload = 5;
             shootCone = 20;
             rotateSpeed = 3;
             shootSound = Sounds.pew;
-            xRand = 0.1f;
             range = 160;
             coolant = new ConsumeCoolant(0.1f);
-            ammo(Items.copper, new BasicBulletType(4, 10) {{
+            ammo(Items.copper, new BasicBulletType(4, 7) {{
                         hitSize = 4;
                         width = 4;
                         height = 10;
                         shootEffect = Fx.shootPyraFlame;
                         hitEffect = Fx.hitFlameSmall;
                     }},
-                    Items.coal, new BulletType(3.5f, 16) {{
+                    Items.coal, new FireBulletType(3.5f, 12) {{
                         lifetime = 55;
                         reloadMultiplier = 0.9f;
                         hitSize = 7;
@@ -1120,19 +1136,31 @@ public class TBlocks {
                         hitEffect = Fx.hitFlameSmall;
                         ammoMultiplier = 3;
                         status = StatusEffects.burning;
-                        keepVelocity = false;
-                        hittable = false;
-                        pierce = true;
-                        collidesAir = false;
+                    }},
+                    Items.pyratite, new FireBulletType(3f, 30) {{
+                        lifetime = 50;
+                        hitSize = 7;
+                        shootEffect = Fx.shootPyraFlame;
+                        hitEffect = Fx.hitFlameSmall;
+                        ammoMultiplier = 4;
+                        status = StatusEffects.burning;
+                        statusDuration = 60 * 20;
+                    }},
+                    Items.silicon, new BasicBulletType(2.75f, 26) {{
+                        lifetime = 72;
+                        hitSize = 4;
+                        width = 4;
+                        height = 5;
+                        rangeChange = 40;
+                        reloadMultiplier = 0.80f;
+                        shootEffect = Fx.shootPyraFlame;
+                        hitEffect = Fx.hitFlameSmall;
+                        ammoMultiplier = 3;
+                        homingPower = 0.08f;
+                        homingRange = 50f;
                     }},
                     TItems.poop, new FlakBulletType(4.5f, 4) {{
-                        shoot = new ShootAlternate() {{
-                            spread = 4.7f;
-                            shots = 4;
-                            barrels = 4;
-                        }};
-                        shoot.shots = 3;
-                        splashDamage = 7;
+                        splashDamage = 12;
                         ammoMultiplier = 4;
                         reloadMultiplier = 0.3333f;
                         status = StatusEffects.slow;
@@ -1152,9 +1180,9 @@ public class TBlocks {
             shootSound = Sounds.shoot;
             xRand = 3;
             coolant = new ConsumeCoolant(0.1f);
-            this.shoot = new ShootBarrel() {
+            shoot = new ShootBarrel() {
                 {
-                    this.barrels = new float[]{
+                    barrels = new float[]{
                             -3.5F, -2.0F, 0.0F,
                             -2.5F, -3.0F, 0.0F,
                             -1.5F, -2.0F, 0.0F,
@@ -1164,8 +1192,8 @@ public class TBlocks {
                             1.5F, -2.0F, 0.0F,
                             2.5F, -3.0F, 0.0F,
                             3.5F, -2.0F, 0.0F};
-                    this.shots = 11;
-                    this.shotDelay = 7.0F;
+                    shots = 11;
+                    shotDelay = 7.0F;
                 }
             };
             range = 300;
@@ -1249,6 +1277,18 @@ public class TBlocks {
                             pierceBuilding = true;
                             pierceCap = 5;
                         }};
+
+                        intervalBullet = new BasicBulletType(1, 5) {{
+                            lifetime = 20;
+                            width = height = 4;
+
+                            trailEffect = Fx.colorTrail;
+                        }};
+                        bulletInterval = 1f;
+                        intervalBullets = 2;
+                        intervalSpread = 30 + 400 / speed;
+                        intervalAngle = 180f;
+                        intervalRandomSpread = 1.5f / speed;
                     }},
                     TItems.battery, new BasicBulletType(12, 50) {{
                         lifetime = 1000 / 11f;
@@ -1265,8 +1305,20 @@ public class TBlocks {
                         hitEffect = Fx.hitFlameSmall;
                         pierceCap = 5;
                         ammoMultiplier = 1.4f;
+
+                        intervalBullet = new BasicBulletType(1, 5) {{
+                            lifetime = 20;
+                            width = height = 4;
+
+                            trailEffect = Fx.colorTrail;
+                        }};
+                        bulletInterval = 1f;
+                        intervalBullets = 2;
+                        intervalSpread = 30 + 400 / speed;
+                        intervalAngle = 180f;
+                        intervalRandomSpread = 1.5f / speed;
                     }},
-                    TItems.superconductor, new BasicBulletType(20, 500) {{
+                    TItems.superconductor, new BasicBulletType(20, 220) {{
                         lifetime = 1000 / 19f;
                         status = StatusEffects.shocked;
                         absorbable = false;
@@ -1280,6 +1332,19 @@ public class TBlocks {
                         hitEffect = Fx.hitFlameSmall;
                         pierce = true;
                         ammoMultiplier = 2.5f;
+
+                        intervalBullet = new BasicBulletType(1, 5) {{
+                            lifetime = 20;
+                            width = height = 4;
+
+                            trailEffect = Fx.colorTrail;
+                        }};
+
+                        bulletInterval = 1f;
+                        intervalBullets = 2;
+                        intervalSpread = 30 + 400 / speed;
+                        intervalAngle = 180f;
+                        intervalRandomSpread = 1.5f / speed;
                     }},
                     TItems.tantalium, new BasicBulletType(13, 100) {{
                         lifetime = 1000 / 12f;
@@ -1295,6 +1360,18 @@ public class TBlocks {
                         hitEffect = Fx.hitFlameSmall;
                         pierceCap = 10;
                         ammoMultiplier = 1f;
+
+                        intervalBullet = new BasicBulletType(1, 5) {{
+                            lifetime = 20;
+                            width = height = 4;
+
+                            trailEffect = Fx.colorTrail;
+                        }};
+                        bulletInterval = 1f;
+                        intervalBullets = 2;
+                        intervalSpread = 30 + 400 / speed;
+                        intervalAngle = 180f;
+                        intervalRandomSpread = 1.5f / speed;
                     }}
             );
             alwaysUnlocked = true;
@@ -1314,15 +1391,15 @@ public class TBlocks {
             range = 220f;
             shootY = 4.5F;
             coolant = new ConsumeCoolant(0.1f);
-            this.shoot = new ShootBarrel() {
+            shoot = new ShootBarrel() {
                 {
-                    this.barrels = new float[]{
+                    barrels = new float[]{
                             -1.5F, -2.25F, 0.0F,
                             -1.5F, -2.25F, 0.0F,
                             1.5F, -2.25F, 0.0F,
                             1.5F, -2.25F, 0.0F};
-                    this.shots = 4;
-                    this.shotDelay = 3.0F;
+                    shots = 4;
+                    shotDelay = 3.0F;
                 }
             };
             ammo(Items.sand, new MissileBulletType(6, 24) {{
@@ -1366,7 +1443,7 @@ public class TBlocks {
             shake = 5f;
             shootSound = Sounds.bang;
             coolant = new ConsumeCoolant(0.1f);
-            ammo(TItems.concrete, new ArtilleryBulletType(3.5f, 100, "shell") {{
+            ammo(TItems.concrete, new ArtilleryBulletType(7.5f, 100, "shell") {{
                 knockback = 4f;
                 lifetime = 8000f;
                 width = height = 30f;
@@ -1501,25 +1578,25 @@ public class TBlocks {
         //T1
         tetsBasicReconstructorAttack = new Reconstructor("tets_basic_reconstructor_attack") {
             {
-                this.requirements(Category.units, ItemStack.with(Items.copper, 100, Items.lead, 60));
-                this.size = 3;
+                requirements(Category.units, ItemStack.with(Items.copper, 100, Items.lead, 60));
+                size = 3;
                 health = 300;
-                this.consumePower(1.0F);
-                this.consumeItems(ItemStack.with(Items.pyratite, 10, Items.silicon, 10));
-                this.constructTime = 300.0F;
-                this.upgrades.addAll(new UnitType[][]{{TUnits.walkingBaseUnit, TUnits.smallArtillery}});
+                consumePower(1.0F);
+                consumeItems(ItemStack.with(Items.pyratite, 10, Items.silicon, 10));
+                constructTime = 300.0F;
+                upgrades.addAll(new UnitType[][]{{TUnits.walkingBaseUnit, TUnits.smallArtillery}});
                 alwaysUnlocked = true;
             }
         };
         tetsBasicReconstructorEnergy = new Reconstructor("tets_basic_reconstructor_energy") {
             {
-                this.requirements(Category.units, ItemStack.with(Items.copper, 100, Items.lead, 60));
-                this.size = 3;
+                requirements(Category.units, ItemStack.with(Items.copper, 100, Items.lead, 60));
+                size = 3;
                 health = 300;
-                this.consumePower(1.0F);
-                this.consumeItems(ItemStack.with(TItems.battery, 5, Items.graphite, 10));
-                this.constructTime = 300.0F;
-                this.upgrades.addAll(new UnitType[][]{{TUnits.walkingBaseUnit, TUnits.miniMiner}});
+                consumePower(1.0F);
+                consumeItems(ItemStack.with(TItems.battery, 5, Items.graphite, 10));
+                constructTime = 300.0F;
+                upgrades.addAll(new UnitType[][]{{TUnits.walkingBaseUnit, TUnits.miniMiner}});
                 alwaysUnlocked = true;
             }
         };
@@ -1528,25 +1605,25 @@ public class TBlocks {
         //T2
         tetsAdditiveReconstructorAttack = new Reconstructor("tets_additive_reconstructor_attack") {
             {
-                this.requirements(Category.units, ItemStack.with(Items.copper, 200, Items.lead, 120, Items.titanium, 80, TItems.concrete, 100));
-                this.size = 3;
+                requirements(Category.units, ItemStack.with(Items.copper, 200, Items.lead, 120, Items.titanium, 80, TItems.concrete, 100));
+                size = 3;
                 health = 600;
-                this.consumePower(3.0F);
-                this.consumeItems(ItemStack.with(Items.titanium, 10, Items.silicon, 20, Items.blastCompound, 20));
-                this.constructTime = 1200.0F;
-                this.upgrades.addAll(new UnitType[][]{{TUnits.smallArtillery, TUnits.mediumArtillery}});
+                consumePower(3.0F);
+                consumeItems(ItemStack.with(Items.titanium, 10, Items.silicon, 20, Items.blastCompound, 20));
+                constructTime = 1200.0F;
+                upgrades.addAll(new UnitType[][]{{TUnits.smallArtillery, TUnits.mediumArtillery}});
                 alwaysUnlocked = true;
             }
         };
         tetsAdditiveReconstructorEnergy = new Reconstructor("tets_additive_reconstructor_energy") {
             {
-                this.requirements(Category.units, ItemStack.with(Items.copper, 200, Items.lead, 120, Items.titanium, 80, TItems.battery, 160, TItems.tantalium, 100));
-                this.size = 3;
+                requirements(Category.units, ItemStack.with(Items.copper, 200, Items.lead, 120, Items.titanium, 80, TItems.battery, 160, TItems.tantalium, 100));
+                size = 3;
                 health = 600;
-                this.consumePower(3.0F);
-                this.consumeItems(ItemStack.with(Items.beryllium, 10, Items.graphite, 20, TItems.battery, 80));
-                this.constructTime = 1200.0F;
-                this.upgrades.addAll(new UnitType[][]{{TUnits.UFO, TUnits.UF1_Energy}, {TUnits.miniMiner, TUnits.mediMiner}});
+                consumePower(3.0F);
+                consumeItems(ItemStack.with(Items.beryllium, 10, Items.graphite, 20, TItems.battery, 80));
+                constructTime = 1200.0F;
+                upgrades.addAll(new UnitType[][]{{TUnits.UFO, TUnits.UF1_Energy}, {TUnits.miniMiner, TUnits.mediMiner}});
                 alwaysUnlocked = true;
             }
         };
@@ -1554,14 +1631,14 @@ public class TBlocks {
         //T3
         tetsMultiplicativeReconstructorEnergy = new Reconstructor("tets_multiplicative_reconstructor_energy") {
             {
-                this.requirements(Category.units, ItemStack.with(Items.tungsten, 400, Items.lead, 240, Items.titanium, 200, TItems.battery, 250, TItems.tantalium, 200));
-                this.size = 5;
+                requirements(Category.units, ItemStack.with(Items.tungsten, 400, Items.lead, 240, Items.titanium, 200, TItems.battery, 250, TItems.tantalium, 200));
+                size = 5;
                 health = 1000;
-                this.consumePower(4.0F);
-                this.consumeItems(ItemStack.with(Items.beryllium, 80, Items.tungsten, 60, TItems.battery, 120, TItems.tantalium, 40));
-                //this.consumeLiquid(Liquids.cryofluid, 1f);
-                this.constructTime = 2400.0F;
-                this.upgrades.addAll(new UnitType[][]{{TUnits.UF1_Energy, TUnits.UF2_Energy}});
+                consumePower(4.0F);
+                consumeItems(ItemStack.with(Items.beryllium, 80, Items.tungsten, 60, TItems.battery, 120, TItems.tantalium, 40));
+                //consumeLiquid(Liquids.cryofluid, 1f);
+                constructTime = 2400.0F;
+                upgrades.addAll(new UnitType[][]{{TUnits.UF1_Energy, TUnits.UF2_Energy}});
                 alwaysUnlocked = true;
             }
         };
@@ -1627,87 +1704,87 @@ public class TBlocks {
             health = 420;
             alwaysUnlocked = true;
             size = 2;
-            this.consumePower(0.05F);
+            consumePower(0.05F);
         }};
         fakeKiln = new Wall("fake_kiln") {{
             requirements(Category.defense, ItemStack.with(Items.copper, 80, Items.lead, 20));
             health = 420;
             alwaysUnlocked = true;
             size = 2;
-            this.consumePower(0.05F);
+            consumePower(0.05F);
         }};
         fakePlastaniumCompressor = new Wall("fake_plastanium_compressor") {{
             requirements(Category.defense, ItemStack.with(Items.copper, 80, Items.lead, 20));
             health = 420;
             alwaysUnlocked = true;
             size = 2;
-            this.consumePower(0.05F);
+            consumePower(0.05F);
         }};
         fakeSiliconSmelter = new Wall("fake_silicon_smelter") {{
             requirements(Category.defense, ItemStack.with(Items.copper, 80, Items.lead, 20));
             health = 420;
             alwaysUnlocked = true;
             size = 2;
-            this.consumePower(0.05F);
+            consumePower(0.05F);
         }};
         fakeSteamGenerator = new Wall("fake_steam_generator") {{
             requirements(Category.defense, ItemStack.with(Items.copper, 80, Items.lead, 20));
             health = 420;
             alwaysUnlocked = true;
             size = 2;
-            this.consumePower(0.05F);
+            consumePower(0.05F);
         }};
         fakeThermalGenerator = new Wall("fake_thermal_generator") {{
             requirements(Category.defense, ItemStack.with(Items.copper, 80, Items.lead, 20));
             health = 420;
             alwaysUnlocked = true;
             size = 2;
-            this.consumePower(0.05F);
+            consumePower(0.05F);
         }};
         fakeLancer = new PowerTurret("fake_lancer") {
             {
-                this.requirements(Category.defense, ItemStack.with(new Object[]{Items.copper, 80, Items.lead, 20}));
+                requirements(Category.defense, ItemStack.with(new Object[]{Items.copper, 80, Items.lead, 20}));
                 health = 420;
                 alwaysUnlocked = true;
-                this.size = 2;
-                this.range = 165.0F;
-                this.shoot.firstShotDelay = 999999.0F;
-                this.recoil = 0.0F;
-                this.reload = 999999.0F;
-                this.shake = 2.0F;
-                this.targetAir = false;
-                this.moveWhileCharging = false;
-                this.consumePower(0.05F);
-                this.shootEffect = Fx.none;
-                this.smokeEffect = Fx.none;
-                this.shootType = new LaserBulletType(0.0F) {{
-                    this.shootEffect = Fx.none;
-                    this.smokeEffect = Fx.none;
-                    this.hitEffect = Fx.none;
-                    this.chargeEffect = Fx.none;
+                size = 2;
+                range = 165.0F;
+                shoot.firstShotDelay = 999999.0F;
+                recoil = 0.0F;
+                reload = 999999.0F;
+                shake = 2.0F;
+                targetAir = false;
+                moveWhileCharging = false;
+                consumePower(0.05F);
+                shootEffect = Fx.none;
+                smokeEffect = Fx.none;
+                shootType = new LaserBulletType(0.0F) {{
+                    shootEffect = Fx.none;
+                    smokeEffect = Fx.none;
+                    hitEffect = Fx.none;
+                    chargeEffect = Fx.none;
                 }};
             }
         };
         fakeScatter = new PowerTurret("fake_scatter") {
             {
-                this.requirements(Category.defense, ItemStack.with(new Object[]{Items.copper, 80, Items.lead, 20}));
+                requirements(Category.defense, ItemStack.with(new Object[]{Items.copper, 80, Items.lead, 20}));
                 health = 420;
-                this.size = 2;
+                size = 2;
                 alwaysUnlocked = true;
-                this.range = 220.0F;
-                this.shoot.firstShotDelay = 999999.0F;
-                this.recoil = 0.0F;
-                this.reload = 999999.0F;
-                this.targetAir = true;
-                this.targetGround = false;
-                this.consumePower(0.05F);
-                this.shootEffect = Fx.none;
-                this.smokeEffect = Fx.none;
-                this.shootType = new LaserBulletType(0.0F) {{
-                    this.shootEffect = Fx.none;
-                    this.smokeEffect = Fx.none;
-                    this.hitEffect = Fx.none;
-                    this.chargeEffect = Fx.none;
+                range = 220.0F;
+                shoot.firstShotDelay = 999999.0F;
+                recoil = 0.0F;
+                reload = 999999.0F;
+                targetAir = true;
+                targetGround = false;
+                consumePower(0.05F);
+                shootEffect = Fx.none;
+                smokeEffect = Fx.none;
+                shootType = new LaserBulletType(0.0F) {{
+                    shootEffect = Fx.none;
+                    smokeEffect = Fx.none;
+                    hitEffect = Fx.none;
+                    chargeEffect = Fx.none;
                 }};
             }
         };
@@ -1715,20 +1792,20 @@ public class TBlocks {
 
         fakeBatteryLarge = new Battery("fake_battery_large") {
             {
-                this.requirements(Category.defense, ItemStack.with(new Object[]{Items.copper, 120, Items.lead, 50}));
+                requirements(Category.defense, ItemStack.with(new Object[]{Items.copper, 120, Items.lead, 50}));
                 health = 820;
-                this.size = 3;
-                this.consumePowerBuffered(0.0F);
-                this.baseExplosiveness = 0.0F;
+                size = 3;
+                consumePowerBuffered(0.0F);
+                baseExplosiveness = 0.0F;
             }
         };
         fakeSolarPanelLarge = new SolarGenerator("fake_solar_panel_large") {
             {
-                this.requirements(Category.defense, ItemStack.with(new Object[]{Items.copper, 120, Items.lead, 50}));
+                requirements(Category.defense, ItemStack.with(new Object[]{Items.copper, 120, Items.lead, 50}));
                 health = 820;
-                this.size = 3;
-                this.consumePowerBuffered(0.0F);
-                this.baseExplosiveness = 0.0F;
+                size = 3;
+                consumePowerBuffered(0.0F);
+                baseExplosiveness = 0.0F;
             }
         };
         fakeCoreShard = new Wall("fake_core_shard") {{
@@ -1736,72 +1813,72 @@ public class TBlocks {
             health = 820;
             alwaysUnlocked = true;
             size = 3;
-            this.itemCapacity = 0;
+            itemCapacity = 0;
         }};
         fakeMultiPress = new Wall("fake_multi_press") {{
             requirements(Category.defense, ItemStack.with(Items.copper, 120, Items.lead, 50));
             health = 820;
             alwaysUnlocked = true;
             size = 3;
-            this.consumePower(0.05F);
+            consumePower(0.05F);
         }};
         fakeSiliconCrucible = new Wall("fake_silicon_crucible") {{
             requirements(Category.defense, ItemStack.with(Items.copper, 120, Items.lead, 50));
             health = 820;
             alwaysUnlocked = true;
             size = 3;
-            this.consumePower(0.05F);
+            consumePower(0.05F);
         }};
         fakeThoriumReactor = new Wall("fake_thorium_reactor") {{
             requirements(Category.defense, ItemStack.with(Items.copper, 120, Items.lead, 50));
             health = 820;
             alwaysUnlocked = true;
             size = 3;
-            this.consumePower(0.05F);
+            consumePower(0.05F);
         }};
         fakeFuse = new PowerTurret("fake_fuse") {
             {
-                this.requirements(Category.defense, ItemStack.with(new Object[]{Items.copper, 120, Items.lead, 50}));
+                requirements(Category.defense, ItemStack.with(new Object[]{Items.copper, 120, Items.lead, 50}));
                 health = 820;
-                this.size = 3;
+                size = 3;
                 alwaysUnlocked = true;
-                this.range = 90.0F;
-                this.shoot.firstShotDelay = 999999.0F;
-                this.recoil = 0.0F;
-                this.reload = 999999.0F;
-                this.targetAir = true;
-                this.targetGround = true;
-                this.consumePower(0.05F);
-                this.shootEffect = Fx.none;
-                this.smokeEffect = Fx.none;
-                this.shootType = new LaserBulletType(0.0F) {{
-                    this.shootEffect = Fx.none;
-                    this.smokeEffect = Fx.none;
-                    this.hitEffect = Fx.none;
-                    this.chargeEffect = Fx.none;
+                range = 90.0F;
+                shoot.firstShotDelay = 999999.0F;
+                recoil = 0.0F;
+                reload = 999999.0F;
+                targetAir = true;
+                targetGround = true;
+                consumePower(0.05F);
+                shootEffect = Fx.none;
+                smokeEffect = Fx.none;
+                shootType = new LaserBulletType(0.0F) {{
+                    shootEffect = Fx.none;
+                    smokeEffect = Fx.none;
+                    hitEffect = Fx.none;
+                    chargeEffect = Fx.none;
                 }};
             }
         };
         fakeRipple = new PowerTurret("fake_ripple") {
             {
-                this.requirements(Category.defense, ItemStack.with(new Object[]{Items.copper, 120, Items.lead, 50}));
+                requirements(Category.defense, ItemStack.with(new Object[]{Items.copper, 120, Items.lead, 50}));
                 health = 820;
-                this.size = 3;
+                size = 3;
                 alwaysUnlocked = true;
-                this.range = 290.0F;
-                this.shoot.firstShotDelay = 999999.0F;
-                this.recoil = 0.0F;
-                this.reload = 999999.0F;
-                this.targetAir = false;
-                this.targetGround = true;
-                this.consumePower(0.05F);
-                this.shootEffect = Fx.none;
-                this.smokeEffect = Fx.none;
-                this.shootType = new LaserBulletType(0.0F) {{
-                    this.shootEffect = Fx.none;
-                    this.smokeEffect = Fx.none;
-                    this.hitEffect = Fx.none;
-                    this.chargeEffect = Fx.none;
+                range = 290.0F;
+                shoot.firstShotDelay = 999999.0F;
+                recoil = 0.0F;
+                reload = 999999.0F;
+                targetAir = false;
+                targetGround = true;
+                consumePower(0.05F);
+                shootEffect = Fx.none;
+                smokeEffect = Fx.none;
+                shootType = new LaserBulletType(0.0F) {{
+                    shootEffect = Fx.none;
+                    smokeEffect = Fx.none;
+                    hitEffect = Fx.none;
+                    chargeEffect = Fx.none;
                 }};
             }
         };
@@ -1834,11 +1911,11 @@ public class TBlocks {
         setHealth(block, 1);
     }
 
-    private static void setHealth(Block block, float mult) {
+    private static void setHealth(Block block, double mult) {
         float health = 69;
         if (block.requirements.length > 0) {
             for (ItemStack stack : block.requirements) {
-                health += (stack.item.cost * stack.item.cost + 1) * stack.amount * mult;
+                health += (float) ((stack.item.cost * stack.item.cost + 1) * stack.amount * mult);
             }
             block.health = (int) health;
             return;
