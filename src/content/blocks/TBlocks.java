@@ -215,10 +215,10 @@ public class TBlocks {
             alwaysUnlocked = true;
         }};
         atmosphericCondenser = new GenericCrafter("atmospheric_condenser") {{
-            requirements(Category.crafting, ItemStack.with(TItems.concrete, 400, Items.titanium, 80));
-            health = 1200;
+            requirements(Category.liquid, ItemStack.with(TItems.concrete, 400, Items.titanium, 80));
+            health = 2200;
             size = 5;
-            outputLiquid = new LiquidStack(Liquids.water, 1 / 60f);
+            outputLiquid = new LiquidStack(Liquids.water, 2 / 60f);
             liquidCapacity = 120;
             ambientSound = Sounds.none;
             alwaysUnlocked = true;
@@ -264,7 +264,7 @@ public class TBlocks {
         electric_boiler = new GenericCrafter("electric_boiler") {
             {
                 size = 2;
-                requirements(Category.crafting, ItemStack.with(Items.lead, 80, Items.graphite, 30, Items.silicon, 30, TItems.battery, 10));
+                requirements(Category.crafting, ItemStack.with(Items.lead, 80, Items.graphite, 30, Items.silicon, 30, TItems.battery, 20));
                 health = 200;
                 outputLiquid = new LiquidStack(TLiquids.steam, 0.08F);
                 craftTime = 30.0F;
@@ -274,52 +274,6 @@ public class TBlocks {
                 ambientSoundVolume = 0.333f;
                 liquidCapacity = 20;
                 alwaysUnlocked = true;
-            }
-        };
-        customSteamGenerator = new MultiCrafter("custom_steam_generator") {
-            {
-                requirements(Category.power, ItemStack.with(Items.copper, 60, Items.graphite, 30, Items.lead, 40, Items.silicon, 40));
-                size = 2;
-                craftEffect = Fx.generatespark;
-                ambientSound = Sounds.smelter;
-                ambientSoundVolume = 0.06F;
-                flags = EnumSet.of(BlockFlag.reactor, BlockFlag.generator, BlockFlag.factory);
-                alwaysUnlocked = true;
-                drawer = new DrawMulti(new DrawDefault(), new DrawWarmupRegion(), new DrawRegion("-turbine") {
-                    {
-                        rotateSpeed = 2.0F;
-                    }
-                }, new DrawRegion("-turbine") {
-                    {
-                        rotateSpeed = -2.0F;
-                        rotation = 45.0F;
-
-                    }
-                }, new DrawRegion("-cap"));
-
-                resolvedRecipes = Seq.with(
-                        new Recipe(
-                                new IOEntry(
-                                        Seq.with(ItemStack.with(Items.coal, 1)),
-                                        Seq.with(LiquidStack.with(Liquids.water, 0.1))
-                                ),
-                                new IOEntry(
-                                        Seq.with(),
-                                        Seq.with(),
-                                        5.5f
-                                ), 90
-                        ),
-                        new Recipe(
-                                new IOEntry(
-                                        Seq.with(ItemStack.with(Items.coal, 1)),
-                                        Seq.with(LiquidStack.with(Liquids.water, 0.1))
-                                ),
-                                new IOEntry(
-                                        Seq.with(),
-                                        Seq.with(LiquidStack.with(TLiquids.steam, 0.08f))
-                                ), 60
-                        )
-                );
             }
         };
         bardovovizator = new GenericCrafter("bardovovizator") {{
@@ -867,11 +821,57 @@ public class TBlocks {
     }
 
     private static void loadPower() {
+        customSteamGenerator = new MultiCrafter("custom_steam_generator") {
+            {
+                requirements(Category.power, ItemStack.with(Items.copper, 60, Items.graphite, 30, Items.lead, 40, Items.silicon, 40));
+                size = 2;
+                craftEffect = Fx.generatespark;
+                ambientSound = Sounds.smelter;
+                ambientSoundVolume = 0.06F;
+                flags = EnumSet.of(BlockFlag.reactor, BlockFlag.generator, BlockFlag.factory);
+                alwaysUnlocked = true;
+                drawer = new DrawMulti(new DrawDefault(), new DrawWarmupRegion(), new DrawRegion("-turbine") {
+                    {
+                        rotateSpeed = 2.0F;
+                    }
+                }, new DrawRegion("-turbine") {
+                    {
+                        rotateSpeed = -2.0F;
+                        rotation = 45.0F;
+
+                    }
+                }, new DrawRegion("-cap"));
+
+                resolvedRecipes = Seq.with(
+                        new Recipe(
+                                new IOEntry(
+                                        Seq.with(ItemStack.with(Items.coal, 1)),
+                                        Seq.with(LiquidStack.with(Liquids.water, 0.1))
+                                ),
+                                new IOEntry(
+                                        Seq.with(),
+                                        Seq.with(),
+                                        5.5f
+                                ), 90
+                        ),
+                        new Recipe(
+                                new IOEntry(
+                                        Seq.with(ItemStack.with(Items.coal, 1)),
+                                        Seq.with(LiquidStack.with(Liquids.water, 0.1))
+                                ),
+                                new IOEntry(
+                                        Seq.with(),
+                                        Seq.with(LiquidStack.with(TLiquids.steam, 0.08f))
+                                ), 60
+                        )
+                );
+            }
+        };
         steamTurbine = new ConsumeGenerator("steam_turbine") {{
             requirements(Category.power, ItemStack.with(TItems.battery, 160, Items.silicon, 60, Items.lead, 100, Items.metaglass, 50));
             health = 400;
             size = 4;
-            baseExplosiveness = 2;
+            baseExplosiveness = 4.5f;
             liquidCapacity = 40;
             consumeLiquid(TLiquids.compressed_steam, 0.05f);
             powerProduction = 30f;
