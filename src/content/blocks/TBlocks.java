@@ -193,7 +193,7 @@ public class TBlocks {
             }
         };
         test2 = new HeatConductor("conductor") {{
-            requirements(Category.crafting, ItemStack.with(Items.tungsten, 16, TItems.tantalium, 16, Items.graphite, 20));
+            requirements(Category.crafting, BuildVisibility.sandboxOnly, ItemStack.with(Items.tungsten, 16, TItems.tantalium, 16, Items.graphite, 20));
             setHealth(this, 0.33f);
             size = 1;
             regionRotated1 = 1;
@@ -1741,73 +1741,65 @@ public class TBlocks {
             size = 2;
             consumePower(0.05F);
         }};
-        fakeLancer = new PowerTurret("fake_lancer") {
-            {
-                requirements(Category.defense, ItemStack.with(new Object[]{Items.copper, 80, Items.lead, 20}));
-                health = 420;
-                alwaysUnlocked = true;
-                size = 2;
-                range = 165.0F;
-                shoot.firstShotDelay = 999999.0F;
-                recoil = 0.0F;
-                reload = 999999.0F;
-                shake = 2.0F;
-                targetAir = false;
-                moveWhileCharging = false;
-                consumePower(0.05F);
+        fakeLancer = new PowerTurret("fake_lancer") {{
+            requirements(Category.defense, ItemStack.with(Items.copper, 80, Items.lead, 20));
+            health = 420;
+            alwaysUnlocked = true;
+            size = 2;
+            range = 165.0F;
+            shoot.firstShotDelay = 999999.0F;
+            recoil = 0.0F;
+            reload = 999999.0F;
+            shake = 2.0F;
+            targetAir = false;
+            moveWhileCharging = false;
+            consumePower(0.05F);
+            shootEffect = Fx.none;
+            smokeEffect = Fx.none;
+            shootType = new LaserBulletType(0.0F) {{
                 shootEffect = Fx.none;
                 smokeEffect = Fx.none;
-                shootType = new LaserBulletType(0.0F) {{
-                    shootEffect = Fx.none;
-                    smokeEffect = Fx.none;
-                    hitEffect = Fx.none;
-                    chargeEffect = Fx.none;
-                }};
-            }
-        };
-        fakeScatter = new PowerTurret("fake_scatter") {
-            {
-                requirements(Category.defense, ItemStack.with(new Object[]{Items.copper, 80, Items.lead, 20}));
-                health = 420;
-                size = 2;
-                alwaysUnlocked = true;
-                range = 220.0F;
-                shoot.firstShotDelay = 999999.0F;
-                recoil = 0.0F;
-                reload = 999999.0F;
-                targetAir = true;
-                targetGround = false;
-                consumePower(0.05F);
+                hitEffect = Fx.none;
+                chargeEffect = Fx.none;
+            }};
+        }};
+        fakeScatter = new PowerTurret("fake_scatter") {{
+            requirements(Category.defense, ItemStack.with(Items.copper, 80, Items.lead, 20));
+            health = 420;
+            size = 2;
+            alwaysUnlocked = true;
+            range = 220.0F;
+            shoot.firstShotDelay = 999999.0F;
+            recoil = 0.0F;
+            reload = 999999.0F;
+            targetAir = true;
+            targetGround = false;
+            consumePower(0.05F);
+            shootEffect = Fx.none;
+            smokeEffect = Fx.none;
+            shootType = new LaserBulletType(0.0F) {{
                 shootEffect = Fx.none;
                 smokeEffect = Fx.none;
-                shootType = new LaserBulletType(0.0F) {{
-                    shootEffect = Fx.none;
-                    smokeEffect = Fx.none;
-                    hitEffect = Fx.none;
-                    chargeEffect = Fx.none;
-                }};
-            }
-        };
+                hitEffect = Fx.none;
+                chargeEffect = Fx.none;
+            }};
+        }};
         //
 
-        fakeBatteryLarge = new Battery("fake_battery_large") {
-            {
-                requirements(Category.defense, ItemStack.with(new Object[]{Items.copper, 120, Items.lead, 50}));
-                health = 820;
-                size = 3;
-                consumePowerBuffered(0.0F);
-                baseExplosiveness = 0.0F;
-            }
-        };
-        fakeSolarPanelLarge = new SolarGenerator("fake_solar_panel_large") {
-            {
-                requirements(Category.defense, ItemStack.with(new Object[]{Items.copper, 120, Items.lead, 50}));
-                health = 820;
-                size = 3;
-                consumePowerBuffered(0.0F);
-                baseExplosiveness = 0.0F;
-            }
-        };
+        fakeBatteryLarge = new Battery("fake_battery_large") {{
+            requirements(Category.defense, ItemStack.with(Items.copper, 120, Items.lead, 50));
+            health = 820;
+            size = 3;
+            consumePowerBuffered(0.0F);
+            baseExplosiveness = 0.0F;
+        }};
+        fakeSolarPanelLarge = new SolarGenerator("fake_solar_panel_large") {{
+            requirements(Category.defense, ItemStack.with(Items.copper, 120, Items.lead, 50));
+            health = 820;
+            size = 3;
+            consumePowerBuffered(0.0F);
+            baseExplosiveness = 0.0F;
+        }};
         fakeCoreShard = new Wall("fake_core_shard") {{
             requirements(Category.defense, ItemStack.with(Items.copper, 120, Items.lead, 50));
             health = 820;
@@ -1836,52 +1828,48 @@ public class TBlocks {
             size = 3;
             consumePower(0.05F);
         }};
-        fakeFuse = new PowerTurret("fake_fuse") {
-            {
-                requirements(Category.defense, ItemStack.with(new Object[]{Items.copper, 120, Items.lead, 50}));
-                health = 820;
-                size = 3;
-                alwaysUnlocked = true;
-                range = 90.0F;
-                shoot.firstShotDelay = 999999.0F;
-                recoil = 0.0F;
-                reload = 999999.0F;
-                targetAir = true;
-                targetGround = true;
-                consumePower(0.05F);
+        fakeFuse = new PowerTurret("fake_fuse") {{
+            requirements(Category.defense, ItemStack.with(Items.copper, 120, Items.lead, 50));
+            health = 820;
+            size = 3;
+            alwaysUnlocked = true;
+            range = 90.0F;
+            shoot.firstShotDelay = 999999.0F;
+            recoil = 0.0F;
+            reload = 999999.0F;
+            targetAir = true;
+            targetGround = true;
+            consumePower(0.05F);
+            shootEffect = Fx.none;
+            smokeEffect = Fx.none;
+            shootType = new LaserBulletType(0.0F) {{
                 shootEffect = Fx.none;
                 smokeEffect = Fx.none;
-                shootType = new LaserBulletType(0.0F) {{
-                    shootEffect = Fx.none;
-                    smokeEffect = Fx.none;
-                    hitEffect = Fx.none;
-                    chargeEffect = Fx.none;
-                }};
-            }
-        };
-        fakeRipple = new PowerTurret("fake_ripple") {
-            {
-                requirements(Category.defense, ItemStack.with(new Object[]{Items.copper, 120, Items.lead, 50}));
-                health = 820;
-                size = 3;
-                alwaysUnlocked = true;
-                range = 290.0F;
-                shoot.firstShotDelay = 999999.0F;
-                recoil = 0.0F;
-                reload = 999999.0F;
-                targetAir = false;
-                targetGround = true;
-                consumePower(0.05F);
+                hitEffect = Fx.none;
+                chargeEffect = Fx.none;
+            }};
+        }};
+        fakeRipple = new PowerTurret("fake_ripple") {{
+            requirements(Category.defense, ItemStack.with(Items.copper, 120, Items.lead, 50));
+            health = 820;
+            size = 3;
+            alwaysUnlocked = true;
+            range = 290.0F;
+            shoot.firstShotDelay = 999999.0F;
+            recoil = 0.0F;
+            reload = 999999.0F;
+            targetAir = false;
+            targetGround = true;
+            consumePower(0.05F);
+            shootEffect = Fx.none;
+            smokeEffect = Fx.none;
+            shootType = new LaserBulletType(0.0F) {{
                 shootEffect = Fx.none;
                 smokeEffect = Fx.none;
-                shootType = new LaserBulletType(0.0F) {{
-                    shootEffect = Fx.none;
-                    smokeEffect = Fx.none;
-                    hitEffect = Fx.none;
-                    chargeEffect = Fx.none;
-                }};
-            }
-        };
+                hitEffect = Fx.none;
+                chargeEffect = Fx.none;
+            }};
+        }};
     }
 
     private static void loadMixins() {
