@@ -36,6 +36,7 @@ import mindustry.world.blocks.logic.LogicDisplay;
 import mindustry.world.blocks.power.Battery;
 import mindustry.world.blocks.power.ConsumeGenerator;
 import mindustry.world.blocks.power.SolarGenerator;
+import mindustry.world.blocks.power.ThermalGenerator;
 import mindustry.world.blocks.production.Drill;
 import mindustry.world.blocks.production.GenericCrafter;
 import mindustry.world.blocks.production.HeatCrafter;
@@ -46,7 +47,9 @@ import mindustry.world.blocks.units.UnitFactory;
 import mindustry.world.consumers.ConsumeCoolant;
 import mindustry.world.consumers.ConsumeLiquid;
 import mindustry.world.draw.*;
+import mindustry.world.meta.Attribute;
 import mindustry.world.meta.BlockFlag;
+import mindustry.world.meta.BlockGroup;
 import mindustry.world.meta.BuildVisibility;
 import multicraft.IOEntry;
 import multicraft.MultiCrafter;
@@ -67,7 +70,7 @@ public class TBlocks {
             serpulinator, bardovovizator, apiary, composter, copperPulverizer, fusion_reactor, atmosphericCondenser, steamCompressor;
 
     // Drills
-    public static Block homoDrill, miniDrill, nihonDrill, tetsDrill;
+    public static Block homoDrill, miniDrill, nihonDrill, tetsDrill, steamVentCondenser;
 
     // Turrets
     public static Block bangun, govnomet, aacd_FIFNYA, hoover, beeshot, quick_fire, RMG202, teslaCoil, cirnoGun, goddamn_gun;
@@ -707,8 +710,27 @@ public class TBlocks {
     }
 
     private static void loadDrills() {
+        steamVentCondenser = new ThermalGenerator("steam_vent_condenser"){{
+            requirements(Category.liquid, with(Items.beryllium, 100));
+            attribute = Attribute.steam;
+            group = BlockGroup.liquids;
+            displayEfficiencyScale = 1f / 9f;
+            minEfficiency = 9f - 0.0001f;
+            displayEfficiency = false;
+            generateEffect = Fx.turbinegenerate;
+            effectChance = 0.04f;
+            size = 3;
+            ambientSound = Sounds.hum;
+            ambientSoundVolume = 0.06f;
+            hasLiquids = true;
+            outputLiquid = new LiquidStack(TLiquids.steam, 15f / 60f / 9f);
+            liquidCapacity = 60f;
+            fogRadius = 3;
+
+            alwaysUnlocked = true;
+        }};
         homoDrill = new Drill("homo-drill") {{
-            requirements(Category.production, ItemStack.with(Items.copper, 20, Items.lead, 5)); //TODO
+            requirements(Category.production, ItemStack.with(Items.copper, 20, Items.lead, 5));
             tier = 2;
             drillTime = 400.0F;
             size = 1;
