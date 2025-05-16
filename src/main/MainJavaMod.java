@@ -18,11 +18,7 @@ import content.items.TItems;
 import content.liquids.TLiquids;
 import content.units.TUnits;
 import mindustry.game.EventType.ClientLoadEvent;
-import mindustry.gen.Icon;
-import mindustry.logic.LCategory;
 import mindustry.mod.Mod;
-import mindustry.type.Category;
-import mindustry.ui.Fonts;
 import mindustry.ui.dialogs.BaseDialog;
 
 public class MainJavaMod extends Mod{

@@ -215,7 +215,7 @@ public class TBlocks {
             alwaysUnlocked = true;
         }};
         atmosphericCondenser = new GenericCrafter("atmospheric_condenser") {{
-            requirements(Category.crafting, ItemStack.with(TItems.concrete, 500, Items.titanium, 80));
+            requirements(Category.crafting, ItemStack.with(TItems.concrete, 400, Items.titanium, 80));
             health = 1200;
             size = 5;
             outputLiquid = new LiquidStack(Liquids.water, 1 / 60f);
@@ -248,7 +248,7 @@ public class TBlocks {
         boiler = new HeatCrafter("boiler") {
             {
                 size = 2;
-                requirements(Category.crafting, ItemStack.with(Items.copper, 40, Items.lead, 80));
+                requirements(Category.crafting, ItemStack.with(Items.lead, 100));
                 health = 180;
                 craftTime = 60.0F;
                 heatRequirement = 10.0F;
@@ -264,7 +264,7 @@ public class TBlocks {
         electric_boiler = new GenericCrafter("electric_boiler") {
             {
                 size = 2;
-                requirements(Category.crafting, ItemStack.with(Items.copper, 40, Items.lead, 40, Items.graphite, 30, Items.silicon, 30, TItems.battery, 10));
+                requirements(Category.crafting, ItemStack.with(Items.lead, 80, Items.graphite, 30, Items.silicon, 30, TItems.battery, 10));
                 health = 200;
                 outputLiquid = new LiquidStack(TLiquids.steam, 0.08F);
                 craftTime = 30.0F;
