@@ -1,11 +1,14 @@
 package content.liquids;
 
 import arc.graphics.Color;
+import mindustry.content.Liquids;
 import mindustry.content.StatusEffects;
+import mindustry.type.CellLiquid;
 import mindustry.type.Liquid;
 
 public class TLiquids {
     public static Liquid honey, liquid_matter, super_cryofluid, mercury, red_mercury, steam, compressed_steam;
+    public static CellLiquid radioactive_waste;
     public static void load() {
         compressed_steam = new Liquid("compressed_steam", Color.valueOf("e6e6e6")){{
             gas = true;
@@ -81,6 +84,22 @@ public class TLiquids {
             boilPoint = 0.4f;
             viscosity = 0.6f;
             gasColor = Color.valueOf("FF5049").add(Color.valueOf("e5e7e6"));
+        }};
+        radioactive_waste = new CellLiquid("radioactive_waste", Color.valueOf("227700")){{
+            heatCapacity = 0.8f;
+            temperature = 0.8f;
+            effect = StatusEffects.corroded;
+            lightColor = Color.valueOf("227700").a(0.4f);
+            viscosity = 0.8f;
+            this.flammability = 0.0F;
+            this.capPuddles = false;
+            this.blockReactive = false;
+            this.moveThroughBlocks = true;
+            this.incinerable = false;
+            this.canStayOn.addAll(Liquids.water, Liquids.oil, Liquids.cryofluid);
+            gasColor = Color.valueOf("227700");
+            this.colorFrom = Color.valueOf("227700");
+            this.colorTo = Color.valueOf("77d654");
         }};
     }
 }

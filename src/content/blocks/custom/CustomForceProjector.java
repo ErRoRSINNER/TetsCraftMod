@@ -1,4 +1,4 @@
-package content.blocks;
+package content.blocks.custom;
 
 import arc.Events;
 import arc.func.Cons;
@@ -19,14 +19,12 @@ import mindustry.content.Fx;
 import mindustry.entities.Effect;
 import mindustry.game.EventType;
 import mindustry.game.Team;
-import mindustry.gen.Building;
 import mindustry.gen.Bullet;
 import mindustry.gen.Groups;
 import mindustry.gen.Sounds;
 import mindustry.graphics.Pal;
 import mindustry.logic.LAccess;
 import mindustry.logic.Ranged;
-import mindustry.ui.Bar;
 import mindustry.world.blocks.defense.ForceProjector;
 import mindustry.world.consumers.Consume;
 import mindustry.world.consumers.ConsumeCoolant;
@@ -99,7 +97,7 @@ public class CustomForceProjector extends ForceProjector {
         this.hasLiquids = true;
         this.hasItems = true;
         this.envEnabled |= 2;
-        this.ambientSound = Sounds.shield;
+        this.ambientSound = Sounds.shieldBreak;
         this.ambientSoundVolume = 0.08F;
         if (this.consumeCoolant) {
             this.consume(this.coolantConsumer = new ConsumeCoolant(this.coolantConsumption)).boost().update(false);
@@ -137,7 +135,7 @@ public class CustomForceProjector extends ForceProjector {
             if (var3 instanceof ConsumeItems) {
                 ConsumeItems coni = (ConsumeItems)var3;
                 this.stats.remove(Stat.booster);
-                this.stats.add(Stat.booster, StatValues.itemBoosters("+{0} " + StatUnit.shieldHealth.localized(), this.stats.timePeriod, this.phaseShieldBoost, this.phaseRadiusBoost, coni.items, this::consumesItem));
+                this.stats.add(Stat.booster, StatValues.itemBoosters("+{0} " + StatUnit.shieldHealth.localized(), this.stats.timePeriod, this.phaseShieldBoost, this.phaseRadiusBoost, coni.items));
                 this.stats.add(Stat.booster, StatValues.speedBoosters("", this.coolantConsumption, Float.MAX_VALUE, true, this::consumesLiquid));
             }
         }

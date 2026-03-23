@@ -4,7 +4,7 @@ import arc.graphics.Color;
 import mindustry.type.Item;
 
 public class TItems {
-    public static Item battery, bee, beeq, concrete, crystal, goddamm_ingot, hyperalloy,
+    public static Item battery, bee, beeq, concrete, crystal, goddamm_ingot, hyperalloy, uranium_pellet, plutonium_pellet, nuclear_bomb,
             mica, nihonium, pingwan, poop, superconductor, tantalium, tets_ingot, vermillion, bing_qi_ling, tets_coin;
 
     public static void load() {
@@ -51,12 +51,26 @@ public class TItems {
             radioactivity = 4f;
             healthScaling = 4f;
         }};
+        uranium_pellet = new Item("uranium_pellet", Color.valueOf("709d5a")) {{
+            cost = 4;
+            radioactivity = 2f;
+            healthScaling = 4f;
+        }};
+        plutonium_pellet = new Item("plutonium_pellet", Color.valueOf("5a8b9d")) {{
+            cost = 6;
+            radioactivity = 3f;
+            healthScaling = 2f;
+        }};
         pingwan =  new Item("pingwan", Color.valueOf("#A8A7A6")) {{
             buildable = false;
         }};
         poop = new Item("poop", Color.valueOf("#CD9232")) {{
             cost = 0.3f;
             explosiveness = 0.5f;
+        }};
+        nuclear_bomb = new Item("nuclear_bomb", Color.valueOf("#794b4b")) {{
+            cost = 1.0f;
+            explosiveness = 10.0f;
         }};
         superconductor = new Item("superconductor", Color.valueOf("2fc791")) {{
             cost = 1.3f;

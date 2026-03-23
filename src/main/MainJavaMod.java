@@ -2,17 +2,11 @@ package main;
 
 import arc.Core;
 import arc.Events;
-import arc.graphics.Color;
-import arc.graphics.Texture;
-import arc.graphics.TextureData;
-import arc.graphics.g2d.TextureRegion;
-import arc.scene.style.BaseDrawable;
-import arc.scene.style.Drawable;
-import arc.scene.style.TextureRegionDrawable;
 import arc.util.Log;
 import arc.util.Time;
-import content.blocks.LiquidAccurateSolarCrafter;
-import content.blocks.SolarHeatProducer;
+import content.blocks.custom.CustomNuclearReactor;
+import content.blocks.custom.LiquidAccurateSolarCrafter;
+import content.blocks.custom.SolarHeatProducer;
 import content.blocks.TBlocks;
 import content.items.TItems;
 import content.liquids.TLiquids;
@@ -42,9 +36,9 @@ public class MainJavaMod extends Mod{
 
     @Override
     public void loadContent(){
-
         LiquidAccurateSolarCrafter.LiquidAccurateSolarCrafterBuild.create();
         SolarHeatProducer.SolarHeatProducerBuild.create();
+        CustomNuclearReactor.CustomNuclearReactorBuild.create();
 
         TLiquids.load();
         TItems.load();

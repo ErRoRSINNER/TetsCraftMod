@@ -1,4 +1,4 @@
-package content.blocks;
+package content.blocks.custom;
 
 import arc.Core;
 import arc.math.Mathf;

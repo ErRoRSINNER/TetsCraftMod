@@ -4,6 +4,11 @@ import arc.graphics.Color;
 import arc.math.Interp;
 import arc.struct.EnumSet;
 import arc.struct.Seq;
+import content.blocks.custom.CustomForceProjector;
+import content.blocks.custom.CustomNuclearReactor;
+import content.blocks.custom.LiquidAccurateSolarCrafter;
+import content.blocks.custom.SolarHeatProducer;
+import content.blocks.torque.TorqueBlock;
 import content.items.TItems;
 import content.liquids.TLiquids;
 import content.units.TUnits;
@@ -11,9 +16,7 @@ import mindustry.content.*;
 import mindustry.entities.UnitSorts;
 import mindustry.entities.bullet.*;
 import mindustry.entities.effect.MultiEffect;
-import mindustry.entities.effect.WaveEffect;
 import mindustry.entities.part.RegionPart;
-import mindustry.entities.pattern.ShootAlternate;
 import mindustry.entities.pattern.ShootBarrel;
 import mindustry.entities.pattern.ShootPattern;
 import mindustry.gen.Sounds;
@@ -33,10 +36,7 @@ import mindustry.world.blocks.environment.OreBlock;
 import mindustry.world.blocks.heat.HeatConductor;
 import mindustry.world.blocks.logic.LogicBlock;
 import mindustry.world.blocks.logic.LogicDisplay;
-import mindustry.world.blocks.power.Battery;
-import mindustry.world.blocks.power.ConsumeGenerator;
-import mindustry.world.blocks.power.SolarGenerator;
-import mindustry.world.blocks.power.ThermalGenerator;
+import mindustry.world.blocks.power.*;
 import mindustry.world.blocks.production.Drill;
 import mindustry.world.blocks.production.GenericCrafter;
 import mindustry.world.blocks.production.HeatCrafter;
@@ -62,12 +62,13 @@ public class TBlocks {
     //Energy
     public static Block batteryArray, tetsPowerNode, solpanel, tets_battery, crystal_powerblock,
             tetsBasicReconstructorEnergy, tetsBasicReconstructorAttack, tetsAdditiveReconstructorAttack,
-            tetsAdditiveReconstructorEnergy, tetsMultiplicativeReconstructorEnergy, hidingShield, steamTurbine;
+            tetsAdditiveReconstructorEnergy, tetsMultiplicativeReconstructorEnergy, hidingShield, steamTurbine,
+            custom_thorium_reactor;
 
     // Crafting
     public static Block solarHeater, solarBoiler, boiler, electric_boiler, customSteamGenerator, battery_factory, bee_plant, concrete_mixer, crystalizer, shit_mixer,
             tantalium_factory, mica_press, mercury_purificator, tetsonator, superconductor_plant, absolute_zero, bingQiLingMixer, pravoslaviumMixer, erekinator,
-            serpulinator, bardovovizator, apiary, composter, copperPulverizer, fusion_reactor, atmosphericCondenser, steamCompressor;
+            serpulinator, bardovovizator, apiary, composter, copperPulverizer, fusion_reactor, atmosphericCondenser, steamCompressor, centrifuge;
 
     // Drills
     public static Block homoDrill, miniDrill, nihonDrill, tetsDrill, steamVentCondenser;
@@ -94,6 +95,9 @@ public class TBlocks {
     // Other
     public static Block tantal_mine, tets_display, tets_processor, vermillion, tetsOre;
 
+    //Torque
+
+
 
     public static Block test1, test2;
 
@@ -110,12 +114,11 @@ public class TBlocks {
         loadOther();
         loadFake();
         loadMixins();
-        test1 = new LaserTurret("cirno_gunv") {
-            {
+        test1 = new LaserTurret("cirno_gunv") {{
                 firingMoveFract = 1.5F;
                 shootDuration = 230.0F;
-                shootSound = Sounds.laserbig;
-                loopSound = Sounds.beam;
+                shootSound = Sounds.shootLaser;
+                loopSound = Sounds.beamPlasma;
                 loopSoundVolume = 1.0F;
                 envEnabled |= 2;
 
@@ -205,6 +208,20 @@ public class TBlocks {
     }
 
     private static void loadCrafting() {
+        centrifuge = new Separator("centrifuge") {{
+            requirements(Category.crafting, ItemStack.with(Items.lead, 200, Items.titanium, 120, Items.graphite, 40, Items.metaglass, 40));
+            size = 2;
+            health = 200;
+            baseExplosiveness = 3f;
+            liquidCapacity = 300;
+            ambientSoundVolume = 0.333f;
+
+            craftTime = 180;
+            consumePower(300/60f);
+            consumeLiquid(TLiquids.radioactive_waste, 2.5f);
+            results = ItemStack.with(TItems.uranium_pellet, 5, TItems.plutonium_pellet, 1);
+            alwaysUnlocked = true;
+        }};
         steamCompressor = new GenericCrafter("steam_compressor") {{
             requirements(Category.crafting, ItemStack.with(Items.lead, 160, Items.titanium, 80, Items.graphite, 40, Items.metaglass, 40));
             size = 3;
@@ -241,7 +258,7 @@ public class TBlocks {
             health = 320;
             craftTime = 240;
             liquidCapacity = 30;
-            ambientSound = Sounds.electricHum;
+            ambientSound = Sounds.loopElectricHum;
             ambientSoundVolume = 0.333f;
 
             consumeLiquid(Liquids.water, 0.1f);
@@ -256,7 +273,7 @@ public class TBlocks {
                 craftTime = 60.0F;
                 heatRequirement = 10.0F;
                 liquidCapacity = 20;
-                ambientSound = Sounds.steam;
+                ambientSound = Sounds.loopSteam;
                 ambientSoundVolume = 0.333f;
 
                 consumeLiquid(Liquids.water, 0.15f);
@@ -273,7 +290,7 @@ public class TBlocks {
                 craftTime = 30.0F;
                 consumePower(100 / 60f);
                 consumeLiquid(Liquids.water, 0.1f);
-                ambientSound = Sounds.electricHum;
+                ambientSound = Sounds.loopElectricHum;
                 ambientSoundVolume = 0.333f;
                 liquidCapacity = 20;
                 alwaysUnlocked = true;
@@ -324,7 +341,7 @@ public class TBlocks {
             updateEffect = Fx.pulverizeSmall;
             hasItems = hasPower = true;
             drawer = new DrawMulti(new DrawDefault(), new DrawRegion("-rotator", 3, true), new DrawRegion("-top"));
-            ambientSound = Sounds.grinding;
+            ambientSound = Sounds.loopGrind;
             ambientSoundVolume = 0.025F;
             consumeItem(Items.copper, 3);
             consumePower(0.45F);
@@ -446,10 +463,10 @@ public class TBlocks {
 
             maxEfficiency = 9.99f;
 
-            ambientSound = Sounds.pulse;
+            ambientSound = Sounds.loopPulse;
             craftEffect = new MultiEffect(Fx.mineImpactWave, Fx.neoplasiaSmoke, Fx.regenParticle);
-            loopSound = Sounds.hum;
-            loopSoundVolume = 1.1f;
+            //loopSound = Sounds.loopHum;
+            //loopSoundVolume = 1.1f;
 
             canOverdrive = false;
 
@@ -504,7 +521,7 @@ public class TBlocks {
             outputItem = new ItemStack(TItems.poop, 3);
             size = 3;
             craftEffect = Fx.vapor;
-            loopSound = Sounds.bioLoop;
+            //loopSound = Sounds.bioLoop;
             drawer = new DrawMulti(new DrawDefault(), new DrawRegion("-rotator", 1.1f, true));
             consumeLiquid(Liquids.water, 0.1f);
             consumePower(0.07F);
@@ -675,7 +692,7 @@ public class TBlocks {
             health = (int) (333 * 4.5f);
             chanceDeflect = 0.33f;
             lightningChance = 0.33f;
-            deflectSound = Sounds.lasercharge;
+            deflectSound = Sounds.chargeLancer;
             alwaysUnlocked = true;
         }};
         prav_wall_large = new Wall("prav_wall-large") {{
@@ -683,7 +700,7 @@ public class TBlocks {
             health = (int) (333 * 4 * 4.5f);
             chanceDeflect = 0.33f;
             lightningChance = 0.33f;
-            deflectSound = Sounds.lasercharge;
+            deflectSound = Sounds.chargeLancer;
             size = 2;
             alwaysUnlocked = true;
         }};
@@ -720,7 +737,7 @@ public class TBlocks {
             generateEffect = Fx.turbinegenerate;
             effectChance = 0.04f;
             size = 3;
-            ambientSound = Sounds.hum;
+            ambientSound = Sounds.loopHum;
             ambientSoundVolume = 0.06f;
             hasLiquids = true;
             outputLiquid = new LiquidStack(TLiquids.steam, 15f / 60f / 9f);
@@ -843,12 +860,27 @@ public class TBlocks {
     }
 
     private static void loadPower() {
+        custom_thorium_reactor = new CustomNuclearReactor("custom_thorium_reactor"){
+            {
+                this.requirements(Category.power, ItemStack.with(new Object[]{Items.lead, 300, Items.silicon, 200, Items.graphite, 150, Items.thorium, 150, Items.metaglass, 50}));
+                this.ambientSound = Sounds.loopHum;
+                this.ambientSoundVolume = 0.24F;
+                this.size = 3;
+                this.health = 700;
+                this.itemDuration = 360.0F;
+                this.heating = 0.02F;
+                this.explodeOnFull = true;
+                this.consumeItem(Items.thorium);
+                this.consumeLiquid(Liquids.cryofluid, this.heating / this.coolantPower).update(false);
+                this.outputLiquid = new LiquidStack(TLiquids.radioactive_waste, 0.05f);
+            }
+        } ;
         customSteamGenerator = new MultiCrafter("custom_steam_generator") {
             {
                 requirements(Category.power, ItemStack.with(Items.copper, 60, Items.graphite, 30, Items.lead, 40, Items.silicon, 40));
                 size = 2;
                 craftEffect = Fx.generatespark;
-                ambientSound = Sounds.smelter;
+                ambientSound = Sounds.loopSmelter;
                 ambientSoundVolume = 0.06F;
                 flags = EnumSet.of(BlockFlag.reactor, BlockFlag.generator, BlockFlag.factory);
                 alwaysUnlocked = true;
@@ -939,6 +971,7 @@ public class TBlocks {
             baseExplosiveness = 8;
             alwaysUnlocked = true;
         }};
+
     }
 
     private static void loadTurrets() {
@@ -991,14 +1024,23 @@ public class TBlocks {
         cirnoGun = new LiquidTurret("cirno_gun") {{
             //afflict
             requirements(Category.turret, with(Items.titanium, 99, TItems.bing_qi_ling, 99, Items.graphite, 99));
-            ammo(Liquids.water, new PointLaserBulletType() {{
-                knockback = 0.0F;
-                damage = 0.009F;
-                ammoMultiplier = 0.3F;
-                statusDuration = 540.0F;
-                color = Liquids.cryofluid.color;
-                status = StatusEffects.freezing;
-            }});
+            ammo(
+                    Liquids.water, new PointLaserBulletType() {{
+                        knockback = 0.0F;
+                        damage = 0.009F;
+                        ammoMultiplier = 0.3F;
+                        statusDuration = 540.0F;
+                        color = Liquids.cryofluid.color;
+                        status = StatusEffects.freezing;
+                    }},
+                    TLiquids.radioactive_waste, new PointLaserBulletType() {{
+                        knockback = 0.0F;
+                        damage = 4F;
+                        ammoMultiplier = 0.5F;
+                        statusDuration = 1000.0F;
+                        color = Liquids.cyanogen.color;
+                        status = StatusEffects.corroded;
+                    }});
             setHealth(this);
             size = 3;
             range = 300;
@@ -1074,7 +1116,7 @@ public class TBlocks {
             targetGround = false;
             moveWhileCharging = true;
             accurateDelay = false;
-            shootSound = Sounds.laser;
+            shootSound = Sounds.shootLaser;
             consumePower(24.0F);
             coolant = new ConsumeCoolant(0.1f);
             coolantMultiplier = 1;
@@ -1129,6 +1171,17 @@ public class TBlocks {
                 ammoMultiplier = 0.4F;
                 statusDuration = 240.0F;
                 status = StatusEffects.unmoving;
+            }}, TLiquids.radioactive_waste, new LiquidBulletType(TLiquids.radioactive_waste) {{
+                lifetime = 50;
+                speed = 3.0F;
+                knockback = 0.5F;
+                puddleSize = 9.0F;
+                orbSize = 4.0F;
+                damage = 53F;
+                drag = 0.005F;
+                ammoMultiplier = 0.4F;
+                statusDuration = 740.0F;
+                status = StatusEffects.corroded;
             }});
             alwaysUnlocked = true;
         }};
@@ -1140,7 +1193,7 @@ public class TBlocks {
             reload = 5;
             shootCone = 20;
             rotateSpeed = 3;
-            shootSound = Sounds.pew;
+            shootSound = Sounds.shootLaser;
             range = 160;
             coolant = new ConsumeCoolant(0.1f);
             ammo(Items.copper, new BasicBulletType(4, 7) {{
@@ -1263,7 +1316,7 @@ public class TBlocks {
             reload = 300;
             shootCone = 5;
             rotateSpeed = 1;
-            shootSound = Sounds.laserbig;
+            shootSound = Sounds.shootLaser;
             range = 1000;
             coolant = new ConsumeCoolant(0.1f);
             ammo(TItems.crystal, new BasicBulletType(19, 200) {{
@@ -1463,7 +1516,7 @@ public class TBlocks {
             velocityRnd = 0.7f;
             recoil = 9f;
             shake = 5f;
-            shootSound = Sounds.bang;
+            shootSound = Sounds.explosion;
             coolant = new ConsumeCoolant(0.1f);
             ammo(TItems.concrete, new ArtilleryBulletType(7.5f, 100, "shell") {{
                 knockback = 4f;
@@ -1511,7 +1564,7 @@ public class TBlocks {
             velocityRnd = 0.7f;
             recoil = 4f;
             shake = 2f;
-            shootSound = Sounds.bang;
+            shootSound = Sounds.explosion;
             coolant = new ConsumeCoolant(0.1f);
             ammo(TItems.poop, new ArtilleryBulletType(2.5f, 3, "poop") {{
                 knockback = 4f;
@@ -1584,7 +1637,7 @@ public class TBlocks {
             shootEffect = Fx.lightningShoot;
             smokeEffect = Fx.colorSpark;
             receiveEffect = Fx.mineBig;
-            shootSound = Sounds.pew;
+            shootSound = Sounds.shootLaser;
             consumePower(3f);
             bullet = new MassDriverBolt() {{
                 collidesTiles = false;
@@ -1913,6 +1966,11 @@ public class TBlocks {
             homingRange = 100;
             collidesTiles = collidesTeam = true;
         }});
+
+        ((HeaterGenerator)Blocks.neoplasiaReactor).outputLiquid = new LiquidStack(TLiquids.radioactive_waste, 0.33333334F);
+
+        //DISABLED
+        ((NuclearReactor)Blocks.thoriumReactor).powerProduction = 0;
 
         //Blocks.steamGenerator.buildVisibility = BuildVisibility.editorOnly;
     }
