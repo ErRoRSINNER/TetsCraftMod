@@ -350,32 +350,34 @@ public class TBlocks {
         pravoslaviumMixer = new MultiCrafter("pravoslavium_mixer") {{
             requirements(Category.crafting, ItemStack.with(TItems.tantalium, 100, Items.thorium, 25, TItems.concrete, 50));
             setHealth(this);
-
             resolvedRecipes = Seq.with(
-                    new Recipe(
-                            new IOEntry(
-                                    Seq.with(ItemStack.with(TItems.tets_coin, 8, TItems.tantalium, 1)),
-                                    Seq.with(LiquidStack.with(Liquids.water, 2f)),
-                                    3 * 60
-                            ),
-                            new IOEntry(
-                                    Seq.with(ItemStack.with(TItems.goddamm_ingot, 1)),
-                                    Seq.with()
-                            ),
-                            120
-                    ),
-                    new Recipe(
-                            new IOEntry(
-                                    Seq.with(ItemStack.with(TItems.tets_coin, 2, TItems.bee, 3)),
-                                    Seq.with(LiquidStack.with(TLiquids.honey, 0.05f)),
-                                    3 * 60
-                            ),
-                            new IOEntry(
-                                    Seq.with(ItemStack.with(TItems.beeq, 2)),
-                                    Seq.with()
-                            ),
-                            50
-                    )
+                    new Recipe(){{
+                        input = new IOEntry(){{
+                            items = ItemStack.with(TItems.tets_coin, 8, TItems.tantalium, 1);
+                            fluids = LiquidStack.with(Liquids.water, 2);
+                            power = 3 * 60;
+                        }};
+
+                        output = new IOEntry(){{
+                            items = ItemStack.with(TItems.goddamm_ingot, 1);
+                        }};
+
+                        craftTime = 120;
+                    }},
+                    new Recipe(){{
+                        input = new IOEntry(){{
+                            items = ItemStack.with(TItems.tets_coin, 2, TItems.bee, 3);
+                            fluids = LiquidStack.with(TLiquids.honey, 0.05f);
+
+                            power = 3 * 60;
+                        }};
+
+                        output = new IOEntry(){{
+                            items = ItemStack.with(TItems.beeq, 2);
+                        }};
+
+                        craftTime = 50;
+                    }}
             );
 
             size = 3;
@@ -392,73 +394,74 @@ public class TBlocks {
             flags = EnumSet.of(BlockFlag.reactor, BlockFlag.generator, BlockFlag.factory);
 
             resolvedRecipes = Seq.with(
-                    new Recipe(
-                            new IOEntry(
-                                    Seq.with(ItemStack.with(Items.surgeAlloy, 6, Items.phaseFabric, 16, TItems.tets_ingot, 7)),
-                                    Seq.with(LiquidStack.with(TLiquids.super_cryofluid, 0.5f, TLiquids.red_mercury, 0.3f, TLiquids.honey, 1.4f)),
-                                    32 * 60,
-                                    30
-                            ),
-                            new IOEntry(
-                                    Seq.with(ItemStack.with(TItems.hyperalloy, 1)),
-                                    Seq.with()
-                            ),
-                            400
-                    ),
+                    new Recipe(){{
+                        input = new IOEntry(){{
+                            items = ItemStack.with(Items.surgeAlloy, 6, Items.phaseFabric, 16, TItems.tets_ingot, 7);
+                            fluids = LiquidStack.with(TLiquids.super_cryofluid, 0.5f, TLiquids.red_mercury, 0.3f, TLiquids.honey, 1.4f);
+                        }};
 
-                    new Recipe(
-                            new IOEntry(
-                                    Seq.with(ItemStack.with(Items.copper, 18, TItems.mica, 24, TItems.tantalium, 14)),
-                                    Seq.with(LiquidStack.with(TLiquids.mercury, 0.5f)),
-                                    5f * 60,
-                                    20
-                            ),
-                            new IOEntry(
-                                    Seq.with(ItemStack.with(Items.surgeAlloy, 42)),
-                                    Seq.with(LiquidStack.with(Liquids.slag, 1.5f))
-                            ),
-                            40
-                    ),
+                        output = new IOEntry(){{
+                            items = ItemStack.with(TItems.hyperalloy, 1);
+                        }};
 
-                    new Recipe(
-                            new IOEntry(
-                                    Seq.with(ItemStack.with(Items.thorium, 18, TItems.tets_ingot, 24)),
-                                    Seq.with(LiquidStack.with(TLiquids.super_cryofluid, 0.3333f)),
-                                    58 * 60,
-                                    160
-                            ),
-                            new IOEntry(
-                                    Seq.with(ItemStack.with(TItems.nihonium, 15)),
-                                    Seq.with(LiquidStack.with(Liquids.neoplasm, 1f))
-                            ),
-                            320
-                    ),
-                    new Recipe(
-                            new IOEntry(
-                                    Seq.with(ItemStack.with(TItems.nihonium, 3, Items.thorium, 13)),
-                                    Seq.with(LiquidStack.with(TLiquids.super_cryofluid, 0.35f)),
-                                    11 * 60
-                            ),
-                            new IOEntry(
-                                    Seq.with(),
-                                    Seq.with(LiquidStack.with(Liquids.neoplasm, 0.441f)),
-                                    49 * 61, 75
-                            ),
-                            320 / 2.5f
-                    ),
-                    new Recipe(
-                            new IOEntry(
-                                    Seq.with(ItemStack.with(Items.phaseFabric, 3, Items.thorium, 5)),
-                                    Seq.with(LiquidStack.with(TLiquids.super_cryofluid, 0.05f)),
-                                    11 * 32
-                            ),
-                            new IOEntry(
-                                    Seq.with(),
-                                    Seq.with(LiquidStack.with(Liquids.neoplasm, 0.1f)),
-                                    35 * 12, 20
-                            ),
-                            60
-                    )
+                        craftTime = 400;
+                    }},
+                    new Recipe(){{
+                        input = new IOEntry(){{
+                            items = ItemStack.with(Items.copper, 18, TItems.mica, 24, TItems.tantalium, 14);
+                            fluids = LiquidStack.with(TLiquids.mercury, 0.5f);
+                            power = 5f * 60;
+                        }};
+
+                        output = new IOEntry(){{
+                            items = ItemStack.with(Items.surgeAlloy, 42);
+                            fluids = LiquidStack.with(Liquids.slag, 1.5f);
+                        }};
+
+                        craftTime = 40;
+                    }},
+                    new Recipe(){{
+                        input = new IOEntry(){{
+                            items = ItemStack.with(Items.thorium, 18, TItems.tets_ingot, 24);
+                            fluids = LiquidStack.with(TLiquids.super_cryofluid, 0.3333f);
+                            power = 58 * 60;
+                        }};
+
+                        output = new IOEntry(){{
+                            items = ItemStack.with(TItems.nihonium, 15);
+                            fluids = LiquidStack.with(Liquids.neoplasm, 1f);
+                        }};
+
+                        craftTime = 320;
+                    }},
+                    new Recipe(){{
+                        input = new IOEntry(){{
+                            items = ItemStack.with(TItems.nihonium, 3, Items.thorium, 13);
+                            fluids = LiquidStack.with(TLiquids.super_cryofluid, 0.35f);
+                            power = 11 * 60;
+                        }};
+
+                        output = new IOEntry(){{
+                            fluids = LiquidStack.with(Liquids.neoplasm, 0.441f);
+                            power = 49 * 61;
+                        }};
+
+                        craftTime = 320 / 2.5f;
+                    }},
+                    new Recipe(){{
+                        input = new IOEntry(){{
+                            items = ItemStack.with(Items.phaseFabric, 3, Items.thorium, 5);
+                            fluids = LiquidStack.with(TLiquids.super_cryofluid, 0.05f);
+                            power = 11 * 32;
+                        }};
+
+                        output = new IOEntry(){{
+                            fluids = LiquidStack.with(Liquids.neoplasm, 0.1f);
+                            power = 35 * 12;
+                        }};
+
+                        craftTime = 60;
+                    }}
             );
 
             maxEfficiency = 9.99f;
@@ -897,27 +900,30 @@ public class TBlocks {
                 }, new DrawRegion("-cap"));
 
                 resolvedRecipes = Seq.with(
-                        new Recipe(
-                                new IOEntry(
-                                        Seq.with(ItemStack.with(Items.coal, 1)),
-                                        Seq.with(LiquidStack.with(Liquids.water, 0.1))
-                                ),
-                                new IOEntry(
-                                        Seq.with(),
-                                        Seq.with(),
-                                        5.5f
-                                ), 90
-                        ),
-                        new Recipe(
-                                new IOEntry(
-                                        Seq.with(ItemStack.with(Items.coal, 1)),
-                                        Seq.with(LiquidStack.with(Liquids.water, 0.1))
-                                ),
-                                new IOEntry(
-                                        Seq.with(),
-                                        Seq.with(LiquidStack.with(TLiquids.steam, 0.08f))
-                                ), 60
-                        )
+                        new Recipe(){{
+                            input = new IOEntry(){{
+                                items = ItemStack.with(Items.coal, 1);
+                                fluids = LiquidStack.with(Liquids.water, 0.1);
+                            }};
+
+                            output = new IOEntry(){{
+                                power = 5.5f;
+                            }};
+
+                            craftTime = 90;
+                        }},
+                        new Recipe(){{
+                            input = new IOEntry(){{
+                                items = ItemStack.with(Items.coal, 1);
+                                fluids = LiquidStack.with(Liquids.water, 0.1);
+                            }};
+
+                            output = new IOEntry(){{
+                                fluids = LiquidStack.with(TLiquids.steam, 0.08f);
+                            }};
+
+                            craftTime = 60;
+                        }}
                 );
             }
         };
