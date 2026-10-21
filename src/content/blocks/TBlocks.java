@@ -51,6 +51,7 @@ import mindustry.world.blocks.units.Reconstructor;
 import mindustry.world.blocks.units.UnitFactory;
 import mindustry.world.consumers.ConsumeCoolant;
 import mindustry.world.consumers.ConsumeLiquid;
+import mindustry.world.consumers.ConsumePower;
 import mindustry.world.draw.*;
 import mindustry.world.meta.Attribute;
 import mindustry.world.meta.BlockFlag;
@@ -865,6 +866,7 @@ public class TBlocks {
                 ambientSoundVolume = 0.06F;
                 flags = EnumSet.of(BlockFlag.reactor, BlockFlag.generator, BlockFlag.factory);
                 alwaysUnlocked = true;
+                consPower = new ConsumePower(0, 0, true);
                 drawer = new DrawMulti(new DrawDefault(), new DrawWarmupRegion(), new DrawRegion("-turbine") {
                     {
                         rotateSpeed = 2.0F;
