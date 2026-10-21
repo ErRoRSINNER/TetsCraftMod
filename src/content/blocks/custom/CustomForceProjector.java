@@ -97,7 +97,7 @@ public class CustomForceProjector extends ForceProjector {
         this.hasLiquids = true;
         this.hasItems = true;
         this.envEnabled |= 2;
-        this.ambientSound = Sounds.shieldBreak;
+        this.ambientSound = Sounds.loopShield;
         this.ambientSoundVolume = 0.08F;
         if (this.consumeCoolant) {
             this.consume(this.coolantConsumer = new ConsumeCoolant(this.coolantConsumption)).boost().update(false);

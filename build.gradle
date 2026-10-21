@@ -1,6 +1,6 @@
 apply plugin: "java"
 
-version = '1.0'
+version '1.0.1'
 
 sourceSets.main.java.srcDirs = ["src"]
 
@@ -10,25 +10,10 @@ repositories{
     maven{ url 'https://www.jitpack.io' }
     maven{ url 'https://jitpack.io' }
 
-    //Downloads the server-release JAR file from Mindustry releases; does not use any real repository. Surprisingly, this is the most reliable option.
-    ivy{
-        url 'https://github.com/'
-        patternLayout{artifact '/[organisation]/[module]/releases/download/[revision]/dependencies.jar'}
-        metadataSources{ artifact() }
-    }
-
-    //"Latest" option to depend on BE builds.
-    ivy{
-        url 'https://github.com/'
-        patternLayout{artifact '/[organisation]/[module]/releases/download/master/[revision].jar'}
-        metadataSources{ artifact() }
-    }
-
-    //Do the same with jabel
-    ivy{
-        url 'https://github.com/'
-        patternLayout{artifact '/[organisation]/[module]/releases/download/[revision]/jabel.jar'}
-        metadataSources{ artifact() }
+    ivy {
+        url = 'https://github.com/'
+        patternLayout {artifact '/[organisation]/[module]/releases/download/[revision]/MultiCrafter.jar'}
+        metadataSources { artifact() }
     }
 }
 
@@ -54,14 +39,21 @@ allprojects{
 }
 
 dependencies{
-    def useLatest = false //set to "true" to always depend on the newest version of mindustry
+    compileOnly "com.github.Anuken.Arc:arc-core:$mindustryVersion"
+    compileOnly "com.github.Anuken.Mindustry:core:$mindustryVersion"
 
-    compileOnly useLatest ? "Anuken:MindustryBuilds:latest" : "Anuken:Mindustry:$mindustryVersion"
+    annotationProcessor "com.github.Anuken:jabel:$jabelVersion"
 
-    //implementation "com.github.Dustdustry:MultiCrafterLib:v2.0.0"
-    implementation files('assets/lib/lib-2.0.0.jar')
+    compileOnly 'JojoFR1:MultiCrafter:v1.5.2'
+}
 
-    annotationProcessor "Anuken:jabel:v1.0.0"
+//force arc version
+configurations.all{
+    resolutionStrategy.eachDependency { details ->
+        if(details.requested.group == 'com.github.Anuken.Arc'){
+            details.useVersion "$mindustryVersion"
+        }
+    }
 }
 
 tasks.register('jarAndroid'){

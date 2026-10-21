@@ -96,7 +96,8 @@ public class TLiquids {
             this.blockReactive = false;
             this.moveThroughBlocks = true;
             this.incinerable = false;
-            this.canStayOn.addAll(Liquids.water, Liquids.oil, Liquids.cryofluid);
+            this.canStayOn.add(Liquids.water);
+//            this.canStayOn.addAll(Liquids.water, Liquids.oil, Liquids.cryofluid);
             gasColor = Color.valueOf("227700");
             this.colorFrom = Color.valueOf("227700");
             this.colorTo = Color.valueOf("77d654");

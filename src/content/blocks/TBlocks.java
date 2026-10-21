@@ -12,11 +12,16 @@ import content.blocks.torque.TorqueBlock;
 import content.items.TItems;
 import content.liquids.TLiquids;
 import content.units.TUnits;
+import dev.jojofr.multicrafter.MultiCrafterBlock;
+import dev.jojofr.multicrafter.type.IOEntry;
+import dev.jojofr.multicrafter.type.Recipe;
 import mindustry.content.*;
 import mindustry.entities.UnitSorts;
 import mindustry.entities.bullet.*;
 import mindustry.entities.effect.MultiEffect;
+import mindustry.entities.effect.WaveEffect;
 import mindustry.entities.part.RegionPart;
+import mindustry.entities.pattern.ShootAlternate;
 import mindustry.entities.pattern.ShootBarrel;
 import mindustry.entities.pattern.ShootPattern;
 import mindustry.gen.Sounds;
@@ -51,9 +56,6 @@ import mindustry.world.meta.Attribute;
 import mindustry.world.meta.BlockFlag;
 import mindustry.world.meta.BlockGroup;
 import mindustry.world.meta.BuildVisibility;
-import multicraft.IOEntry;
-import multicraft.MultiCrafter;
-import multicraft.Recipe;
 
 import static mindustry.type.ItemStack.with;
 
@@ -114,7 +116,8 @@ public class TBlocks {
         loadOther();
         loadFake();
         loadMixins();
-        test1 = new LaserTurret("cirno_gunv") {{
+        test1 = new LaserTurret("cirno_gunv") {
+            {
                 firingMoveFract = 1.5F;
                 shootDuration = 230.0F;
                 shootSound = Sounds.shootLaser;
@@ -347,45 +350,37 @@ public class TBlocks {
             consumePower(0.45F);
             alwaysUnlocked = true;
         }};
-        pravoslaviumMixer = new MultiCrafter("pravoslavium_mixer") {{
+        pravoslaviumMixer = new MultiCrafterBlock("pravoslavium_mixer") {{
             requirements(Category.crafting, ItemStack.with(TItems.tantalium, 100, Items.thorium, 25, TItems.concrete, 50));
             setHealth(this);
-            resolvedRecipes = Seq.with(
-                    new Recipe(){{
-                        input = new IOEntry(){{
-                            items = ItemStack.with(TItems.tets_coin, 8, TItems.tantalium, 1);
-                            fluids = LiquidStack.with(Liquids.water, 2);
-                            power = 3 * 60;
-                        }};
-
-                        output = new IOEntry(){{
-                            items = ItemStack.with(TItems.goddamm_ingot, 1);
-                        }};
-
-                        craftTime = 120;
-                    }},
-                    new Recipe(){{
-                        input = new IOEntry(){{
-                            items = ItemStack.with(TItems.tets_coin, 2, TItems.bee, 3);
-                            fluids = LiquidStack.with(TLiquids.honey, 0.05f);
-
-                            power = 3 * 60;
-                        }};
-
-                        output = new IOEntry(){{
-                            items = ItemStack.with(TItems.beeq, 2);
-                        }};
-
-                        craftTime = 50;
-                    }}
+            addRecipe(
+                    new Recipe(
+                            "money_to_goddamningot",
+                            entry -> entry
+                                    .withItems(TItems.tets_coin, 8, TItems.tantalium, 1)
+                                    .withLiquids(Liquids.water, 2f)
+                                    .withPower(3 * 60),
+                            entry -> entry
+                                    .withItems(TItems.goddamm_ingot, 1),
+                            120
+                    ),
+                    new Recipe(
+                            "money_to_beeq",
+                            entry -> entry
+                                    .withItems(TItems.tets_coin, 2, TItems.bee, 3)
+                                    .withLiquids(TLiquids.honey, 0.05f)
+                                    .withPower(3 * 60),
+                            entry -> entry
+                                    .withItems(TItems.beeq, 2),
+                            50
+                    ).withCraftEffect(Fx.lightningCharge)
             );
 
             size = 3;
-            craftEffect = Fx.lightningCharge;
             drawer = new DrawMulti(new DrawDefault(), new DrawRegion("-rotator", 0.4f, true));
             alwaysUnlocked = true;
         }};
-        fusion_reactor = new MultiCrafter("fusion_reactor") {{
+        fusion_reactor = new MultiCrafterBlock("fusion_reactor") {{
             requirements(Category.crafting, ItemStack.with(
                     TItems.tantalium, 1000, Items.thorium, 900, TItems.concrete, 1500,
                     TItems.tets_ingot, 300, TItems.superconductor, 2000, Items.surgeAlloy, 700,
@@ -393,84 +388,68 @@ public class TBlocks {
             setHealth(this, 0.333f);
             flags = EnumSet.of(BlockFlag.reactor, BlockFlag.generator, BlockFlag.factory);
 
-            resolvedRecipes = Seq.with(
-                    new Recipe(){{
-                        input = new IOEntry(){{
-                            items = ItemStack.with(Items.surgeAlloy, 6, Items.phaseFabric, 16, TItems.tets_ingot, 7);
-                            fluids = LiquidStack.with(TLiquids.super_cryofluid, 0.5f, TLiquids.red_mercury, 0.3f, TLiquids.honey, 1.4f);
-                        }};
-
-                        output = new IOEntry(){{
-                            items = ItemStack.with(TItems.hyperalloy, 1);
-                        }};
-
-                        craftTime = 400;
-                    }},
-                    new Recipe(){{
-                        input = new IOEntry(){{
-                            items = ItemStack.with(Items.copper, 18, TItems.mica, 24, TItems.tantalium, 14);
-                            fluids = LiquidStack.with(TLiquids.mercury, 0.5f);
-                            power = 5f * 60;
-                        }};
-
-                        output = new IOEntry(){{
-                            items = ItemStack.with(Items.surgeAlloy, 42);
-                            fluids = LiquidStack.with(Liquids.slag, 1.5f);
-                        }};
-
-                        craftTime = 40;
-                    }},
-                    new Recipe(){{
-                        input = new IOEntry(){{
-                            items = ItemStack.with(Items.thorium, 18, TItems.tets_ingot, 24);
-                            fluids = LiquidStack.with(TLiquids.super_cryofluid, 0.3333f);
-                            power = 58 * 60;
-                        }};
-
-                        output = new IOEntry(){{
-                            items = ItemStack.with(TItems.nihonium, 15);
-                            fluids = LiquidStack.with(Liquids.neoplasm, 1f);
-                        }};
-
-                        craftTime = 320;
-                    }},
-                    new Recipe(){{
-                        input = new IOEntry(){{
-                            items = ItemStack.with(TItems.nihonium, 3, Items.thorium, 13);
-                            fluids = LiquidStack.with(TLiquids.super_cryofluid, 0.35f);
-                            power = 11 * 60;
-                        }};
-
-                        output = new IOEntry(){{
-                            fluids = LiquidStack.with(Liquids.neoplasm, 0.441f);
-                            power = 49 * 61;
-                        }};
-
-                        craftTime = 320 / 2.5f;
-                    }},
-                    new Recipe(){{
-                        input = new IOEntry(){{
-                            items = ItemStack.with(Items.phaseFabric, 3, Items.thorium, 5);
-                            fluids = LiquidStack.with(TLiquids.super_cryofluid, 0.05f);
-                            power = 11 * 32;
-                        }};
-
-                        output = new IOEntry(){{
-                            fluids = LiquidStack.with(Liquids.neoplasm, 0.1f);
-                            power = 35 * 12;
-                        }};
-
-                        craftTime = 60;
-                    }}
+            addRecipe(
+                    new Recipe(
+                            "hyperalloy_recipe",
+                            entry -> entry
+                                    .withItems(Items.surgeAlloy, 6, Items.phaseFabric, 16, TItems.tets_ingot, 7)
+                                    .withLiquids(TLiquids.super_cryofluid, 0.5f, TLiquids.red_mercury, 0.3f, TLiquids.honey, 1.4f),
+                            entry -> entry
+                                    .withItems(TItems.hyperalloy, 1),
+                            400
+                    ).withCraftEffect(new MultiEffect(Fx.mineImpactWave, Fx.neoplasiaSmoke, Fx.regenParticle))
+                            .withMaxEfficiency(9.99f),
+                    new Recipe(
+                            "surge_alloy_from_cmt_recipe",
+                            entry -> entry
+                                    .withItems(Items.copper, 18, TItems.mica, 24, TItems.tantalium, 14)
+                                    .withLiquids(TLiquids.mercury, 0.5f)
+                                    .withPower(5 * 60),
+                            entry -> entry
+                                    .withItems(Items.surgeAlloy, 42)
+                                    .withLiquids(Liquids.slag, 1.5f),
+                            40
+                    ).withCraftEffect(new MultiEffect(Fx.mineImpactWave, Fx.neoplasiaSmoke, Fx.regenParticle))
+                            .withMaxEfficiency(9.99f),
+                    new Recipe(
+                            "nihonium_recipe",
+                            entry -> entry
+                                    .withItems(Items.thorium, 18, TItems.tets_ingot, 24)
+                                    .withLiquids(TLiquids.super_cryofluid, 0.3333f)
+                                    .withPower(58 * 60),
+                            entry -> entry
+                                    .withItems(TItems.nihonium, 15)
+                                    .withLiquids(Liquids.neoplasm, 1f),
+                            320
+                    ).withCraftEffect(new MultiEffect(Fx.mineImpactWave, Fx.neoplasiaSmoke, Fx.regenParticle))
+                            .withMaxEfficiency(9.99f),
+                    new Recipe(
+                            "nihonium_to_energy_recipe",
+                            entry -> entry
+                                    .withItems(TItems.nihonium, 3, Items.thorium, 13)
+                                    .withLiquids(TLiquids.super_cryofluid, 0.35f)
+                                    .withPower(11 * 60),
+                            entry -> entry
+                                    .withLiquids(Liquids.neoplasm, 0.441f)
+                                    .withPower(49 * 60),
+                            320 / 2.5f
+                    ).withCraftEffect(new MultiEffect(Fx.mineImpactWave, Fx.neoplasiaSmoke, Fx.regenParticle))
+                            .withMaxEfficiency(9.99f),
+                    new Recipe(
+                            "phase_thorium_to_energy_recipe",
+                            entry -> entry
+                                    .withItems(Items.phaseFabric, 3, Items.thorium, 5)
+                                    .withLiquids(TLiquids.super_cryofluid, 0.05f)
+                                    .withPower(11 * 32),
+                            entry -> entry
+                                    .withLiquids(Liquids.neoplasm, 0.1f)
+                                    .withPower(35 * 12),
+                            60
+                    ).withCraftEffect(new MultiEffect(Fx.mineImpactWave, Fx.neoplasiaSmoke, Fx.regenParticle))
+                            .withMaxEfficiency(9.99f)
             );
 
-            maxEfficiency = 9.99f;
-
             ambientSound = Sounds.loopPulse;
-            craftEffect = new MultiEffect(Fx.mineImpactWave, Fx.neoplasiaSmoke, Fx.regenParticle);
-            //loopSound = Sounds.loopHum;
-            //loopSoundVolume = 1.1f;
-
             canOverdrive = false;
 
             itemCapacity = 100;
@@ -524,7 +503,7 @@ public class TBlocks {
             outputItem = new ItemStack(TItems.poop, 3);
             size = 3;
             craftEffect = Fx.vapor;
-            //loopSound = Sounds.bioLoop;
+            ambientSound = Sounds.loopBio;
             drawer = new DrawMulti(new DrawDefault(), new DrawRegion("-rotator", 1.1f, true));
             consumeLiquid(Liquids.water, 0.1f);
             consumePower(0.07F);
@@ -878,11 +857,10 @@ public class TBlocks {
                 this.outputLiquid = new LiquidStack(TLiquids.radioactive_waste, 0.05f);
             }
         } ;
-        customSteamGenerator = new MultiCrafter("custom_steam_generator") {
+        customSteamGenerator = new MultiCrafterBlock("custom_steam_generator") {
             {
                 requirements(Category.power, ItemStack.with(Items.copper, 60, Items.graphite, 30, Items.lead, 40, Items.silicon, 40));
                 size = 2;
-                craftEffect = Fx.generatespark;
                 ambientSound = Sounds.loopSmelter;
                 ambientSoundVolume = 0.06F;
                 flags = EnumSet.of(BlockFlag.reactor, BlockFlag.generator, BlockFlag.factory);
@@ -899,31 +877,23 @@ public class TBlocks {
                     }
                 }, new DrawRegion("-cap"));
 
-                resolvedRecipes = Seq.with(
-                        new Recipe(){{
-                            input = new IOEntry(){{
-                                items = ItemStack.with(Items.coal, 1);
-                                fluids = LiquidStack.with(Liquids.water, 0.1);
-                            }};
-
-                            output = new IOEntry(){{
-                                power = 5.5f;
-                            }};
-
-                            craftTime = 90;
-                        }},
-                        new Recipe(){{
-                            input = new IOEntry(){{
-                                items = ItemStack.with(Items.coal, 1);
-                                fluids = LiquidStack.with(Liquids.water, 0.1);
-                            }};
-
-                            output = new IOEntry(){{
-                                fluids = LiquidStack.with(TLiquids.steam, 0.08f);
-                            }};
-
-                            craftTime = 60;
-                        }}
+                addRecipe(
+                        new Recipe("custom_sg_energy_recipe",
+                                entry -> entry
+                                        .withItems(Items.coal, 1)
+                                        .withLiquids(Liquids.water, 0.1),
+                                entry -> entry
+                                        .withPower(5.5f),
+                                90
+                        ).withCraftEffect(Fx.generatespark),
+                        new Recipe("custom_sg_steam_recipe",
+                                entry -> entry
+                                        .withItems(Items.coal, 1)
+                                        .withLiquids(Liquids.water, 0.1),
+                                entry -> entry
+                                        .withLiquids(TLiquids.steam, 0.08f),
+                                60
+                        ).withCraftEffect(Fx.generatespark)
                 );
             }
         };
@@ -977,7 +947,6 @@ public class TBlocks {
             baseExplosiveness = 8;
             alwaysUnlocked = true;
         }};
-
     }
 
     private static void loadTurrets() {
