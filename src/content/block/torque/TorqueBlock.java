@@ -1,4 +1,4 @@
-package content.blocks.torque;
+package content.block.torque;
 
 import mindustry.world.Block;
 import mindustry.world.meta.BlockGroup;

@@ -4,11 +4,11 @@ import arc.Core;
 import arc.Events;
 import arc.util.Log;
 import arc.util.Time;
-import content.blocks.custom.CustomNuclearReactor;
-import content.blocks.custom.LiquidAccurateSolarCrafter;
-import content.blocks.custom.SolarHeatProducer;
-import content.blocks.TBlocks;
-import content.items.TItems;
+import content.block.custom.CustomNuclearReactor;
+import content.block.custom.LiquidAccurateSolarCrafter;
+import content.block.custom.SolarHeatProducer;
+import content.block.TBlock;
+import content.item.TItem;
 import content.liquids.TLiquids;
 import content.units.TUnits;
 import mindustry.game.EventType.ClientLoadEvent;
@@ -41,9 +41,9 @@ public class MainJavaMod extends Mod{
         CustomNuclearReactor.CustomNuclearReactorBuild.create();
 
         TLiquids.load();
-        TItems.load();
+        TItem.load();
         TUnits.init();
-        TBlocks.load();
+        TBlock.load();
 
         Log.info("Loading complete;");
     }

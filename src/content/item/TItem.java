@@ -1,9 +1,9 @@
-package content.items;
+package content.item;
 
 import arc.graphics.Color;
 import mindustry.type.Item;
 
-public class TItems {
+public class TItem {
     public static Item battery, bee, beeq, concrete, crystal, goddamm_ingot, hyperalloy, uranium_pellet, plutonium_pellet, nuclear_bomb,
             mica, nihonium, pingwan, poop, superconductor, tantalium, tets_ingot, vermillion, bing_qi_ling, tets_coin;
 

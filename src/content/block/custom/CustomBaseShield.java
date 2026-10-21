@@ -1,4 +1,4 @@
-package content.blocks.custom;
+package content.block.custom;
 
 import arc.func.Cons;
 import arc.graphics.Color;
