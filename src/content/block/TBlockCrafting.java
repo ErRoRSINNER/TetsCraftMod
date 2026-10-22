@@ -381,8 +381,9 @@ public class TBlockCrafting {
             consumeLiquid(TLiquids.mercury, 0.033f);
             alwaysUnlocked = true;
         }};
-        mercury_purificator = new GenericCrafter("mercury_purificator") {{
+        mercury_purificator = new HeatCrafter("mercury_purificator") {{
             requirements(Category.crafting, ItemStack.with(Items.copper, 30, Items.graphite, 15, Items.metaglass, 10));
+            heatRequirement = 1.0F;
             setHealth(this);
             craftTime = 30.0F;
             size = 2;
