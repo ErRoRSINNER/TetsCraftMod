@@ -384,6 +384,8 @@ public class TBlockCrafting {
         mercury_purificator = new HeatCrafter("mercury_purificator") {{
             requirements(Category.crafting, ItemStack.with(Items.copper, 30, Items.graphite, 15, Items.metaglass, 10));
             heatRequirement = 1.0F;
+            maxEfficiency = 1f;
+            this.hasPower = this.hasItems = true;
             setHealth(this);
             craftTime = 30.0F;
             size = 2;

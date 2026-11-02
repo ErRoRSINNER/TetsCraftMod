@@ -16,6 +16,7 @@ import mindustry.type.LiquidStack;
 import mindustry.world.Block;
 import mindustry.world.blocks.power.Battery;
 import mindustry.world.blocks.power.ConsumeGenerator;
+import mindustry.world.blocks.power.PowerNode;
 import mindustry.world.blocks.power.SolarGenerator;
 import mindustry.world.consumers.ConsumePower;
 import mindustry.world.draw.DrawDefault;
@@ -27,8 +28,9 @@ import mindustry.world.meta.BlockFlag;
 import static content.util.Util.setHealth;
 
 public class TBlockPower {
-    public static Block batteryArray, tetsPowerNode, solpanel, tets_battery, crystal_powerblock,
-            steamTurbine, custom_thorium_reactor, customSteamGenerator;
+    public static Block batteryArray, solpanel, tets_battery, crystal_powerblock,
+            steamTurbine, custom_thorium_reactor, customSteamGenerator,
+            tetsPowerNode, tetsPowerNodeLarge, tetsPowerTower, tantaliumPowerNode, tantaliumPowerNodeLarge;
 
     protected static void loadPower() {
         custom_thorium_reactor = new CustomNuclearReactor("custom_thorium_reactor"){
@@ -136,6 +138,44 @@ public class TBlockPower {
             consumePowerBuffered(707000);
             baseExplosiveness = 8;
             alwaysUnlocked = true;
+        }};
+        tantaliumPowerNode = new PowerNode("tantalium_power_node") {{
+            requirements(Category.power, ItemStack.with(TItem.tantalium, 15, Items.copper, 15, Items.lead, 40));
+            maxNodes = 12;
+            laserRange = 9.0F;
+            underBullets = true;
+            crushFragile = true;
+        }};
+        tantaliumPowerNodeLarge = new PowerNode("tantalium_power_node_large") {{
+            requirements(Category.power, ItemStack.with(TItem.tantalium, 70, TItem.battery, 15, Items.copper, 25, Items.lead, 80));
+            size = 2;
+            maxNodes = 22;
+            laserRange = 22.0F;
+            underBullets = true;
+            crushFragile = true;
+        }};
+        tetsPowerNode = new PowerNode("tets_power_node") {{
+            requirements(Category.power, ItemStack.with(TItem.tets_ingot, 5, TItem.tantalium, 70, TItem.superconductor, 5, TItem.battery, 15, Items.lead, 40));
+            maxNodes = 15;
+            laserRange = 15.0F;
+            underBullets = true;
+            crushFragile = true;
+        }};
+        tetsPowerNodeLarge = new PowerNode("tets_power_node_large") {{
+            requirements(Category.power, ItemStack.with(TItem.tets_ingot, 15, TItem.tantalium, 100, TItem.superconductor, 15, TItem.battery, 40, TItem.crystal, 5));
+            size = 2;
+            maxNodes = 30;
+            laserRange = 30.0F;
+            underBullets = true;
+            crushFragile = true;
+        }};
+        tetsPowerTower = new PowerNode("tets_power_tower") {{
+            requirements(Category.power, ItemStack.with(TItem.tets_ingot, 115, TItem.tantalium, 100, TItem.superconductor, 250, TItem.battery, 250, TItem.crystal, 50, Items.metaglass, 200));
+            size = 3;
+            maxNodes = 3;
+            laserRange = 80.0F;
+            underBullets = true;
+            crushFragile = true;
         }};
     }
 }
