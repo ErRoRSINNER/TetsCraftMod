@@ -4,5 +4,6 @@ author: "OblivioFinis, Zerog228"
 main: "main.MainJavaMod"
 description: "Make TetsCraft great again!!!"
 version: 0.3+1.0
-minGameVersion: 145
+minGameVersion: 154
+dependencies: ["multicrafter"]
 java: true

@@ -80,7 +80,7 @@ public class TUnits {
                 this.health = 100.0F;
                 this.range = 100.0F;
                 this.isEnemy = false;
-                this.ammoType = new PowerAmmoType(500.0F);
+//                this.ammoType = new PowerAmmoType(500.0F);
                 this.mineTier = 1;
                 this.mineSpeed = 3F;
                 this.itemCapacity = 60;
@@ -150,7 +150,7 @@ public class TUnits {
                 this.engineOffset = 7.8F;
                 this.targetFlags = new BlockFlag[]{BlockFlag.unitAssembler, null};
                 constructor = UnitTypes.poly.constructor;
-                this.ammoType = new PowerAmmoType(1000);
+//                this.ammoType = new PowerAmmoType(1000);
                 this.ammoCapacity = 10;
                 this.circleTarget = true;
                 this.weapons.add(new Weapon() {
@@ -188,7 +188,7 @@ public class TUnits {
                 this.health = 300.0F;
                 this.range = 150.0F;
                 this.isEnemy = false;
-                this.ammoType = new PowerAmmoType(1000.0F);
+//                this.ammoType = new PowerAmmoType(1000.0F);
                 this.mineTier = 2;
                 this.mineSpeed = 6F;
                 this.itemCapacity = 120;
@@ -213,7 +213,7 @@ public class TUnits {
                 this.engineOffset = 7.8F;
                 this.targetFlags = new BlockFlag[]{BlockFlag.battery, null};
                 constructor = UnitTypes.poly.constructor;
-                this.ammoType = new PowerAmmoType(3500);
+//                this.ammoType = new PowerAmmoType(3500);
                 this.ammoCapacity = 20;
                 this.circleTarget = true;
                 this.weapons.add(new Weapon() {

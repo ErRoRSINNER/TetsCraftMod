@@ -2,19 +2,13 @@ package main;
 
 import arc.Core;
 import arc.Events;
-import arc.graphics.Color;
-import arc.graphics.Texture;
-import arc.graphics.TextureData;
-import arc.graphics.g2d.TextureRegion;
-import arc.scene.style.BaseDrawable;
-import arc.scene.style.Drawable;
-import arc.scene.style.TextureRegionDrawable;
 import arc.util.Log;
 import arc.util.Time;
-import content.blocks.LiquidAccurateSolarCrafter;
-import content.blocks.SolarHeatProducer;
-import content.blocks.TBlocks;
-import content.items.TItems;
+import content.block.custom.CustomNuclearReactor;
+import content.block.custom.LiquidAccurateSolarCrafter;
+import content.block.custom.SolarHeatProducer;
+import content.block.TBlock;
+import content.item.TItem;
 import content.liquids.TLiquids;
 import content.units.TUnits;
 import mindustry.game.EventType.ClientLoadEvent;
@@ -42,14 +36,14 @@ public class MainJavaMod extends Mod{
 
     @Override
     public void loadContent(){
-
         LiquidAccurateSolarCrafter.LiquidAccurateSolarCrafterBuild.create();
         SolarHeatProducer.SolarHeatProducerBuild.create();
+        CustomNuclearReactor.CustomNuclearReactorBuild.create();
 
         TLiquids.load();
-        TItems.load();
+        TItem.load();
         TUnits.init();
-        TBlocks.load();
+        TBlock.load();
 
         Log.info("Loading complete;");
     }
