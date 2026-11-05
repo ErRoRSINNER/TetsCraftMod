@@ -1,8 +1,15 @@
 package content.block;
 
+import arc.graphics.Color;
+import content.block.custom.BulletMine;
 import content.block.custom.CustomForceProjector;
 import content.item.TItem;
+import mindustry.content.Fx;
 import mindustry.content.Items;
+import mindustry.content.StatusEffects;
+import mindustry.entities.bullet.BulletType;
+import mindustry.entities.bullet.MissileBulletType;
+import mindustry.gen.Bullet;
 import mindustry.type.Category;
 import mindustry.type.ItemStack;
 import mindustry.world.Block;
@@ -15,7 +22,7 @@ import mindustry.world.consumers.ConsumeCoolant;
 import static content.util.Util.setHealth;
 
 public class TBlockUtility {
-    public static Block made_in_heaven, small_shield_projector, hidingShield, smallContainer, vault, vault_big, tantal_mine;
+    public static Block made_in_heaven, small_shield_projector, hidingShield, smallContainer, vault, vault_big, tantal_mine, bee_mine;
 
     protected static void loadUtil() {
         small_shield_projector = new ForceProjector("small_shield_projector") {{
@@ -92,6 +99,30 @@ public class TBlockUtility {
             tileDamage = 14.0F;
             length = 12;
             tendrils = 13;
+        }};
+        bee_mine = new BulletMine("bee_mine") {{
+            requirements(Category.effect, ItemStack.with(TItem.bee, 15, TItem.beeq, 1, TItem.bing_qi_ling, 5));
+            hasShadow = false;
+            health = 80;
+            tileDamage = 80.0F;
+
+            shots = 15;
+            bullet = new MissileBulletType(1, 15.5f, "tets-craft-mod-bee") {{
+                backColor = new Color(0, 0, 0, 0);
+                rotationOffset = 90;
+                splashDamage = 10;
+                splashDamageRadius = 10;
+                knockback = 0.2f;
+                status = StatusEffects.shocked;
+                homingPower = 0.2f;
+                hitSize = 7;
+                width = 10;
+                height = 10;
+                lifetime = 250;
+                shootEffect = Fx.steam;
+                hitEffect = Fx.hitFlameSmall;
+                ammoMultiplier = 1f;
+            }};
         }};
     }
 }
